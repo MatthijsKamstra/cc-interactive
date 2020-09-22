@@ -420,7 +420,7 @@ Lambda.has = function(it,elt) {
 var Main = function() {
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + sketcher_App.NAME + " Dom ready :: build: " + "2020-09-22 22:12:52");
+		$global.console.log("" + sketcher_App.NAME + " Dom ready :: build: " + "2020-09-22 22:44:23");
 		_gthis.setupCC();
 	});
 };
@@ -2009,11 +2009,17 @@ haxe_xml_Printer.prototype = {
 	,__class__: haxe_xml_Printer
 };
 var interactive_Squares = function() {
+	this.isRecording = false;
 	this.shapeCounter = 0;
 	this.shapeArray = ["square","pentagon","rectangle","hexagon","circle","triangle","ellipse"];
+	this.stopRecord = function() {
+	};
+	this.startRecord = function() {
+	};
 	this.randomizeColor = function() {
 	};
-	this.buildversion = "2020-09-22 22:12:52";
+	this.buildversion = "2020-09-22 22:44:23";
+	this.feedback = "";
 	this.message = "dat.gui";
 	this._colorArray = [];
 	this._color4 = null;
@@ -2034,19 +2040,25 @@ var interactive_Squares = function() {
 	this.totalShapes = 50;
 	this.stageH = 1080;
 	this.stageW = 1080;
+	this.message = this.toString();
 	var settings = new Settings(this.stageW,this.stageH,"canvas");
 	settings.set_autostart(true);
 	settings.set_padding(0);
 	settings.set_scale(true);
 	settings.set_elementID("canvas-" + this.toString());
 	SketcherBase.call(this,settings);
-	this.message = this.toString();
-	sketcher_util_EmbedUtil.datgui($bind(this,this.initDatGui2));
+	this.init();
 };
 interactive_Squares.__name__ = "interactive.Squares";
 interactive_Squares.__super__ = SketcherBase;
 interactive_Squares.prototype = $extend(SketcherBase.prototype,{
-	setup: function() {
+	init: function() {
+		sketcher_util_EmbedUtil.datgui($bind(this,this.initDatGui2));
+		this.videoExport = new sketcher_export_VideoExport();
+		this.videoExport.setCanvas(this.sketch.canvas);
+		this.videoExport.setup();
+	}
+	,setup: function() {
 		this.description = "" + this.toString();
 		this.mouseX = this.get_w2();
 		this.mouseY = this.get_h2();
@@ -2064,6 +2076,25 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 			_gthis.setColors();
 		};
 		gui.add(this,"randomizeColor");
+		gui.add(this,"selectedShape",this.shapeArray).listen();
+		gui.add(this,"feedback").listen();
+		var toggle = gui.add(this,"startRecord");
+		toggle.onFinishChange(function(e) {
+			_gthis.startRecording();
+			return _gthis.feedback = "start-recording";
+		});
+		var toggle = gui.add(this,"stopRecord");
+		toggle.onFinishChange(function(e) {
+			_gthis.videoExport.stop();
+			return _gthis.feedback = "stop-recording";
+		});
+	}
+	,startRecording: function() {
+		var _gthis = this;
+		this.videoExport.start();
+		haxe_Timer.delay(function() {
+			_gthis.videoExport.stop();
+		},60000);
 	}
 	,drawShape: function() {
 		this.sketch.clear();
@@ -2076,10 +2107,10 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 		var _g1 = this.totalShapes;
 		while(_g < _g1) {
 			var i = _g++;
-			var selectedShape = this.shapeArray[this.shapeCounter];
+			this.selectedShape = this.shapeArray[this.shapeCounter];
 			var centerX = this.get_w2() - centerOffsetX * i;
 			var centerY = this.get_h2() - centerOffsetY * i;
-			switch(selectedShape) {
+			switch(this.selectedShape) {
 			case "circle":
 				var shape = this.sketch.makeCircle(centerX,centerY,(this.startW - offsetX * i) * .5);
 				shape.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
@@ -2126,7 +2157,7 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 				_polygon2.setRotate(i * this.rotationSpeed,centerX,centerY);
 				break;
 			default:
-				haxe_Log.trace("case '" + selectedShape + "': trace ('" + selectedShape + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 154, className : "interactive.Squares", methodName : "drawShape"});
+				haxe_Log.trace("case '" + this.selectedShape + "': trace ('" + this.selectedShape + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 196, className : "interactive.Squares", methodName : "drawShape"});
 			}
 		}
 		this.sketch.update();
@@ -2163,12 +2194,22 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 	}
 	,onSelectHandler: function(e) {
 		$global.console.log("onSelectHandler: ",e);
+		if(this.isRecording) {
+			$global.console.log("[gamepad.selectBtn] (current recording) :: stop recording");
+			this.feedback = "[select] stop recording";
+			this.videoExport.stop();
+		} else {
+			$global.console.log("[gamepad.selectBtn] (current not recording) :: start recording");
+			this.feedback = "[select] start recording";
+			this.startRecording();
+		}
+		this.isRecording = !this.isRecording;
 	}
 	,onStartHandler: function(e) {
-		$global.console.log("onStartHandler: ",e);
+		$global.console.log(" onStartHandler:",e);
 	}
 	,onButtonOnce: function(e) {
-		$global.console.log(">> onButtonOnce: ",e);
+		$global.console.log(" >> onButtonOnce:",e);
 	}
 	,onLeftBottomHandler: function(e) {
 		this.currentSpeed--;
@@ -2203,7 +2244,7 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 	,onButton: function(e) {
 		switch(e.get_id()) {
 		case CCGamepad.BUTTON_A:
-			$global.console.log("--> " + e.get_id() + " // change color");
+			$global.console.log("-- > " + e.get_id() + " // change color");
 			this.randomizeColor();
 			break;
 		case CCGamepad.BUTTON_B:
@@ -2223,7 +2264,7 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 			}
 			break;
 		default:
-			haxe_Log.trace("case '" + e.get_id() + "': trace ('" + e.get_id() + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 270, className : "interactive.Squares", methodName : "onButton"});
+			haxe_Log.trace("case '" + e.get_id() + "': trace ('" + e.get_id() + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 323, className : "interactive.Squares", methodName : "onButton"});
 		}
 	}
 	,__class__: interactive_Squares
@@ -4973,6 +5014,179 @@ sketcher_export_FileExport.prototype = {
 		return "[FileExport]";
 	}
 	,__class__: sketcher_export_FileExport
+};
+var sketcher_export_TypeSupported = function() { };
+sketcher_export_TypeSupported.__name__ = "sketcher.export.TypeSupported";
+sketcher_export_TypeSupported.checkTypes = function() {
+	if(window.MediaRecorder == undefined) {
+		$global.console.error("MediaRecorder not supported, boo");
+	} else {
+		var contentTypes = ["video/ogg","audio/ogg;codecs=vorbis","video/mp4","audio/mp4","video/mp4;codecs=avc1","video/mp4;codecs=\"avc1.4d002a\"","audio/mpeg","video/x-matroska","video/x-matroska;codecs=avc1","video/quicktime","video/webm","video/webm;codecs=daala","video/webm;codecs=h264","audio/webm;codecs=opus","audio/webm;codecs=\"opus\"","video/webm;codecs=vp8","video/webm;codecs=\"vp8\"","video/webm;codecs=\"vp9\"","audio/webm;codecs=\"vorbis\"","video/webm;codecs=\"vp8,vorbis\"","video/webm;codecs=\"vp9,opus\"","video/invalid"];
+		$global.console.groupCollapsed("Check if codecs work:");
+		var _g = 0;
+		var _g1 = contentTypes.length;
+		while(_g < _g1) {
+			var i = _g++;
+			if(MediaRecorder.isTypeSupported(contentTypes[i])) {
+				$global.console.log("%c Is " + contentTypes[i] + " supported? Maybe!","background: #444; color: #bada55; padding: 2px; border-radius:2px");
+			} else {
+				$global.console.log("Is " + contentTypes[i] + " supported? " + (MediaRecorder.isTypeSupported(contentTypes[i]) ? "Maybe!" : "Nope :("));
+			}
+		}
+		$global.console.groupEnd();
+	}
+};
+var sketcher_export_VideoExport = function() {
+	sketcher_export_TypeSupported.checkTypes();
+};
+sketcher_export_VideoExport.__name__ = "sketcher.export.VideoExport";
+sketcher_export_VideoExport.prototype = {
+	setCanvas: function(canvas) {
+		this.canvas = canvas;
+	}
+	,setAudio: function(audio,isActive) {
+		if(isActive == null) {
+			isActive = true;
+		}
+		var _gthis = this;
+		this.audioEl = audio;
+		if(isActive) {
+			this.audioEl.onplay = function() {
+				$global.console.info("Play audio");
+				_gthis.startRecording();
+			};
+			this.audioEl.onpause = function() {
+				$global.console.info("Stop audio");
+				_gthis.stopRecording();
+			};
+		}
+	}
+	,setDownload: function(downloadButton) {
+		this.downloadButtonEl = downloadButton;
+		this.downloadButtonEl.classList.add("disabled");
+	}
+	,setBash: function(bashloadButton) {
+		this.bashButtonEl = bashloadButton;
+		this.bashButtonEl.classList.add("disabled");
+	}
+	,setOptions: function(options) {
+		this.options = options;
+	}
+	,setVideo: function(video) {
+		this.videoEl = video;
+	}
+	,setup: function() {
+		if(this.options == null) {
+			this.options = { bitsPerSecond : 5500000};
+		}
+		this.setupCombineRecordings();
+		if(this.audioEl != null) {
+			this.setupAudioRecording();
+		}
+		this.setupCanvasRecording();
+	}
+	,start: function() {
+		$global.console.info("start recording");
+		this.startRecording();
+	}
+	,stop: function() {
+		$global.console.info("stop recording");
+		this.stopRecording();
+	}
+	,startRecording: function() {
+		if(this.audioRecorder != null) {
+			this.audioRecorder.start();
+		}
+		this.videoRecorder.start();
+		this.combineRecorder.start();
+	}
+	,stopRecording: function() {
+		if(this.audioRecorder != null) {
+			this.audioRecorder.stop();
+		}
+		this.videoRecorder.stop();
+		this.combineRecorder.stop();
+	}
+	,setupCanvasRecording: function() {
+		var _gthis = this;
+		var canvasStream = this.canvas.captureStream();
+		var videoTrack = canvasStream.getTracks()[0];
+		this.combinedStream.addTrack(videoTrack);
+		this.videoRecorder = new MediaRecorder(canvasStream,this.options);
+		this.videoRecorder.ondataavailable = function(e) {
+			_gthis.onVideoRecordingReady(e);
+		};
+	}
+	,setupAudioRecording: function() {
+		var _gthis = this;
+		$global.console.info("setupAudioRecording");
+		var audioContext = new AudioContext();
+		var source = audioContext.createMediaElementSource(this.audioEl);
+		source.connect(audioContext.destination);
+		var audioStream = audioContext.createMediaStreamDestination();
+		var audioTrack = audioStream.stream.getTracks()[0];
+		this.combinedStream.addTrack(audioTrack);
+		source.connect(audioStream);
+		this.audioRecorder = new MediaRecorder(audioStream.stream,this.options);
+		this.audioRecorder.ondataavailable = function(e) {
+			_gthis.onAudioRecordingReady(e);
+		};
+	}
+	,setupCombineRecordings: function() {
+		var _gthis = this;
+		$global.console.info("setupCombineRecordings");
+		this.combinedStream = new MediaStream();
+		this.combineRecorder = new MediaRecorder(this.combinedStream,this.options);
+		this.combineRecorder.ondataavailable = function(e) {
+			_gthis.onCombineRecordingReady(e);
+		};
+	}
+	,onAudioRecordingReady: function(e) {
+		$global.console.info("Finished onAudioRecordingReady. Got blob:",e.data);
+	}
+	,onVideoRecordingReady: function(e) {
+		$global.console.info("Finished onVideoRecordingReady. Got blob:",e.data);
+	}
+	,onCombineRecordingReady: function(e) {
+		$global.console.info("Finished onCombineRecordingReady. Got blob:",e.data);
+		var videoUrl = URL.createObjectURL(e.data);
+		var blob = new Blob([e.data]);
+		if(this.videoEl != null) {
+			this.videoEl.src = videoUrl;
+			this.videoEl.play();
+		}
+		var filename = "RecordedVideo_" + new Date().getTime();
+		var btnStyle = "color:black; padding:10px; margin:10px; background-color:silver;display: inline-block;font-weight: 400;text-align: center;white-space: nowrap;vertical-align: middle;";
+		var bash = "#!/bin/bash" + "\n\n" + "# `-an`: remove audio\n" + "# `-qscale 1`:  highest quality\n" + "#  -c:v libx264\n" + "\n\n" + "# [mck] for now just convert to mp4 seems the best solution" + "\n\n" + "say \"start convert webm to mp4\"" + "\n" + ("ffmpeg -i " + filename + ".webm\n") + ("ffmpeg -y -i " + filename + ".webm " + filename + ".mp4\n") + ("ffmpeg -y -r 30 -i " + filename + ".webm -c:v libx264 -strict -2 -pix_fmt yuv420p -shortest -filter:v \"setpts=0.5*PTS\" " + filename + "_30fps.mp4\n") + ("ffmpeg -y -r 60 -i " + filename + ".webm -c:v libx264 -strict -2 -pix_fmt yuv420p -shortest -filter:v \"setpts=0.5*PTS\" " + filename + "_60fps.mp4\n") + ("ffmpeg -y -r 30 -i " + filename + ".mp4 -c:v libx264 -strict -2 -pix_fmt yuv420p -shortest -filter:v \"setpts=0.5*PTS\" " + filename + "_30fps_inputmp4.mp4") + "\n" + "say \"end convert webm to mp4\"";
+		if(this.downloadButtonEl != null) {
+			this.downloadButtonEl.href = videoUrl;
+			this.downloadButtonEl.download = "" + filename + ".webm";
+			this.downloadButtonEl.classList.remove("disabled");
+		} else {
+			var d = window.document.createElement("a");
+			d.setAttribute("style",btnStyle);
+			d.innerText = "Download: " + filename + ".webm (" + blob.size + " bytes)";
+			d.href = videoUrl;
+			d.download = "" + filename + ".webm";
+			d.classList.remove("disabled");
+			window.document.body.appendChild(d);
+		}
+		if(this.bashButtonEl != null) {
+			this.bashButtonEl.href = sketcher_export_FileExport.convertStr2Href(bash);
+			this.bashButtonEl.download = "" + filename + ".sh";
+			this.bashButtonEl.classList.remove("disabled");
+		} else {
+			var d = window.document.createElement("a");
+			d.setAttribute("style",btnStyle);
+			d.innerText = "Bash: " + filename + ".sh";
+			d.href = sketcher_export_FileExport.convertStr2Href(bash);
+			d.download = "" + filename + ".sh";
+			d.classList.remove("disabled");
+			window.document.body.appendChild(d);
+		}
+		$global.console.info("Successfully recorded " + blob.size + " bytes of " + blob.type + " media.");
+	}
+	,__class__: sketcher_export_VideoExport
 };
 var sketcher_lets_Easing = function() { };
 sketcher_lets_Easing.__name__ = "sketcher.lets.Easing";

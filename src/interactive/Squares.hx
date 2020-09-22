@@ -1,6 +1,8 @@
 package interactive;
 
+import haxe.Timer;
 import Settings.SketchType;
+import sketcher.export.VideoExport;
 
 class Squares extends SketcherBase {
 	// size
@@ -34,14 +36,24 @@ class Squares extends SketcherBase {
 
 	// dat
 	var message = 'dat.gui';
+	var feedback = '';
 	var buildversion = App.getBuildDate();
 	var randomizeColor = function() {}
+	var selectedShape:String;
+	var startRecord = function() {};
+	var stopRecord = function() {};
 
 	// shapes
 	var shapeArray = ['square', 'pentagon', 'rectangle', 'hexagon', 'circle', 'triangle', 'ellipse'];
 	var shapeCounter = 0;
 
+	// video export
+	var videoExport:VideoExport;
+	var isRecording:Bool = false;
+
 	public function new() {
+		message = toString();
+
 		var settings:Settings = new Settings(stageW, stageH, SketchType.CANVAS);
 		settings.autostart = true;
 		settings.padding = 0;
@@ -51,9 +63,18 @@ class Squares extends SketcherBase {
 		// animation
 		// stop();
 
-		message = toString();
+		init();
+	}
+
+	function init() {
 		// embed dat.GUI and init
 		EmbedUtil.datgui(initDatGui2);
+		// video record
+		videoExport = new VideoExport();
+		videoExport.setCanvas(sketch.canvas);
+		// videoExport.setAudio(audioEl);
+		// videoExport.setDownload(downloadButton);
+		videoExport.setup(); // activate everything
 	}
 
 	// ____________________________________ setup ____________________________________
@@ -83,11 +104,32 @@ class Squares extends SketcherBase {
 		}
 		gui.add(this, 'randomizeColor');
 		// Choose from accepted values
-		// gui.add(this, '_shapeArray', shapeArray);
+		gui.add(this, 'selectedShape', shapeArray).listen();
+
+		gui.add(this, 'feedback').listen();
+		var toggle = gui.add(this, 'startRecord');
+		toggle.onFinishChange((e) -> {
+			// setup();
+			// play();
+			startRecording();
+			feedback = 'start-recording';
+		});
+		var toggle = gui.add(this, 'stopRecord');
+		toggle.onFinishChange((e) -> {
+			videoExport.stop();
+			feedback = 'stop-recording';
+		});
 
 		// gui.add(this, 'speed', -5, 5);
 		// gui.add(this, 'displayOutline');
 		// gui.add(this, 'explode');
+	}
+
+	function startRecording() {
+		videoExport.start();
+		Timer.delay(function() {
+			videoExport.stop();
+		}, 60 * 1000);
 	}
 
 	// ____________________________________ canvas animation stuff ____________________________________
@@ -105,7 +147,7 @@ class Squares extends SketcherBase {
 		var centerOffsetY = (h2 - mouseY) / totalShapes;
 
 		for (i in 0...totalShapes) {
-			var selectedShape = shapeArray[shapeCounter];
+			selectedShape = shapeArray[shapeCounter];
 			var centerX = w2 - (centerOffsetX * i);
 			var centerY = h2 - (centerOffsetY * i);
 			switch (selectedShape) {
@@ -203,18 +245,28 @@ class Squares extends SketcherBase {
 
 	function onSelectHandler(e) {
 		console.log('onSelectHandler: ', e);
+		if (isRecording) {
+			console.log('[gamepad.selectBtn] (current recording) :: stop recording');
+			feedback = '[select] stop recording';
+			videoExport.stop();
+		} else {
+			console.log('[gamepad.selectBtn] (current not recording) :: start recording');
+			feedback = '[select] start recording';
+			startRecording();
+		}
+		isRecording = !isRecording;
 	}
 
 	function onStartHandler(e) {
-		console.log('onStartHandler: ', e);
+		console.log(' onStartHandler:', e);
 	}
 
 	function onButtonOnce(e) {
-		console.log('>> onButtonOnce: ', e);
+		console.log(' >> onButtonOnce:', e);
 	}
 
 	function onLeftBottomHandler(e) {
-		// console.log('onLeftBottomHandler: ', e);
+		// console.log(' onLeftBottomHandler:', e);
 		currentSpeed--;
 		if (currentSpeed <= DEFAULT_SPEED)
 			currentSpeed = DEFAULT_SPEED;
@@ -223,7 +275,7 @@ class Squares extends SketcherBase {
 	}
 
 	function onRightBottomHandler(e) {
-		// console.log('onRightBottomHandler: ', e);
+		// console.log(' onRightBottomHandler:', e);
 		currentSpeed++;
 		if (currentSpeed >= DEFAULT_MAX_SPEED)
 			currentSpeed = DEFAULT_MAX_SPEED;
@@ -231,7 +283,7 @@ class Squares extends SketcherBase {
 	}
 
 	function onAxis(e:CCGamepad.JoystickObj) {
-		// console.log('onAxis: ', joystickObj);
+		// console.log(' onAxis:', joystickObj);
 
 		mouseX += (e.x * currentSpeed);
 		mouseY += (e.y * currentSpeed);
@@ -248,10 +300,11 @@ class Squares extends SketcherBase {
 	}
 
 	function onButton(e:CCGamepad.Action) {
-		// console.log('onButton: ', e);
+		// console.log(' onButton:', e);
 		switch (e.id) {
 			case CCGamepad.BUTTON_A:
-				console.log('--> ${e.id} // change color');
+				console.log('-- > ${e.id} // change color');
+
 				randomizeColor();
 			case CCGamepad.BUTTON_B:
 				shapeCounter++;
