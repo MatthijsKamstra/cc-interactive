@@ -7,6 +7,8 @@ function $extend(from, fields) {
 	if( fields.toString !== Object.prototype.toString ) proto.toString = fields.toString;
 	return proto;
 }
+var App = function() { };
+App.__name__ = "App";
 var haxe_IMap = function() { };
 haxe_IMap.__name__ = "haxe.IMap";
 haxe_IMap.__isInterface__ = true;
@@ -52,12 +54,14 @@ haxe_ds_IntMap.prototype = {
 };
 var CCGamepad = function() {
 	this.previousButtonID = null;
-	this._options = { };
 	this.axisMap = new haxe_ds_IntMap();
 	this.btnMap = new haxe_ds_IntMap();
+	this.buttonActionArray = [];
+	this.isVisualizer = false;
+	this.isWarning = true;
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + model_constants_App.NAME + " Dom ready :: build: " + "2020-09-19 17:13:22");
+		$global.console.log("" + App.NAME + " Dom ready :: build: " + "2020-09-22 20:26:19");
 		_gthis.init();
 	});
 };
@@ -66,48 +70,80 @@ CCGamepad.main = function() {
 	var app = new CCGamepad();
 };
 CCGamepad.prototype = {
-	setup: function() {
+	setup: function(isVisualizer,isWarning) {
+		if(isWarning == null) {
+			isWarning = true;
+		}
+		if(isVisualizer == null) {
+			isVisualizer = false;
+		}
+		this.isVisualizer = isVisualizer;
+		this.isWarning = isWarning;
 		this.init();
 	}
-	,onButton: function(func,arr) {
-		var action = new Action(func,arr);
-		this._options.onButton = action;
+	,onButton: function(buttonID,func,isTriggeredOnce) {
+		if(isTriggeredOnce == null) {
+			isTriggeredOnce = false;
+		}
+		var action = new Action(func,isTriggeredOnce);
+		action.set_id(buttonID);
+		action.set_description(CCGamepad.BUTTON_MAP.h[buttonID]);
+		this.buttonActionArray.push(action);
 	}
-	,onButtonOnce: function(id,func,arr) {
-		var action = new Action(func,arr,true);
-		action.btnid(id);
-		this._options.onButton = action;
+	,onButtonOnce: function(buttonID,func) {
+		this.onButton(buttonID,func,true);
 	}
-	,onAxis: function(func,arr) {
-		this._options.onAxis = func;
-		this._options.onAxisParams = arr;
+	,onSelect: function(func,isTriggeredOnce) {
+		if(isTriggeredOnce == null) {
+			isTriggeredOnce = false;
+		}
+		var action = new Action(func,isTriggeredOnce);
+		action.set_id(CCGamepad.BUTTON_SELECT);
+		this.buttonActionArray.push(action);
 	}
-	,onSelect: function(func,arr) {
-		var action = new Action(func,arr);
-		this._options.onSelect = action;
+	,onSelectOnce: function(func) {
+		this.onSelect(func,true);
 	}
-	,onSelectOnce: function(func,arr) {
-		var action = new Action(func,arr,true);
-		this._options.onSelect = action;
+	,onStart: function(func,isTriggeredOnce) {
+		if(isTriggeredOnce == null) {
+			isTriggeredOnce = false;
+		}
+		var action = new Action(func,isTriggeredOnce);
+		action.set_id(CCGamepad.BUTTON_START);
+		this.buttonActionArray.push(action);
 	}
-	,onLeftBottomOnce: function(func,arr) {
-		var action = new Action(func,arr,true);
-		this._options.onLeftBottom = action;
+	,onStartOnce: function(func) {
+		this.onStart(func,true);
 	}
-	,onRightBottomOnce: function(func,arr) {
-		var action = new Action(func,arr,true);
-		this._options.onRightBottom = action;
+	,onLeftBottom: function(func,isTriggeredOnce) {
+		if(isTriggeredOnce == null) {
+			isTriggeredOnce = false;
+		}
+		var action = new Action(func,isTriggeredOnce);
+		action.set_id(CCGamepad.BUTTON_LEFT_BOTTOM);
+		this.buttonActionArray.push(action);
 	}
-	,onStart: function(func,arr) {
-		var action = new Action(func,arr);
-		this._options.onStart = action;
+	,onLeftBottomOnce: function(func) {
+		this.onLeftBottom(func,true);
 	}
-	,onStartOnce: function(func,arr) {
-		var action = new Action(func,arr,true);
-		this._options.onStart = action;
+	,onRightBottom: function(func,isTriggeredOnce) {
+		if(isTriggeredOnce == null) {
+			isTriggeredOnce = false;
+		}
+		var action = new Action(func,isTriggeredOnce);
+		action.set_id(CCGamepad.BUTTON_RIGHT_BOTTOM);
+		this.buttonActionArray.push(action);
+	}
+	,onRightBottomOnce: function(func) {
+		this.onRightBottom(func,true);
+	}
+	,onAxis: function(func) {
+		this.onAxisFunc = func;
 	}
 	,init: function() {
-		this.setupWarning();
+		if(this.isWarning) {
+			this.setupWarning();
+		}
 		this.setupListeners();
 	}
 	,setupWarning: function() {
@@ -169,25 +205,32 @@ CCGamepad.prototype = {
 		}
 		d.appendChild(a);
 		var pre = window.document.createElement("div");
-		pre.innerText = "- index: " + gamepad.index + "\n- id: \"" + gamepad.id + "\"\n- timestamp: " + gamepad.timestamp + "\n- mapping: " + gamepad.mapping + "\n- connected: " + (gamepad.connected == null ? "null" : "" + gamepad.connected) + "\n- buttons: " + gamepad.buttons.length + "\n- axes: " + gamepad.axes.length;
+		pre.innerText = "- index: ${gamepad.index}\n- id: \"${gamepad.id}\"\n- timestamp: ${gamepad.timestamp}\n- mapping: ${gamepad.mapping}\n- connected: ${gamepad.connected}\n- buttons: ${gamepad.buttons.length}\n- axes: ${gamepad.axes.length}";
 		d.appendChild(pre);
+		window.document.body.appendChild(d);
+		var heart = window.document.createElement("span");
+		heart.id = "heart";
+		heart.textContent = "❤";
+		var w = window.document.body.clientWidth;
+		var h = window.document.body.clientHeight;
+		heart.setAttribute("style","display: block;position: absolute;top: ${h / 2}px;left: ${w / 2}px;");
+		window.document.body.appendChild(heart);
+	}
+	,onGamepadConnectedHandler: function(e) {
+		$global.console.log("Gamepad connected",e.gamepad);
+		if(this.isVisualizer) {
+			this.setupInterface();
+		}
 		var warningDiv = window.document.getElementById("gamepad-warning");
 		if(warningDiv != null) {
 			warningDiv.style.display = "none";
 		}
-		window.document.body.appendChild(d);
-		$global.console.warn("TODO: remove this element better");
-		d.style.display = "none";
 		window.document.body.focus();
-	}
-	,onGamepadConnectedHandler: function(e) {
-		$global.console.log("Gamepad connected",e.gamepad);
-		this.setupInterface();
 		this.gameLoop();
 	}
 	,onGamepadDisconnectedHandler: function(e) {
 		$global.console.log("Gamepad disconnected",e.gamepad);
-		window.cancelAnimationFrame(this.start);
+		window.cancelAnimationFrame(this.requestID);
 	}
 	,onGamepadButtonDownHandler: function(e) {
 		$global.console.log("Gamepad button down",e.button,e.gamepad);
@@ -200,10 +243,12 @@ CCGamepad.prototype = {
 	}
 	,gameLoop: function(value) {
 		var gamepad = $global.navigator.getGamepads()[0];
-		var el = this.btnMap.iterator();
-		while(el.hasNext()) {
-			var el1 = el.next();
-			el1.classList.remove("pressed");
+		if(this.isVisualizer) {
+			var el = this.btnMap.iterator();
+			while(el.hasNext()) {
+				var el1 = el.next();
+				el1.classList.remove("pressed");
+			}
 		}
 		if(this.previousButtonID != null && !gamepad.buttons[this.previousButtonID].pressed) {
 			this.previousButtonID = null;
@@ -214,90 +259,58 @@ CCGamepad.prototype = {
 			var i = _g++;
 			var currentButton = gamepad.buttons[i];
 			if(currentButton.pressed) {
-				var el = this.btnMap.h[i];
-				el.classList.add("pressed");
-				this.btnNameField.innerText = CCGamepad.BUTTON_MAP.h[i];
-				switch(i) {
-				case CCGamepad.BUTTON_LEFT_BOTTOM:
-					if(this._options.onLeftBottom != null) {
-						var _func = this._options.onLeftBottom.func;
-						var _arr = this._options.onLeftBottom.arr != null ? this._options.onLeftBottom.arr : [gamepad.timestamp];
-						if(this._options.onLeftBottom.isOnce == true && this.previousButtonID != i) {
-							_func.apply(_func,_arr);
-						} else if(this._options.onLeftBottom.isOnce == false) {
-							_func.apply(_func,_arr);
-						}
-					}
-					break;
-				case CCGamepad.BUTTON_RIGHT_BOTTOM:
-					if(this._options.onRightBottom != null) {
-						var _func1 = this._options.onRightBottom.func;
-						var _arr1 = this._options.onRightBottom.arr != null ? this._options.onRightBottom.arr : [gamepad.timestamp];
-						if(this._options.onRightBottom.isOnce == true && this.previousButtonID != i) {
-							_func1.apply(_func1,_arr1);
-						} else if(this._options.onRightBottom.isOnce == false) {
-							_func1.apply(_func1,_arr1);
-						}
-					}
-					break;
-				case CCGamepad.BUTTON_SELECT:
-					if(this._options.onSelect != null) {
-						var _func2 = this._options.onSelect.func;
-						var _arr2 = this._options.onSelect.arr != null ? this._options.onSelect.arr : [gamepad.timestamp];
-						if(this._options.onSelect.isOnce == true && this.previousButtonID != i) {
-							_func2.apply(_func2,_arr2);
-						} else if(this._options.onSelect.isOnce == false) {
-							_func2.apply(_func2,_arr2);
-						}
-					}
-					break;
-				case CCGamepad.BUTTON_START:
-					if(this._options.onStart != null) {
-						var _func3 = this._options.onStart.func;
-						var _arr3 = this._options.onStart.arr != null ? this._options.onStart.arr : [gamepad.timestamp];
-						if(this._options.onStart.isOnce == true && this.previousButtonID != i) {
-							_func3.apply(_func3,_arr3);
-						} else if(this._options.onStart.isOnce == false) {
-							_func3.apply(_func3,_arr3);
-						}
-					}
-					break;
-				default:
-					if(this._options.onButton != null) {
-						var _func4 = this._options.onButton.func;
-						var _arr4 = this._options.onButton.arr != null ? this._options.onButton.arr : [CCGamepad.BUTTON_MAP.h[i]];
-						if(this.previousButtonID != i && this._options.onButton.id == i) {
-							_func4.apply(_func4,_arr4);
+				if(this.isVisualizer) {
+					var el = this.btnMap.h[i];
+					el.classList.add("pressed");
+					this.btnNameField.innerText = CCGamepad.BUTTON_MAP.h[i];
+				}
+				var _g2 = 0;
+				var _g3 = this.buttonActionArray.length;
+				while(_g2 < _g3) {
+					var j = _g2++;
+					var _action = this.buttonActionArray[j];
+					if(_action.get_id() == i) {
+						_action.set_gamepadButton(currentButton);
+						_action.set_timestamp(new Date().getTime());
+						if(_action.isOnce == true && this.previousButtonID != i) {
+							_action.func.apply(_action.func,[_action]);
+						} else if(_action.isOnce == false) {
+							_action.func.apply(_action.func,[_action]);
 						}
 					}
 				}
 				this.previousButtonID = i;
 			}
 		}
-		var axes = window.document.getElementsByClassName("axis");
 		var _g = 0;
 		var _g1 = gamepad.axes.length;
 		while(_g < _g1) {
 			var i = _g++;
-			var a = axes[i];
-			a.innerHTML = i + ": " + gamepad.axes[i];
-			a.setAttribute("value",Std.string(gamepad.axes[i] + 1));
 			var joystickX = this.applyDeadzone(gamepad.axes[gamepad.axes.length - 2],0.25);
 			var joystickY = this.applyDeadzone(gamepad.axes[gamepad.axes.length - 1],0.25);
-			var joystickStr = "{x:" + joystickX + ",y:" + joystickY + "}";
+			var joystickStr = "{x:${joystickX},y:${joystickY}}";
 			var joystickObj = { x : joystickX, y : joystickY, desc : CCGamepad.AXIS_MAP.h[joystickStr]};
-			if(!(joystickX == 0 && joystickY == 0)) {
-				this.btnNameField.innerText = CCGamepad.AXIS_MAP.h[joystickStr];
+			if(this.isVisualizer) {
+				var axes = window.document.getElementsByClassName("axis");
+				var a = axes[i];
+				a.innerHTML = i + ": " + gamepad.axes[i];
+				a.setAttribute("value",Std.string(gamepad.axes[i] + 1));
+				if(!(joystickX == 0 && joystickY == 0)) {
+					this.btnNameField.innerText = CCGamepad.AXIS_MAP.h[joystickStr];
+				}
+				var heart = window.document.getElementById("heart");
+				heart.style.left = Std.parseInt(heart.style.left) + joystickX + "px";
+				heart.style.top = Std.parseInt(heart.style.top) + joystickY + "px";
 			}
-			if(this._options.onAxis != null) {
+			if(this.onAxisFunc != null) {
 				if(joystickX != 0 || joystickY != 0) {
-					var _func = this._options.onAxis;
-					var _arr = this._options.onAxisParams != null ? this._options.onAxisParams : [joystickObj];
+					var _func = this.onAxisFunc;
+					var _arr = [joystickObj];
 					_func.apply(_func,_arr);
 				}
 			}
 		}
-		this.start = window.requestAnimationFrame($bind(this,this.gameLoop));
+		this.requestID = window.requestAnimationFrame($bind(this,this.gameLoop));
 	}
 	,applyDeadzone: function(number,threshold) {
 		var percentage = (Math.abs(number) - threshold) / (1 - threshold);
@@ -308,21 +321,42 @@ CCGamepad.prototype = {
 	}
 	,__class__: CCGamepad
 };
-var Action = function(func,arr,isOnce) {
+var Action = function(func,isOnce) {
 	if(isOnce == null) {
 		isOnce = false;
 	}
 	this.isOnce = false;
 	this.func = func;
-	this.arr = arr;
 	this.isOnce = isOnce;
 };
 Action.__name__ = "Action";
 Action.prototype = {
-	btnid: function(id) {
-		this.id = id;
+	get_id: function() {
+		return this.id;
+	}
+	,set_id: function(value) {
+		return this.id = value;
+	}
+	,get_gamepadButton: function() {
+		return this.gamepadButton;
+	}
+	,set_gamepadButton: function(value) {
+		return this.gamepadButton = value;
+	}
+	,get_timestamp: function() {
+		return this.timestamp;
+	}
+	,set_timestamp: function(value) {
+		return this.timestamp = value;
+	}
+	,get_description: function() {
+		return this.description;
+	}
+	,set_description: function(value) {
+		return this.description = value;
 	}
 	,__class__: Action
+	,__properties__: {set_description:"set_description",get_description:"get_description",set_timestamp:"set_timestamp",get_timestamp:"get_timestamp",set_gamepadButton:"set_gamepadButton",get_gamepadButton:"get_gamepadButton",set_id:"set_id",get_id:"get_id"}
 };
 var EReg = function(r,opt) {
 	this.r = new RegExp(r,opt.split("u").join(""));
@@ -386,7 +420,7 @@ Lambda.has = function(it,elt) {
 var Main = function() {
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + sketcher_App.NAME + " Dom ready :: build: " + "2020-09-19 17:57:14");
+		$global.console.log("" + sketcher_App.NAME + " Dom ready :: build: " + "2020-09-22 20:34:04");
 		_gthis.setupCC();
 	});
 };
@@ -445,7 +479,7 @@ Reflect.isFunction = function(f) {
 	}
 };
 var SNES = function() {
-	$global.console.log("" + model_constants_App.NAME + " SNES :: build: " + "2020-09-19 17:13:22");
+	$global.console.log("" + App.NAME + " SNES :: build: " + "2020-09-22 20:26:19");
 	CCGamepad.call(this);
 };
 SNES.__name__ = "SNES";
@@ -541,12 +575,12 @@ var Sketcher = function(settings) {
 	}
 	if(settings.get_scale() == true) {
 		var node = window.document.createElement("style");
-		node.innerHTML = "\n\t\t\t<!-- no padding -->\n\t\t\t.sketcher-wrapper{width: 100%; height: 100%; padding: 0; margin: 0; display: flex; align-items: center;\tjustify-content: center;}\n\t\t\tsvg {width: 100%; height: 100%; background-color:#ffffff; }\n\t\t\tcanvas{width: 100%; background-color:#ffffff; }\n\t\t\t";
+		node.innerHTML = "\n\t\t\t<!-- no padding -->\n\t\t\t.sketcher-wrapper{width: 100%;height: 100%; max-width: 100vh;padding: 0;margin: 0 auto;display: flex;align-items: center;justify-content: center;}\n\t\t\tsvg {width: 100%; height: 100%; background-color:#ffffff; }\n\t\t\tcanvas{width: 100%; background-color:#ffffff; }\n\t\t\t";
 		window.document.body.appendChild(node);
 	}
 	if(settings.get_padding() != null && settings.get_padding() >= 0) {
 		var node = window.document.createElement("style");
-		node.innerHTML = "\n\t\t\t<!-- with padding -->\n\t\t\t.sketcher-wrapper{width: 100%; height: 100%; padding: 0; margin: 0; display: flex; align-items: center;\tjustify-content: center;}\n\t\t\tsvg {padding: " + settings.get_padding() + "px; width: 100%;  height: 100%; background-color:#ffffff; }\n\t\t\tcanvas {padding: " + settings.get_padding() + "px; width: 100%; background-color:#ffffff; }\n\t\t\t";
+		node.innerHTML = "\n\t\t\t<!-- with padding -->\n\t\t\t.sketcher-wrapper{width: 100%;height: 100%; max-width: 100vh;padding: 0;margin: 0 auto;display: flex;align-items: center;justify-content: center;}\n\t\t\tsvg {padding: " + settings.get_padding() + "px; width: 100%;  height: 100%; background-color:#ffffff; }\n\t\t\tcanvas {padding: " + settings.get_padding() + "px; width: 100%; background-color:#ffffff; }\n\t\t\t";
 		window.document.body.appendChild(node);
 	}
 };
@@ -916,7 +950,7 @@ var SketcherBase = function(settings) {
 	this.setup();
 	this._draw();
 	$global.console.groupCollapsed("Default cc-sketcher keyboard shortcuts are activated");
-	$global.console.info("• [cmd + r] = reload page\n• [cmd + s] = save jpg\n• [cmd + shift + s] = save png\n• [cmd + ctrl + s] = save transparant png\n• [cmd + alt + s] = save svg");
+	$global.console.info("• [cmd + r] = reload page\n• [cmd + s] = save jpg\n• [cmd + shift + s] = save png\n• [cmd + ctrl + s] = save transparant png\n• [cmd + alt + s] = save svg\n• [cmd + f] = toggle fullscreen");
 	$global.console.groupEnd();
 };
 SketcherBase.__name__ = "SketcherBase";
@@ -974,6 +1008,7 @@ SketcherBase.prototype = {
 			}
 		}
 		if(e.metaKey == true && e.key == "f") {
+			$global.console.log("[cmd + alt + s] = save svg");
 			if(!Globals.isFullscreen) {
 				this.openFullscreen();
 				Globals.isFullscreen = true;
@@ -1002,12 +1037,12 @@ SketcherBase.prototype = {
 	}
 	,setup: function() {
 		if(this.isDebug) {
-			haxe_Log.trace("SETUP :: " + this.toString() + " -> override public function draw()",{ fileName : "SketcherBase.hx", lineNumber : 203, className : "SketcherBase", methodName : "setup"});
+			haxe_Log.trace("SETUP :: " + this.toString() + " -> override public function draw()",{ fileName : "SketcherBase.hx", lineNumber : 204, className : "SketcherBase", methodName : "setup"});
 		}
 	}
 	,draw: function() {
 		if(this.isDebug) {
-			haxe_Log.trace("DRAW :: " + this.toString() + " -> override public function draw()",{ fileName : "SketcherBase.hx", lineNumber : 211, className : "SketcherBase", methodName : "draw"});
+			haxe_Log.trace("DRAW :: " + this.toString() + " -> override public function draw()",{ fileName : "SketcherBase.hx", lineNumber : 212, className : "SketcherBase", methodName : "draw"});
 		}
 	}
 	,__export: function() {
@@ -1030,6 +1065,8 @@ SketcherBase.prototype = {
 	,onKeyDown: function(e) {
 	}
 	,openFullscreen: function() {
+		haxe_Log.trace(window.document.fullscreenElement,{ fileName : "SketcherBase.hx", lineNumber : 265, className : "SketcherBase", methodName : "openFullscreen"});
+		haxe_Log.trace(($_=window.document,$bind($_,$_.exitFullscreen)),{ fileName : "SketcherBase.hx", lineNumber : 266, className : "SketcherBase", methodName : "openFullscreen"});
 		var elem = window.document.documentElement;
 		if(elem.requestFullscreen != null) {
 			elem.requestFullscreen();
@@ -1042,6 +1079,8 @@ SketcherBase.prototype = {
 		}
 	}
 	,closeFullscreen: function() {
+		haxe_Log.trace(window.document.fullscreenElement,{ fileName : "SketcherBase.hx", lineNumber : 282, className : "SketcherBase", methodName : "closeFullscreen"});
+		haxe_Log.trace(($_=window.document,$bind($_,$_.exitFullscreen)),{ fileName : "SketcherBase.hx", lineNumber : 283, className : "SketcherBase", methodName : "closeFullscreen"});
 		if(window.document.exitFullscreen != null) {
 			window.document.exitFullscreen();
 		} else if(window.document.mozCancelFullScreen) {
@@ -1974,53 +2013,125 @@ haxe_xml_Printer.prototype = {
 	,__class__: haxe_xml_Printer
 };
 var interactive_Squares = function() {
+	this.shapeCounter = 0;
+	this.shapeArray = ["square","pentagon","rectangle","hexagon","circle","triangle","ellipse"];
+	this.randomizeColor = function() {
+	};
+	this.buildversion = "2020-09-22 20:34:04";
+	this.message = "dat.gui";
 	this._colorArray = [];
 	this._color4 = null;
 	this._color3 = null;
 	this._color2 = null;
 	this._color1 = null;
 	this._color0 = null;
-	this.speed = 2.0;
-	this.startY = 0.0;
-	this.startX = 0.0;
+	this.mouseY = 0.0;
+	this.mouseX = 0.0;
+	this.rotationSpeed = 0.0;
+	this.currentSpeed = 1.0;
+	this.DEFAULT_MAX_SPEED = 10.0;
+	this.DEFAULT_SPEED = 1.0;
+	this.endH = 100;
+	this.endW = 100;
+	this.startH = 800;
+	this.startW = 800;
+	this.totalShapes = 50;
 	this.stageH = 1080;
 	this.stageW = 1080;
 	var settings = new Settings(this.stageW,this.stageH,"canvas");
 	settings.set_autostart(true);
 	settings.set_padding(0);
 	settings.set_scale(true);
-	settings.set_elementID("canvas-" + this.toString());
+	settings.set_elementID("canvas-${toString()}");
 	SketcherBase.call(this,settings);
+	this.message = this.toString();
+	sketcher_util_EmbedUtil.datgui($bind(this,this.initDatGui2));
 };
 interactive_Squares.__name__ = "interactive.Squares";
 interactive_Squares.__super__ = SketcherBase;
 interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 	setup: function() {
-		this.description = "" + this.toString();
-		haxe_Log.trace("SETUP :: " + this.toString() + " -> override public function setup()",{ fileName : "src/interactive/Squares.hx", lineNumber : 37, className : "interactive.Squares", methodName : "setup"});
-		this.startX = this.get_w2();
-		this.startY = this.get_h2();
+		this.description = "${toString()}";
+		this.mouseX = this.get_w2();
+		this.mouseY = this.get_h2();
 		this.setColors();
 		this.initGamepad();
+	}
+	,initDatGui2: function() {
+		var _gthis = this;
+		var gui = new dat.gui.GUI();
+		gui.add(this,"message");
+		gui.add(this,"buildversion");
+		gui.add(this,"currentSpeed",this.DEFAULT_SPEED,this.DEFAULT_MAX_SPEED).listen();
+		gui.add(this,"rotationSpeed",0.0,10.0).listen();
+		this.randomizeColor = function() {
+			_gthis.setColors();
+		};
+		gui.add(this,"randomizeColor");
 	}
 	,drawShape: function() {
 		this.sketch.clear();
 		this.sketch.makeBackground(sketcher_util_ColorUtil.getColourObj(this._color0));
-		var total = 10;
-		var centerX = this.get_w2();
-		var centerY = this.get_h2();
-		var startW = 1000;
-		var startH = 1000;
-		var endW = 100;
-		var endH = 100;
-		var scale = startW / 10;
+		var offsetX = (this.startW - this.endW) / this.totalShapes;
+		var offsetY = (this.startH - this.endH) / this.totalShapes;
+		var centerOffsetX = (this.get_w2() - this.mouseX) / this.totalShapes;
+		var centerOffsetY = (this.get_h2() - this.mouseY) / this.totalShapes;
 		var _g = 0;
-		var _g1 = total;
+		var _g1 = this.totalShapes;
 		while(_g < _g1) {
 			var i = _g++;
-			var square = this.sketch.makeRectangle(centerX,centerY,startW - 100 * i,startH - 100 * i);
-			square.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),0.4);
-			square.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
+			var selectedShape = this.shapeArray[this.shapeCounter];
+			var centerX = this.get_w2() - centerOffsetX * i;
+			var centerY = this.get_h2() - centerOffsetY * i;
+			switch(selectedShape) {
+			case "circle":
+				var shape = this.sketch.makeCircle(centerX,centerY,(this.startW - offsetX * i) * .5);
+				shape.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				shape.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
+				shape.setRotate(i * this.rotationSpeed);
+				break;
+			case "ellipse":
+				var shape1 = this.sketch.makeEllipse(centerX,centerY,(this.startW - offsetX * i) * .5,(this.startH - offsetY * i) * .25);
+				shape1.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				shape1.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
+				shape1.setRotate(i * this.rotationSpeed);
+				break;
+			case "hexagon":
+				var _polygon = this.sketch.makePolygon([]);
+				_polygon.sides(centerX,centerY,6,(this.startW - offsetX * i) * .5);
+				_polygon.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				_polygon.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
+				_polygon.setRotate(i * this.rotationSpeed);
+				break;
+			case "pentagon":
+				var _polygon1 = this.sketch.makePolygon([]);
+				_polygon1.sides(centerX,centerY,5,(this.startW - offsetX * i) * .5);
+				_polygon1.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				_polygon1.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
+				_polygon1.setRotate(i * this.rotationSpeed);
+				break;
+			case "rectangle":
+				var shape2 = this.sketch.makeRectangle(centerX,centerY,this.startW - offsetX * i,this.startH - offsetY * i * .5);
+				shape2.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				shape2.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
+				shape2.setRotate(i * this.rotationSpeed);
+				break;
+			case "square":
+				var shape3 = this.sketch.makeRectangle(centerX,centerY,this.startW - offsetX * i,this.startH - offsetY * i);
+				shape3.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				shape3.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
+				shape3.setRotate(i * this.rotationSpeed);
+				break;
+			case "triangle":
+				var _polygon2 = this.sketch.makePolygon([]);
+				_polygon2.sides(centerX,centerY,3,(this.startW - offsetX * i) * .5);
+				_polygon2.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				_polygon2.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
+				_polygon2.setRotate(i * this.rotationSpeed);
+				break;
+			default:
+				haxe_Log.trace("case '" + selectedShape + "': trace ('" + selectedShape + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 7, className : "interactive.Squares", methodName : "drawShape"});
+			}
 		}
 		this.sketch.update();
 	}
@@ -2048,8 +2159,10 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 		gamePad.onStartOnce($bind(this,this.onStartHandler));
 		gamePad.onLeftBottomOnce($bind(this,this.onLeftBottomHandler));
 		gamePad.onRightBottomOnce($bind(this,this.onRightBottomHandler));
-		gamePad.onButton($bind(this,this.onButton));
-		gamePad.onButtonOnce(CCGamepad.BUTTON_B,$bind(this,this.onButtonOnce));
+		gamePad.onButtonOnce(CCGamepad.BUTTON_B,$bind(this,this.onButton));
+		gamePad.onButtonOnce(CCGamepad.BUTTON_A,$bind(this,this.onButton));
+		gamePad.onButton(CCGamepad.BUTTON_Y,$bind(this,this.onButton));
+		gamePad.onButton(CCGamepad.BUTTON_X,$bind(this,this.onButton));
 		gamePad.onAxis($bind(this,this.onAxis));
 	}
 	,onSelectHandler: function(e) {
@@ -2063,30 +2176,63 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 	}
 	,onLeftBottomHandler: function(e) {
 		$global.console.log("onLeftBottomHandler: ",e);
+		this.currentSpeed--;
+		if(this.currentSpeed <= this.DEFAULT_SPEED) {
+			this.currentSpeed = this.DEFAULT_SPEED;
+		}
+		$global.console.log(this.currentSpeed);
 	}
 	,onRightBottomHandler: function(e) {
 		$global.console.log("onRightBottomHandler: ",e);
+		this.currentSpeed++;
+		if(this.currentSpeed >= this.DEFAULT_MAX_SPEED) {
+			this.currentSpeed = this.DEFAULT_MAX_SPEED;
+		}
+		$global.console.log(this.currentSpeed);
 	}
 	,onAxis: function(e) {
-		this.startX += e.x * this.speed;
-		this.startY += e.y * this.speed;
+		this.mouseX += e.x * this.currentSpeed;
+		this.mouseY += e.y * this.currentSpeed;
+		if(this.mouseX - this.endW * 0.5 <= 0) {
+			this.mouseX = this.endW * .5;
+		}
+		if(this.mouseX + this.endW * 0.5 >= this.stageW) {
+			this.mouseX = this.stageW - this.endW * .5;
+		}
+		if(this.mouseY - this.endH * 0.5 <= 0) {
+			this.mouseY = this.endH * .5;
+		}
+		if(this.mouseY + this.endH * 0.5 >= this.stageW) {
+			this.mouseY = this.stageW - this.endH * .5;
+		}
 	}
-	,onButton: function(disc) {
-		switch(disc) {
-		case CCGamepad.BUTTON_A_DISC:
-			$global.console.log("--> " + disc);
+	,onButton: function(e) {
+		$global.console.log("onButton: ",e);
+		switch(e.get_id()) {
+		case CCGamepad.BUTTON_A:
+			$global.console.log("--> ${e.id} // change color");
+			this.randomizeColor();
 			break;
-		case CCGamepad.BUTTON_B_DISC:
-			$global.console.log("--> " + disc);
+		case CCGamepad.BUTTON_B:
+			this.shapeCounter++;
+			if(this.shapeCounter > this.shapeArray.length - 1) {
+				this.shapeCounter = 0;
+			}
+			$global.console.log("--> ${e.id} // change shapes (${shapeCounter}/${shapeArray.length} :: ${shapeArray[shapeCounter]})");
 			break;
-		case CCGamepad.BUTTON_X_DISC:
-			$global.console.log("--> " + disc);
+		case CCGamepad.BUTTON_X:
+			$global.console.log("--> ${e.id} // rotate +1");
+			this.rotationSpeed += 0.1;
 			break;
-		case CCGamepad.BUTTON_Y_DISC:
-			$global.console.log("--> " + disc);
+		case CCGamepad.BUTTON_Y:
+			$global.console.log("--> ${e.id} // rotate -1");
+			this.rotationSpeed -= 0.1;
+			if(this.rotationSpeed <= 0) {
+				this.rotationSpeed = 0;
+			}
 			break;
 		default:
-			haxe_Log.trace("case '" + disc + "': trace ('" + disc + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 196, className : "interactive.Squares", methodName : "onButton"});
+			haxe_Log.trace("case '" + e.get_id() + "': trace ('" + e.get_id() + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 7, className : "interactive.Squares", methodName : "onButton"});
 		}
 	}
 	,__class__: interactive_Squares
@@ -2314,8 +2460,6 @@ js_html__$CanvasElement_CanvasUtil.getContextWebGL = function(canvas,attribs) {
 	}
 	return null;
 };
-var model_constants_App = function() { };
-model_constants_App.__name__ = "model.constants.App";
 var sketcher_AST = function() { };
 sketcher_AST.__name__ = "sketcher.AST";
 var sketcher_App = function() { };
@@ -3161,7 +3305,7 @@ sketcher_draw_Circle.prototype = $extend(sketcher_draw_Base.prototype,{
 	,gl: function(gl) {
 	}
 	,debug: function() {
-		haxe_Log.trace("" + this.toString(),{ fileName : "sketcher/draw/Circle.hx", lineNumber : 101, className : "sketcher.draw.Circle", methodName : "debug"});
+		haxe_Log.trace("" + this.toString(),{ fileName : "sketcher/draw/Circle.hx", lineNumber : 96, className : "sketcher.draw.Circle", methodName : "debug"});
 	}
 	,get_radius: function() {
 		return this.radius;
@@ -3195,9 +3339,78 @@ sketcher_draw_Ellipse.prototype = $extend(sketcher_draw_Base.prototype,{
 		return haxe_xml_Printer.print(this.xml);
 	}
 	,ctx: function(ctx) {
+		this.useDefaultsCanvas();
+		var value = this.get_fillColor();
+		var _r = 0;
+		var _g = 0;
+		var _b = 0;
+		var _a = 1;
+		value = StringTools.replace(value," ","");
+		if(value.indexOf("rgba") != -1) {
+			value = StringTools.replace(StringTools.replace(value,"rgba(",""),")","");
+			var arr = value.split(",");
+			_r = arr[0];
+			_g = arr[1];
+			_b = arr[2];
+			_a = arr[3];
+		} else if(value.indexOf("rgb") != -1) {
+			value = StringTools.replace(StringTools.replace(value,"rgb(",""),")","");
+			var arr = value.split(",");
+			_r = arr[0];
+			_g = arr[1];
+			_b = arr[2];
+		} else if(value.indexOf("#") != -1) {
+			var int = Std.parseInt(StringTools.replace(value,"#","0x"));
+			var rgb_r = int >> 16 & 255;
+			var rgb_g = int >> 8 & 255;
+			var rgb_b = int & 255;
+			_r = rgb_r;
+			_g = rgb_g;
+			_b = rgb_b;
+		}
+		var _fillColor = { r : _r, g : _g, b : _b, a : _a};
+		ctx.fillStyle = sketcher_util_ColorUtil.getColourObj(_fillColor,this.get_fillOpacity());
+		var value = this.get_strokeColor();
+		var _r = 0;
+		var _g = 0;
+		var _b = 0;
+		var _a = 1;
+		value = StringTools.replace(value," ","");
+		if(value.indexOf("rgba") != -1) {
+			value = StringTools.replace(StringTools.replace(value,"rgba(",""),")","");
+			var arr = value.split(",");
+			_r = arr[0];
+			_g = arr[1];
+			_b = arr[2];
+			_a = arr[3];
+		} else if(value.indexOf("rgb") != -1) {
+			value = StringTools.replace(StringTools.replace(value,"rgb(",""),")","");
+			var arr = value.split(",");
+			_r = arr[0];
+			_g = arr[1];
+			_b = arr[2];
+		} else if(value.indexOf("#") != -1) {
+			var int = Std.parseInt(StringTools.replace(value,"#","0x"));
+			var rgb_r = int >> 16 & 255;
+			var rgb_g = int >> 8 & 255;
+			var rgb_b = int & 255;
+			_r = rgb_r;
+			_g = rgb_g;
+			_b = rgb_b;
+		}
+		var _strokeColor = { r : _r, g : _g, b : _b, a : _a};
+		ctx.strokeStyle = sketcher_util_ColorUtil.getColourObj(_strokeColor,this.get_strokeOpacity());
+		if(this.get_dash() != null) {
+			ctx.setLineDash(this.get_dash());
+		}
 		ctx.beginPath();
-		ctx.fill();
-		ctx.stroke();
+		ctx.ellipse(this.get_x(),this.get_y(),this.get_rrx(),this.get_rry(),sketcher_util_MathUtil.radians(this.get_rotate()),0,2 * Math.PI);
+		if(this.get_fill() != null) {
+			ctx.fill();
+		}
+		if(this.get_stroke() != null && this.get_lineWeight() != 0) {
+			ctx.stroke();
+		}
 	}
 	,gl: function(gl) {
 	}
@@ -5588,6 +5801,204 @@ sketcher_util_ColorUtil.hex2RGB = function(hex) {
 sketcher_util_ColorUtil.prototype = {
 	__class__: sketcher_util_ColorUtil
 };
+var sketcher_util_EmbedUtil = function() {
+};
+sketcher_util_EmbedUtil.__name__ = "sketcher.util.EmbedUtil";
+sketcher_util_EmbedUtil.check = function(id) {
+	if(window.document.getElementById(id) != null) {
+		return true;
+	} else {
+		return false;
+	}
+};
+sketcher_util_EmbedUtil.stats = function() {
+	var script = document.createElement('script');script.id='mrdoob-stats';script.onload = function() {var stats = new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop() {stats.update();requestAnimationFrame(loop)});};script.src = '//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);
+};
+sketcher_util_EmbedUtil.removeStats = function() {
+	var scriptEl = window.document.getElementById("mrdoob-stats");
+	scriptEl.parentElement.removeChild(scriptEl);
+	var divArr = window.document.getElementsByTagName("div");
+	var _g = 0;
+	var _g1 = divArr.length;
+	while(_g < _g1) {
+		var i = _g++;
+		var div = divArr[i];
+		var style = div.getAttribute("style");
+		if(style == "position: fixed; top: 0px; left: 0px; cursor: pointer; opacity: 0.9; z-index: 10000;") {
+			div.parentElement.removeChild(div);
+		}
+	}
+};
+sketcher_util_EmbedUtil.script = function(id,src,callback,callbackArray) {
+	if(window.document.getElementById(id) != null) {
+		return;
+	}
+	var el = window.document.createElement("script");
+	el.id = id;
+	el.src = src;
+	el.crossOrigin = "anonymous";
+	el.onload = function() {
+		if(callback != null) {
+			if(callbackArray == null) {
+				callback.apply(callback,[id]);
+			} else {
+				callback.apply(callback,callbackArray);
+			}
+		}
+	};
+	window.document.body.appendChild(el);
+};
+sketcher_util_EmbedUtil.stylesheet = function(id,src,callback,callbackArray) {
+	if(window.document.getElementById(id) != null) {
+		return;
+	}
+	var el = window.document.createElement("link");
+	el.id = id;
+	el.rel = "stylesheet";
+	el.href = src;
+	el.onload = function() {
+		if(callback != null) {
+			if(callbackArray == null) {
+				callback.apply(callback,["id"]);
+			} else {
+				callback.apply(callback,callbackArray);
+			}
+		}
+	};
+	window.document.head.appendChild(el);
+};
+sketcher_util_EmbedUtil.bootstrapStylesheet = function(id,src,integrity,callback,callbackArray) {
+	if(window.document.getElementById(id) != null) {
+		return;
+	}
+	var el = window.document.createElement("link");
+	el.id = id;
+	el.rel = "stylesheet";
+	el.href = src;
+	el.integrity = integrity;
+	el.crossOrigin = "anonymous";
+	el.onload = function() {
+		if(callback != null) {
+			if(callbackArray == null) {
+				callback.apply(callback,[id]);
+			} else {
+				callback.apply(callback,callbackArray);
+			}
+		}
+	};
+	window.document.head.appendChild(el);
+};
+sketcher_util_EmbedUtil.bootstrapScript = function(id,src,integrity,callback,callbackArray) {
+	if(window.document.getElementById(id) != null) {
+		return;
+	}
+	var el = window.document.createElement("script");
+	el.id = id;
+	el.src = src;
+	el.integrity = integrity;
+	el.crossOrigin = "anonymous";
+	el.onload = function() {
+		if(callback != null) {
+			if(callbackArray == null) {
+				callback.apply(callback,[id]);
+			} else {
+				callback.apply(callback,callbackArray);
+			}
+		}
+	};
+	window.document.body.appendChild(el);
+};
+sketcher_util_EmbedUtil.quicksettings = function(callback,callbackArray) {
+	sketcher_util_EmbedUtil.script("quicksettings","https://cdn.jsdelivr.net/quicksettings/3.0.2/quicksettings.min.js",callback,callbackArray);
+};
+sketcher_util_EmbedUtil.gsap = function(callback,callbackArray) {
+	sketcher_util_EmbedUtil.script("gsap","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.0/gsap.min.js",callback,callbackArray);
+};
+sketcher_util_EmbedUtil.ccnav = function(callback,callbackArray) {
+	sketcher_util_EmbedUtil.script("ccnav","https://matthijskamstra.github.io/drop-in-off-canvas-menu/cc_nav.min.js",callback,callbackArray);
+};
+sketcher_util_EmbedUtil.datgui = function(callback,callbackArray) {
+	sketcher_util_EmbedUtil.script("datgui","https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js",callback,callbackArray);
+	var style = window.document.createElement("style");
+	style.innerHTML = ".dg .c input[type=\"text\"]{\n\t\t\tline-height : normal;\n\t\t}";
+	window.document.head.appendChild(style);
+};
+sketcher_util_EmbedUtil.sanitize = function(callback,callbackArray) {
+	sketcher_util_EmbedUtil.stylesheet("sanitize","https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.css",callback,callbackArray);
+};
+sketcher_util_EmbedUtil.ficons = function(callback,callbackArray) {
+	sketcher_util_EmbedUtil.stylesheet("ficons","https://cdn.jsdelivr.net/npm/ficons@1.1.52/dist/ficons/font.css",callback,callbackArray);
+};
+sketcher_util_EmbedUtil.bootstrap = function(callback,callbackArray) {
+	sketcher_util_EmbedUtil.bootstrapStylesheet("bootstrap-stylesheet","https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css","sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh");
+	sketcher_util_EmbedUtil.bootstrapScript("bootstrap-jquery","https://code.jquery.com/jquery-3.4.1.slim.min.js","sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n");
+	sketcher_util_EmbedUtil.bootstrapScript("bootstrap-popper","https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js","sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo");
+	sketcher_util_EmbedUtil.bootstrapScript("bootstrap-bootstrap","https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js","sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6");
+};
+sketcher_util_EmbedUtil.bootstrapStyle = function(callback,callbackArray) {
+	sketcher_util_EmbedUtil.bootstrapStylesheet("bootstrap-stylesheet","https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css","sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh",callback,callbackArray);
+};
+sketcher_util_EmbedUtil.zip = function(callback,callbackArray) {
+	if(!sketcher_util_EmbedUtil.check("jszip")) {
+		sketcher_util_EmbedUtil.script("jszip","https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.min.js",callback,["jszip"]);
+	}
+	if(!sketcher_util_EmbedUtil.check("jsfilesaver")) {
+		sketcher_util_EmbedUtil.script("jsfilesaver","https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js",callback,["jsfilesaver"]);
+	}
+};
+sketcher_util_EmbedUtil.embedGoogleFont = function(family,callback,callbackArray) {
+	var _family = sketcher_util_EmbedUtil.cleanFontFamily(family);
+	var _id = "embededGoogleFonts";
+	var _url = "https://fonts.googleapis.com/css?family=";
+	var _display = "&display=swap";
+	var link = window.document.getElementById(_id);
+	if(link != null) {
+		var temp = StringTools.replace(StringTools.replace(link.href,_url,""),_display,"");
+		family = temp + "|" + family;
+	} else {
+		link = window.document.createElement("link");
+	}
+	if(callbackArray == null) {
+		callbackArray = [family];
+	}
+	link.href = "" + _url + family + _display;
+	link.rel = "stylesheet";
+	link.id = _id;
+	link.onload = function() {
+		if(callback != null) {
+			haxe_Timer.delay(function() {
+				callback.apply(callback,callbackArray);
+			},1);
+		}
+	};
+	window.document.head.appendChild(link);
+	return _family;
+};
+sketcher_util_EmbedUtil.cleanFontFamily = function(family) {
+	if(family.indexOf(":") != -1) {
+		family = family.split(":")[0];
+	}
+	return StringTools.replace(family,"+"," ");
+};
+sketcher_util_EmbedUtil.fontSansSerif = function(callback,callbackArray) {
+	var fontFamily = "Roboto";
+	return sketcher_util_EmbedUtil.embedGoogleFont(fontFamily,callback,callbackArray);
+};
+sketcher_util_EmbedUtil.fontMono = function(callback,callbackArray) {
+	var fontFamily = "Source+Code+Pro";
+	return sketcher_util_EmbedUtil.embedGoogleFont(fontFamily,callback,callbackArray);
+};
+sketcher_util_EmbedUtil.fontHandwritten = function(callback,callbackArray) {
+	var fontFamily = "Pacifico";
+	return sketcher_util_EmbedUtil.embedGoogleFont(fontFamily,callback,callbackArray);
+};
+sketcher_util_EmbedUtil.fontDisplay = function(callback,callbackArray) {
+	var fontFamily = "Bebas+Neue";
+	return sketcher_util_EmbedUtil.embedGoogleFont(fontFamily,callback,callbackArray);
+};
+sketcher_util_EmbedUtil.prototype = {
+	__class__: sketcher_util_EmbedUtil
+};
 var sketcher_util_GridUtil = function(w,h) {
 	this._isDebug = false;
 	this._isPosition = false;
@@ -6141,6 +6552,7 @@ var Bool = Boolean;
 var Class = { };
 var Enum = { };
 js_Boot.__toStr = ({ }).toString;
+App.NAME = "[cc-interactive]";
 CCGamepad.AXIS_RIGHT = "{x:1,y:0}";
 CCGamepad.AXIS_LEFT = "{x:-1,y:0}";
 CCGamepad.AXIS_DOWN = "{x:0,y:1}";
@@ -6241,7 +6653,6 @@ haxe_xml_Parser.escapes = (function($this) {
 	$r = h;
 	return $r;
 }(this));
-model_constants_App.NAME = "[cc-gamepad]";
 sketcher_App.NAME = "[cc-sketcher]";
 sketcher_draw_Base.COUNT = 0;
 sketcher_lets_Go._tweens = [];

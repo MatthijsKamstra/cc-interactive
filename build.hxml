@@ -2,7 +2,7 @@
 -lib cc-sketch-plus
 -lib cc-gamepad
 # -lib hxquicksettings
-# -lib hxexterns
+-lib hxexterns
 # -lib thx.color
 # -lib hxColorToolkit
 # -lib msignal

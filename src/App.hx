@@ -1,9 +1,9 @@
-package model.constants;
+package;
 
 import haxe.macro.Context;
 
 class App {
-	public static var NAME:String = "[cc-init]";
+	public static var NAME:String = "[cc-interactive]";
 
 	public static inline macro function getBuildDate() {
 		#if !display
