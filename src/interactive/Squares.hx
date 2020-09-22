@@ -17,7 +17,7 @@ class Squares extends SketcherBase {
 	// speed
 	final DEFAULT_SPEED:Float = 1.0;
 	final DEFAULT_MAX_SPEED:Float = 10.0;
-	var currentSpeed:Float = 1.0;
+	var currentSpeed:Float = 3.0;
 	var rotationSpeed:Float = 0.0;
 
 	// start position
@@ -99,16 +99,10 @@ class Squares extends SketcherBase {
 		// background color
 		sketch.makeBackground(getColourObj(_color0));
 
-		// var circle = sketch.makeCircle(mouseX, mouseY, 100);
-		// circle.setFill(getColourObj(_color4));
-
 		var offsetX = (startW - endW) / totalShapes;
 		var offsetY = (startH - endH) / totalShapes;
 		var centerOffsetX = (w2 - mouseX) / totalShapes;
 		var centerOffsetY = (h2 - mouseY) / totalShapes;
-
-		// var stageW = 1080; // 1024; // video?
-		// var stageH = 1080; // 1024; // video?
 
 		for (i in 0...totalShapes) {
 			var selectedShape = shapeArray[shapeCounter];
@@ -141,21 +135,21 @@ class Squares extends SketcherBase {
 					// _polygon.rotate = sh.degree;
 					_polygon.setFill(getColourObj(_color0), 1);
 					_polygon.setStroke(getColourObj(_color4));
-					_polygon.setRotate(i * rotationSpeed);
+					_polygon.setRotate(i * rotationSpeed, centerX, centerY);
 				case 'pentagon':
 					var _polygon = sketch.makePolygon([]);
 					_polygon.sides(centerX, centerY, 5, (startW - (offsetX * i)) * .5);
 					// _polygon.rotate = sh.degree;
 					_polygon.setFill(getColourObj(_color0), 1);
 					_polygon.setStroke(getColourObj(_color4));
-					_polygon.setRotate(i * rotationSpeed);
+					_polygon.setRotate(i * rotationSpeed, centerX, centerY);
 				case 'hexagon':
 					var _polygon = sketch.makePolygon([]);
 					_polygon.sides(centerX, centerY, 6, (startW - (offsetX * i)) * .5);
 					// _polygon.rotate = sh.degree;
 					_polygon.setFill(getColourObj(_color0), 1);
 					_polygon.setStroke(getColourObj(_color4));
-					_polygon.setRotate(i * rotationSpeed);
+					_polygon.setRotate(i * rotationSpeed, centerX, centerY);
 				default:
 					trace("case '" + selectedShape + "': trace ('" + selectedShape + "');");
 			}
@@ -220,7 +214,7 @@ class Squares extends SketcherBase {
 	}
 
 	function onLeftBottomHandler(e) {
-		console.log('onLeftBottomHandler: ', e);
+		// console.log('onLeftBottomHandler: ', e);
 		currentSpeed--;
 		if (currentSpeed <= DEFAULT_SPEED)
 			currentSpeed = DEFAULT_SPEED;
@@ -229,7 +223,7 @@ class Squares extends SketcherBase {
 	}
 
 	function onRightBottomHandler(e) {
-		console.log('onRightBottomHandler: ', e);
+		// console.log('onRightBottomHandler: ', e);
 		currentSpeed++;
 		if (currentSpeed >= DEFAULT_MAX_SPEED)
 			currentSpeed = DEFAULT_MAX_SPEED;
@@ -254,7 +248,7 @@ class Squares extends SketcherBase {
 	}
 
 	function onButton(e:CCGamepad.Action) {
-		console.log('onButton: ', e);
+		// console.log('onButton: ', e);
 		switch (e.id) {
 			case CCGamepad.BUTTON_A:
 				console.log('--> ${e.id} // change color');
@@ -263,14 +257,12 @@ class Squares extends SketcherBase {
 				shapeCounter++;
 				if (shapeCounter > shapeArray.length - 1)
 					shapeCounter = 0;
-
 				console.log('--> ${e.id} // change shapes (${shapeCounter}/${shapeArray.length} :: ${shapeArray[shapeCounter]})');
 			case CCGamepad.BUTTON_X:
-				console.log('--> ${e.id} // rotate +1');
+				// console.log('--> ${e.id} // rotate +1');
 				rotationSpeed += 0.1;
-
 			case CCGamepad.BUTTON_Y:
-				console.log('--> ${e.id} // rotate -1');
+				// console.log('--> ${e.id} // rotate -1');
 				rotationSpeed -= 0.1;
 				if (rotationSpeed <= 0)
 					rotationSpeed = 0;

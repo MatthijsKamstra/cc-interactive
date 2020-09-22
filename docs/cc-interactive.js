@@ -61,7 +61,7 @@ var CCGamepad = function() {
 	this.isWarning = true;
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + App.NAME + " Dom ready :: build: " + "2020-09-22 20:26:19");
+		$global.console.log("" + App.NAME + " Dom ready :: build: " + "2020-09-22 22:09:40");
 		_gthis.init();
 	});
 };
@@ -205,7 +205,7 @@ CCGamepad.prototype = {
 		}
 		d.appendChild(a);
 		var pre = window.document.createElement("div");
-		pre.innerText = "- index: ${gamepad.index}\n- id: \"${gamepad.id}\"\n- timestamp: ${gamepad.timestamp}\n- mapping: ${gamepad.mapping}\n- connected: ${gamepad.connected}\n- buttons: ${gamepad.buttons.length}\n- axes: ${gamepad.axes.length}";
+		pre.innerText = "- index: " + gamepad.index + "\n- id: \"" + gamepad.id + "\"\n- timestamp: " + gamepad.timestamp + "\n- mapping: " + gamepad.mapping + "\n- connected: " + (gamepad.connected == null ? "null" : "" + gamepad.connected) + "\n- buttons: " + gamepad.buttons.length + "\n- axes: " + gamepad.axes.length;
 		d.appendChild(pre);
 		window.document.body.appendChild(d);
 		var heart = window.document.createElement("span");
@@ -213,7 +213,7 @@ CCGamepad.prototype = {
 		heart.textContent = "❤";
 		var w = window.document.body.clientWidth;
 		var h = window.document.body.clientHeight;
-		heart.setAttribute("style","display: block;position: absolute;top: ${h / 2}px;left: ${w / 2}px;");
+		heart.setAttribute("style","display: block;position: absolute;top: " + h / 2 + "px;left: " + w / 2 + "px;");
 		window.document.body.appendChild(heart);
 	}
 	,onGamepadConnectedHandler: function(e) {
@@ -288,7 +288,7 @@ CCGamepad.prototype = {
 			var i = _g++;
 			var joystickX = this.applyDeadzone(gamepad.axes[gamepad.axes.length - 2],0.25);
 			var joystickY = this.applyDeadzone(gamepad.axes[gamepad.axes.length - 1],0.25);
-			var joystickStr = "{x:${joystickX},y:${joystickY}}";
+			var joystickStr = "{x:" + joystickX + ",y:" + joystickY + "}";
 			var joystickObj = { x : joystickX, y : joystickY, desc : CCGamepad.AXIS_MAP.h[joystickStr]};
 			if(this.isVisualizer) {
 				var axes = window.document.getElementsByClassName("axis");
@@ -420,7 +420,7 @@ Lambda.has = function(it,elt) {
 var Main = function() {
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + sketcher_App.NAME + " Dom ready :: build: " + "2020-09-22 20:34:04");
+		$global.console.log("" + sketcher_App.NAME + " Dom ready :: build: " + "2020-09-22 22:12:52");
 		_gthis.setupCC();
 	});
 };
@@ -479,7 +479,7 @@ Reflect.isFunction = function(f) {
 	}
 };
 var SNES = function() {
-	$global.console.log("" + App.NAME + " SNES :: build: " + "2020-09-22 20:26:19");
+	$global.console.log("" + App.NAME + " SNES :: build: " + "2020-09-22 22:09:41");
 	CCGamepad.call(this);
 };
 SNES.__name__ = "SNES";
@@ -1065,8 +1065,6 @@ SketcherBase.prototype = {
 	,onKeyDown: function(e) {
 	}
 	,openFullscreen: function() {
-		haxe_Log.trace(window.document.fullscreenElement,{ fileName : "SketcherBase.hx", lineNumber : 265, className : "SketcherBase", methodName : "openFullscreen"});
-		haxe_Log.trace(($_=window.document,$bind($_,$_.exitFullscreen)),{ fileName : "SketcherBase.hx", lineNumber : 266, className : "SketcherBase", methodName : "openFullscreen"});
 		var elem = window.document.documentElement;
 		if(elem.requestFullscreen != null) {
 			elem.requestFullscreen();
@@ -1079,8 +1077,6 @@ SketcherBase.prototype = {
 		}
 	}
 	,closeFullscreen: function() {
-		haxe_Log.trace(window.document.fullscreenElement,{ fileName : "SketcherBase.hx", lineNumber : 282, className : "SketcherBase", methodName : "closeFullscreen"});
-		haxe_Log.trace(($_=window.document,$bind($_,$_.exitFullscreen)),{ fileName : "SketcherBase.hx", lineNumber : 283, className : "SketcherBase", methodName : "closeFullscreen"});
 		if(window.document.exitFullscreen != null) {
 			window.document.exitFullscreen();
 		} else if(window.document.mozCancelFullScreen) {
@@ -2017,7 +2013,7 @@ var interactive_Squares = function() {
 	this.shapeArray = ["square","pentagon","rectangle","hexagon","circle","triangle","ellipse"];
 	this.randomizeColor = function() {
 	};
-	this.buildversion = "2020-09-22 20:34:04";
+	this.buildversion = "2020-09-22 22:12:52";
 	this.message = "dat.gui";
 	this._colorArray = [];
 	this._color4 = null;
@@ -2028,7 +2024,7 @@ var interactive_Squares = function() {
 	this.mouseY = 0.0;
 	this.mouseX = 0.0;
 	this.rotationSpeed = 0.0;
-	this.currentSpeed = 1.0;
+	this.currentSpeed = 3.0;
 	this.DEFAULT_MAX_SPEED = 10.0;
 	this.DEFAULT_SPEED = 1.0;
 	this.endH = 100;
@@ -2042,7 +2038,7 @@ var interactive_Squares = function() {
 	settings.set_autostart(true);
 	settings.set_padding(0);
 	settings.set_scale(true);
-	settings.set_elementID("canvas-${toString()}");
+	settings.set_elementID("canvas-" + this.toString());
 	SketcherBase.call(this,settings);
 	this.message = this.toString();
 	sketcher_util_EmbedUtil.datgui($bind(this,this.initDatGui2));
@@ -2051,7 +2047,7 @@ interactive_Squares.__name__ = "interactive.Squares";
 interactive_Squares.__super__ = SketcherBase;
 interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 	setup: function() {
-		this.description = "${toString()}";
+		this.description = "" + this.toString();
 		this.mouseX = this.get_w2();
 		this.mouseY = this.get_h2();
 		this.setColors();
@@ -2101,14 +2097,14 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 				_polygon.sides(centerX,centerY,6,(this.startW - offsetX * i) * .5);
 				_polygon.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
 				_polygon.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
-				_polygon.setRotate(i * this.rotationSpeed);
+				_polygon.setRotate(i * this.rotationSpeed,centerX,centerY);
 				break;
 			case "pentagon":
 				var _polygon1 = this.sketch.makePolygon([]);
 				_polygon1.sides(centerX,centerY,5,(this.startW - offsetX * i) * .5);
 				_polygon1.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
 				_polygon1.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
-				_polygon1.setRotate(i * this.rotationSpeed);
+				_polygon1.setRotate(i * this.rotationSpeed,centerX,centerY);
 				break;
 			case "rectangle":
 				var shape2 = this.sketch.makeRectangle(centerX,centerY,this.startW - offsetX * i,this.startH - offsetY * i * .5);
@@ -2127,10 +2123,10 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 				_polygon2.sides(centerX,centerY,3,(this.startW - offsetX * i) * .5);
 				_polygon2.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
 				_polygon2.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
-				_polygon2.setRotate(i * this.rotationSpeed);
+				_polygon2.setRotate(i * this.rotationSpeed,centerX,centerY);
 				break;
 			default:
-				haxe_Log.trace("case '" + selectedShape + "': trace ('" + selectedShape + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 7, className : "interactive.Squares", methodName : "drawShape"});
+				haxe_Log.trace("case '" + selectedShape + "': trace ('" + selectedShape + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 154, className : "interactive.Squares", methodName : "drawShape"});
 			}
 		}
 		this.sketch.update();
@@ -2175,7 +2171,6 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 		$global.console.log(">> onButtonOnce: ",e);
 	}
 	,onLeftBottomHandler: function(e) {
-		$global.console.log("onLeftBottomHandler: ",e);
 		this.currentSpeed--;
 		if(this.currentSpeed <= this.DEFAULT_SPEED) {
 			this.currentSpeed = this.DEFAULT_SPEED;
@@ -2183,7 +2178,6 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 		$global.console.log(this.currentSpeed);
 	}
 	,onRightBottomHandler: function(e) {
-		$global.console.log("onRightBottomHandler: ",e);
 		this.currentSpeed++;
 		if(this.currentSpeed >= this.DEFAULT_MAX_SPEED) {
 			this.currentSpeed = this.DEFAULT_MAX_SPEED;
@@ -2207,10 +2201,9 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 		}
 	}
 	,onButton: function(e) {
-		$global.console.log("onButton: ",e);
 		switch(e.get_id()) {
 		case CCGamepad.BUTTON_A:
-			$global.console.log("--> ${e.id} // change color");
+			$global.console.log("--> " + e.get_id() + " // change color");
 			this.randomizeColor();
 			break;
 		case CCGamepad.BUTTON_B:
@@ -2218,21 +2211,19 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 			if(this.shapeCounter > this.shapeArray.length - 1) {
 				this.shapeCounter = 0;
 			}
-			$global.console.log("--> ${e.id} // change shapes (${shapeCounter}/${shapeArray.length} :: ${shapeArray[shapeCounter]})");
+			$global.console.log("--> " + e.get_id() + " // change shapes (" + this.shapeCounter + "/" + this.shapeArray.length + " :: " + this.shapeArray[this.shapeCounter] + ")");
 			break;
 		case CCGamepad.BUTTON_X:
-			$global.console.log("--> ${e.id} // rotate +1");
 			this.rotationSpeed += 0.1;
 			break;
 		case CCGamepad.BUTTON_Y:
-			$global.console.log("--> ${e.id} // rotate -1");
 			this.rotationSpeed -= 0.1;
 			if(this.rotationSpeed <= 0) {
 				this.rotationSpeed = 0;
 			}
 			break;
 		default:
-			haxe_Log.trace("case '" + e.get_id() + "': trace ('" + e.get_id() + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 7, className : "interactive.Squares", methodName : "onButton"});
+			haxe_Log.trace("case '" + e.get_id() + "': trace ('" + e.get_id() + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 270, className : "interactive.Squares", methodName : "onButton"});
 		}
 	}
 	,__class__: interactive_Squares
@@ -4428,7 +4419,6 @@ sketcher_draw_Rectangle.prototype = $extend(sketcher_draw_Base.prototype,{
 			ctx.save();
 			ctx.translate(this.get_x(),this.get_y());
 			ctx.rotate(sketcher_util_MathUtil.radians(this.get_rotate()));
-			ctx.arc(0,0,10,0,2 * Math.PI);
 			ctx.rect(-(this.get_width() / 2),-(this.get_height() / 2),this.get_width(),this.get_height());
 			ctx.restore();
 		}
