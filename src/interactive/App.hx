@@ -1,4 +1,4 @@
-package;
+package interactive;
 
 import haxe.macro.Context;
 
