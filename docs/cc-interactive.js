@@ -9,14 +9,10 @@ function $extend(from, fields) {
 }
 var App = function() { };
 App.__name__ = "App";
-var haxe_IMap = function() { };
-haxe_IMap.__name__ = "haxe.IMap";
-haxe_IMap.__isInterface__ = true;
 var haxe_ds_StringMap = function() {
 	this.h = Object.create(null);
 };
 haxe_ds_StringMap.__name__ = "haxe.ds.StringMap";
-haxe_ds_StringMap.__interfaces__ = [haxe_IMap];
 haxe_ds_StringMap.keysIterator = function(h) {
 	var keys = Object.keys(h);
 	var len = keys.length;
@@ -35,7 +31,6 @@ var haxe_ds_IntMap = function() {
 	this.h = { };
 };
 haxe_ds_IntMap.__name__ = "haxe.ds.IntMap";
-haxe_ds_IntMap.__interfaces__ = [haxe_IMap];
 haxe_ds_IntMap.prototype = {
 	keys: function() {
 		var a = [];
@@ -61,14 +56,11 @@ var CCGamepad = function() {
 	this.isWarning = true;
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + App.NAME + " Dom ready :: build: " + "2020-09-22 22:09:40");
+		$global.console.log("" + App.NAME + " Dom ready :: build: " + "2020-09-27 10:14:06");
 		_gthis.init();
 	});
 };
 CCGamepad.__name__ = "CCGamepad";
-CCGamepad.main = function() {
-	var app = new CCGamepad();
-};
 CCGamepad.prototype = {
 	setup: function(isVisualizer,isWarning) {
 		if(isWarning == null) {
@@ -337,41 +329,16 @@ Action.prototype = {
 	,set_id: function(value) {
 		return this.id = value;
 	}
-	,get_gamepadButton: function() {
-		return this.gamepadButton;
-	}
 	,set_gamepadButton: function(value) {
 		return this.gamepadButton = value;
 	}
-	,get_timestamp: function() {
-		return this.timestamp;
-	}
 	,set_timestamp: function(value) {
 		return this.timestamp = value;
-	}
-	,get_description: function() {
-		return this.description;
 	}
 	,set_description: function(value) {
 		return this.description = value;
 	}
 	,__class__: Action
-	,__properties__: {set_description:"set_description",get_description:"get_description",set_timestamp:"set_timestamp",get_timestamp:"get_timestamp",set_gamepadButton:"set_gamepadButton",get_gamepadButton:"get_gamepadButton",set_id:"set_id",get_id:"get_id"}
-};
-var EReg = function(r,opt) {
-	this.r = new RegExp(r,opt.split("u").join(""));
-};
-EReg.__name__ = "EReg";
-EReg.prototype = {
-	match: function(s) {
-		if(this.r.global) {
-			this.r.lastIndex = 0;
-		}
-		this.r.m = this.r.exec(s);
-		this.r.s = s;
-		return this.r.m != null;
-	}
-	,__class__: EReg
 };
 var HxOverrides = function() { };
 HxOverrides.__name__ = "HxOverrides";
@@ -405,22 +372,10 @@ HxOverrides.remove = function(a,obj) {
 HxOverrides.now = function() {
 	return Date.now();
 };
-var Lambda = function() { };
-Lambda.__name__ = "Lambda";
-Lambda.has = function(it,elt) {
-	var x = $getIterator(it);
-	while(x.hasNext()) {
-		var x1 = x.next();
-		if(x1 == elt) {
-			return true;
-		}
-	}
-	return false;
-};
 var Main = function() {
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + sketcher_App.NAME + " Dom ready :: build: " + "2020-09-22 22:44:23");
+		$global.console.log("" + interactive_App.NAME + " Dom ready :: build: " + "2020-09-27 10:23:55");
 		_gthis.setupCC();
 	});
 };
@@ -435,51 +390,8 @@ Main.prototype = {
 	,__class__: Main
 };
 Math.__name__ = "Math";
-var Reflect = function() { };
-Reflect.__name__ = "Reflect";
-Reflect.getProperty = function(o,field) {
-	var tmp;
-	if(o == null) {
-		return null;
-	} else {
-		var tmp1;
-		if(o.__properties__) {
-			tmp = o.__properties__["get_" + field];
-			tmp1 = tmp;
-		} else {
-			tmp1 = false;
-		}
-		if(tmp1) {
-			return o[tmp]();
-		} else {
-			return o[field];
-		}
-	}
-};
-Reflect.setProperty = function(o,field,value) {
-	var tmp;
-	var tmp1;
-	if(o.__properties__) {
-		tmp = o.__properties__["set_" + field];
-		tmp1 = tmp;
-	} else {
-		tmp1 = false;
-	}
-	if(tmp1) {
-		o[tmp](value);
-	} else {
-		o[field] = value;
-	}
-};
-Reflect.isFunction = function(f) {
-	if(typeof(f) == "function") {
-		return !(f.__name__ || f.__ename__);
-	} else {
-		return false;
-	}
-};
 var SNES = function() {
-	$global.console.log("" + App.NAME + " SNES :: build: " + "2020-09-22 22:09:41");
+	$global.console.log("" + App.NAME + " SNES :: build: " + "2020-09-27 10:14:06");
 	CCGamepad.call(this);
 };
 SNES.__name__ = "SNES";
@@ -531,18 +443,6 @@ Settings.prototype = {
 	,get_element: function() {
 		return this.element;
 	}
-	,set_element: function(value) {
-		return this.element = value;
-	}
-	,get_margin: function() {
-		return this.margin;
-	}
-	,set_margin: function(value) {
-		return this.margin = value;
-	}
-	,get_autostart: function() {
-		return this.autostart;
-	}
 	,set_autostart: function(value) {
 		return this.autostart = value;
 	}
@@ -555,11 +455,7 @@ Settings.prototype = {
 	,get_sizeType: function() {
 		return this.sizeType;
 	}
-	,set_sizeType: function(value) {
-		return this.sizeType = value;
-	}
 	,__class__: Settings
-	,__properties__: {set_sizeType:"set_sizeType",get_sizeType:"get_sizeType",set_elementID:"set_elementID",get_elementID:"get_elementID",set_element:"set_element",get_element:"get_element",set_autostart:"set_autostart",get_autostart:"get_autostart",set_scale:"set_scale",get_scale:"get_scale",set_margin:"set_margin",get_margin:"get_margin",set_padding:"set_padding",get_padding:"get_padding",set_height:"set_height",get_height:"get_height",set_width:"set_width",get_width:"get_width",set_type:"set_type",get_type:"get_type"}
 };
 var Sketcher = function(settings) {
 	this.WRAPPER_ID = "sketcher_wrapper";
@@ -626,11 +522,6 @@ Sketcher.prototype = {
 		this.baseArray.unshift(shape);
 		return shape;
 	}
-	,makeText: function(str,x,y) {
-		var shape = new sketcher_draw_Text(str,x,y);
-		this.baseArray.push(shape);
-		return shape;
-	}
 	,makeCircle: function(x,y,radius) {
 		var shape = new sketcher_draw_Circle(x,y,radius);
 		this.baseArray.push(shape);
@@ -644,45 +535,6 @@ Sketcher.prototype = {
 		this.baseArray.push(shape);
 		return shape;
 	}
-	,makeRectangleInt: function(x,y,width,height,isCenter) {
-		if(isCenter == null) {
-			isCenter = true;
-		}
-		var shape = new sketcher_draw_Rectangle(x,y,width,height);
-		this.baseArray.push(shape);
-		return shape;
-	}
-	,makeButton: function(x,y,width,height,isCenter) {
-		if(isCenter == null) {
-			isCenter = true;
-		}
-		var shape = new sketcher_draw_Button(x,y,width,height,isCenter);
-		this.baseArray.push(shape);
-		return shape;
-	}
-	,makeRoundedRectangle: function(x,y,width,height,radius,isCenter) {
-		if(isCenter == null) {
-			isCenter = true;
-		}
-		if(!isCenter) {
-			x = Math.round(width / 2);
-			y = Math.round(height / 2);
-		}
-		var shape = new sketcher_draw_Rectangle(x,y,width,height);
-		shape.set_radius(radius);
-		this.baseArray.push(shape);
-		return shape;
-	}
-	,makeLine: function(x1,y1,x2,y2) {
-		var shape = new sketcher_draw_Line(x1,y1,x2,y2);
-		this.baseArray.push(shape);
-		return shape;
-	}
-	,makeLinePoint: function(p1,p2) {
-		var shape = new sketcher_draw_Line(p1.x,p1.y,p2.x,p2.y);
-		this.baseArray.push(shape);
-		return shape;
-	}
 	,makeEllipse: function(x,y,rx,ry) {
 		var shape = new sketcher_draw_Ellipse(x,y,rx,ry);
 		this.baseArray.push(shape);
@@ -690,42 +542,6 @@ Sketcher.prototype = {
 	}
 	,makePolygon: function(sides) {
 		var shape = new sketcher_draw_Polygon(sides);
-		this.baseArray.push(shape);
-		return shape;
-	}
-	,makePolygonPoint: function(sides) {
-		var _sides = [];
-		var _g = 0;
-		while(_g < sides.length) {
-			var i = sides[_g];
-			++_g;
-			_sides.push(i.x);
-			_sides.push(i.y);
-		}
-		var shape = new sketcher_draw_Polygon(_sides);
-		this.baseArray.push(shape);
-		return shape;
-	}
-	,makePath: function(x,y) {
-		var shape = new sketcher_draw_Path(x,y);
-		this.baseArray.push(shape);
-		return shape;
-	}
-	,makePolyLine: function(sides) {
-		var shape = new sketcher_draw_PolyLine(sides);
-		this.baseArray.push(shape);
-		return shape;
-	}
-	,makePolyLinePoint: function(sides) {
-		var _sides = [];
-		var _g = 0;
-		while(_g < sides.length) {
-			var i = sides[_g];
-			++_g;
-			_sides.push(i.x);
-			_sides.push(i.y);
-		}
-		var shape = new sketcher_draw_PolyLine(_sides);
 		this.baseArray.push(shape);
 		return shape;
 	}
@@ -737,92 +553,6 @@ Sketcher.prototype = {
 		this.baseArray.push(shape);
 		return shape;
 	}
-	,makeImage: function(x,y,href,width,height,isCenter) {
-		if(isCenter == null) {
-			isCenter = false;
-		}
-		var shape = new sketcher_draw_Image(x,y,href,width,height,isCenter);
-		this.baseArray.push(shape);
-		return shape;
-	}
-	,makeGroup: function(array) {
-		var shape = new sketcher_draw_Group(array);
-		var _g = 0;
-		var _g1 = array.length;
-		while(_g < _g1) {
-			var j = _g++;
-			var _base = array[j];
-			var _g2 = 0;
-			var _g3 = this.baseArray.length;
-			while(_g2 < _g3) {
-				var i = _g2++;
-				var base = this.baseArray[i];
-				if(base == _base) {
-					this.baseArray[i] = null;
-				}
-			}
-		}
-		this.baseArray.push(shape);
-		return shape;
-	}
-	,makeMask: function(array) {
-		var shape = new sketcher_draw_Mask(array);
-		var _g = 0;
-		var _g1 = array.length;
-		while(_g < _g1) {
-			var j = _g++;
-			var _base = array[j];
-			var _g2 = 0;
-			var _g3 = this.baseArray.length;
-			while(_g2 < _g3) {
-				var i = _g2++;
-				var base = this.baseArray[i];
-				if(base == _base) {
-					this.baseArray[i] = null;
-				}
-			}
-		}
-		this.baseArray.push(shape);
-		return shape;
-	}
-	,makeMirror: function(dir) {
-		var shape = new sketcher_draw_Mirror(dir);
-		if(this.settings.get_type().toLowerCase() == "svg") {
-			shape.baseArray = this.baseArray;
-		}
-		this.baseArray.push(shape);
-		return shape;
-	}
-	,makeX: function(x,y,color) {
-		if(color == null) {
-			color = "red";
-		}
-		var cx = Math.round(x);
-		var cy = Math.round(y);
-		var r = 5;
-		var polyline = new sketcher_draw_PolyLine([cx,cy,cx - r,cy,cx,cy,cx + r,cy,cx,cy,cx,cy - r,cx,cy,cx,cy + r,cx,cy]);
-		polyline.set_id("registration_marker_" + polyline.get_count());
-		polyline.set_desc("Registration Marker\nx: " + cx + ", y: " + cy);
-		polyline.set_strokeColor(color);
-		polyline.set_strokeWeight(1);
-		polyline.set_fillColor(color);
-		polyline.set_lineCap("butt");
-		polyline.set_lineJoin("miter");
-		this.baseArray.push(polyline);
-		return polyline;
-	}
-	,makeXCross: function(x,y,size) {
-		var cx = x;
-		var cy = y;
-		var r = size;
-		var polyline = new sketcher_draw_PolyLine([cx,cy,cx - r,cy,cx,cy,cx + r,cy,cx,cy,cx,cy - r,cx,cy,cx,cy + r,cx,cy]);
-		polyline.set_id("xcross_" + polyline.get_count());
-		polyline.set_desc("xcross\nx: " + cx + ", y: " + cy + ", size:" + size);
-		polyline.set_lineCap("butt");
-		polyline.set_lineJoin("bevel");
-		this.baseArray.push(polyline);
-		return polyline;
-	}
 	,clear: function() {
 		this.baseArray = [];
 		if(this.settings.get_type().toLowerCase() == "svg") {
@@ -831,13 +561,6 @@ Sketcher.prototype = {
 		if(this.settings.get_type().toLowerCase() == "canvas") {
 			Sketcher.ctx.clearRect(0,0,this.settings.get_width(),this.settings.get_height());
 		}
-	}
-	,getBaseArray: function() {
-		return this.baseArray;
-	}
-	,getSVG: function() {
-		var div = window.document.getElementById(this.WRAPPER_ID);
-		return div.innerHTML;
 	}
 	,getSVGElement: function() {
 		var svg = window.document.getElementById(this.SVG_ID);
@@ -1047,23 +770,6 @@ SketcherBase.prototype = {
 	}
 	,__export: function() {
 	}
-	,pause: function() {
-		this.isDrawActive = !this.isDrawActive;
-	}
-	,stop: function() {
-		this.isDrawActive = false;
-	}
-	,play: function() {
-		this.isDrawActive = true;
-		if(this.requestID == null) {
-			this._draw();
-		}
-	}
-	,start: function() {
-		this.play();
-	}
-	,onKeyDown: function(e) {
-	}
 	,openFullscreen: function() {
 		var elem = window.document.documentElement;
 		if(elem.requestFullscreen != null) {
@@ -1093,18 +799,6 @@ SketcherBase.prototype = {
 	,get_h2: function() {
 		return Globals.h / 2;
 	}
-	,get_w4: function() {
-		return Globals.w / 4;
-	}
-	,get_h4: function() {
-		return Globals.h / 4;
-	}
-	,get_w3: function() {
-		return Globals.w / 3;
-	}
-	,get_h3: function() {
-		return Globals.h / 3;
-	}
 	,getFileName: function() {
 		if(this.patternName == "" && this.description == "") {
 			this.patternName = "CC-Sketcher-MatthijsKamstra";
@@ -1119,7 +813,6 @@ SketcherBase.prototype = {
 		return className;
 	}
 	,__class__: SketcherBase
-	,__properties__: {get_h3:"get_h3",get_w3:"get_w3",get_h4:"get_h4",get_w4:"get_w4",get_h2:"get_h2",get_w2:"get_w2"}
 };
 var Std = function() { };
 Std.__name__ = "Std";
@@ -1235,21 +928,6 @@ StringTools.trim = function(s) {
 StringTools.replace = function(s,sub,by) {
 	return s.split(sub).join(by);
 };
-StringTools.hex = function(n,digits) {
-	var s = "";
-	var hexChars = "0123456789ABCDEF";
-	while(true) {
-		s = hexChars.charAt(n & 15) + s;
-		n >>>= 4;
-		if(!(n > 0)) {
-			break;
-		}
-	}
-	if(digits != null) {
-		while(s.length < digits) s = "0" + s;
-	}
-	return s;
-};
 var XmlType = {};
 XmlType.toString = function(this1) {
 	switch(this1) {
@@ -1275,9 +953,6 @@ var Xml = function(nodeType) {
 	this.attributeMap = new haxe_ds_StringMap();
 };
 Xml.__name__ = "Xml";
-Xml.parse = function(str) {
-	return haxe_xml_Parser.parse(str);
-};
 Xml.createElement = function(name) {
 	var xml = new Xml(Xml.Element);
 	if(xml.nodeType != Xml.Element) {
@@ -1285,49 +960,6 @@ Xml.createElement = function(name) {
 	}
 	xml.nodeName = name;
 	return xml;
-};
-Xml.createPCData = function(data) {
-	var xml = new Xml(Xml.PCData);
-	if(xml.nodeType == Xml.Document || xml.nodeType == Xml.Element) {
-		throw haxe_Exception.thrown("Bad node type, unexpected " + (xml.nodeType == null ? "null" : XmlType.toString(xml.nodeType)));
-	}
-	xml.nodeValue = data;
-	return xml;
-};
-Xml.createCData = function(data) {
-	var xml = new Xml(Xml.CData);
-	if(xml.nodeType == Xml.Document || xml.nodeType == Xml.Element) {
-		throw haxe_Exception.thrown("Bad node type, unexpected " + (xml.nodeType == null ? "null" : XmlType.toString(xml.nodeType)));
-	}
-	xml.nodeValue = data;
-	return xml;
-};
-Xml.createComment = function(data) {
-	var xml = new Xml(Xml.Comment);
-	if(xml.nodeType == Xml.Document || xml.nodeType == Xml.Element) {
-		throw haxe_Exception.thrown("Bad node type, unexpected " + (xml.nodeType == null ? "null" : XmlType.toString(xml.nodeType)));
-	}
-	xml.nodeValue = data;
-	return xml;
-};
-Xml.createDocType = function(data) {
-	var xml = new Xml(Xml.DocType);
-	if(xml.nodeType == Xml.Document || xml.nodeType == Xml.Element) {
-		throw haxe_Exception.thrown("Bad node type, unexpected " + (xml.nodeType == null ? "null" : XmlType.toString(xml.nodeType)));
-	}
-	xml.nodeValue = data;
-	return xml;
-};
-Xml.createProcessingInstruction = function(data) {
-	var xml = new Xml(Xml.ProcessingInstruction);
-	if(xml.nodeType == Xml.Document || xml.nodeType == Xml.Element) {
-		throw haxe_Exception.thrown("Bad node type, unexpected " + (xml.nodeType == null ? "null" : XmlType.toString(xml.nodeType)));
-	}
-	xml.nodeValue = data;
-	return xml;
-};
-Xml.createDocument = function() {
-	return new Xml(Xml.Document);
 };
 Xml.prototype = {
 	get: function(att) {
@@ -1341,12 +973,6 @@ Xml.prototype = {
 			throw haxe_Exception.thrown("Bad node type, expected Element but found " + (this.nodeType == null ? "null" : XmlType.toString(this.nodeType)));
 		}
 		this.attributeMap.h[att] = value;
-	}
-	,exists: function(att) {
-		if(this.nodeType != Xml.Element) {
-			throw haxe_Exception.thrown("Bad node type, expected Element but found " + (this.nodeType == null ? "null" : XmlType.toString(this.nodeType)));
-		}
-		return Object.prototype.hasOwnProperty.call(this.attributeMap.h,att);
 	}
 	,attributes: function() {
 		if(this.nodeType != Xml.Element) {
@@ -1402,7 +1028,6 @@ haxe_Exception.prototype = $extend(Error.prototype,{
 		return this.__nativeException;
 	}
 	,__class__: haxe_Exception
-	,__properties__: {get_native:"get_native"}
 });
 var haxe_Log = function() { };
 haxe_Log.__name__ = "haxe.Log";
@@ -1478,379 +1103,6 @@ haxe_iterators_ArrayIterator.prototype = {
 		return this.array[this.current++];
 	}
 	,__class__: haxe_iterators_ArrayIterator
-};
-var haxe_xml_XmlParserException = function(message,xml,position) {
-	this.xml = xml;
-	this.message = message;
-	this.position = position;
-	this.lineNumber = 1;
-	this.positionAtLine = 0;
-	var _g = 0;
-	var _g1 = position;
-	while(_g < _g1) {
-		var i = _g++;
-		var c = xml.charCodeAt(i);
-		if(c == 10) {
-			this.lineNumber++;
-			this.positionAtLine = 0;
-		} else if(c != 13) {
-			this.positionAtLine++;
-		}
-	}
-};
-haxe_xml_XmlParserException.__name__ = "haxe.xml.XmlParserException";
-haxe_xml_XmlParserException.prototype = {
-	toString: function() {
-		var c = js_Boot.getClass(this);
-		return c.__name__ + ": " + this.message + " at line " + this.lineNumber + " char " + this.positionAtLine;
-	}
-	,__class__: haxe_xml_XmlParserException
-};
-var haxe_xml_Parser = function() { };
-haxe_xml_Parser.__name__ = "haxe.xml.Parser";
-haxe_xml_Parser.parse = function(str,strict) {
-	if(strict == null) {
-		strict = false;
-	}
-	var doc = Xml.createDocument();
-	haxe_xml_Parser.doParse(str,strict,0,doc);
-	return doc;
-};
-haxe_xml_Parser.doParse = function(str,strict,p,parent) {
-	if(p == null) {
-		p = 0;
-	}
-	var xml = null;
-	var state = 1;
-	var next = 1;
-	var aname = null;
-	var start = 0;
-	var nsubs = 0;
-	var nbrackets = 0;
-	var c = str.charCodeAt(p);
-	var buf = new StringBuf();
-	var escapeNext = 1;
-	var attrValQuote = -1;
-	while(c == c) {
-		switch(state) {
-		case 0:
-			switch(c) {
-			case 9:case 10:case 13:case 32:
-				break;
-			default:
-				state = next;
-				continue;
-			}
-			break;
-		case 1:
-			if(c == 60) {
-				state = 0;
-				next = 2;
-			} else {
-				start = p;
-				state = 13;
-				continue;
-			}
-			break;
-		case 2:
-			switch(c) {
-			case 33:
-				if(str.charCodeAt(p + 1) == 91) {
-					p += 2;
-					if(HxOverrides.substr(str,p,6).toUpperCase() != "CDATA[") {
-						throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Expected <![CDATA[",str,p));
-					}
-					p += 5;
-					state = 17;
-					start = p + 1;
-				} else if(str.charCodeAt(p + 1) == 68 || str.charCodeAt(p + 1) == 100) {
-					if(HxOverrides.substr(str,p + 2,6).toUpperCase() != "OCTYPE") {
-						throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Expected <!DOCTYPE",str,p));
-					}
-					p += 8;
-					state = 16;
-					start = p + 1;
-				} else if(str.charCodeAt(p + 1) != 45 || str.charCodeAt(p + 2) != 45) {
-					throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Expected <!--",str,p));
-				} else {
-					p += 2;
-					state = 15;
-					start = p + 1;
-				}
-				break;
-			case 47:
-				if(parent == null) {
-					throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Expected node name",str,p));
-				}
-				start = p + 1;
-				state = 0;
-				next = 10;
-				break;
-			case 63:
-				state = 14;
-				start = p;
-				break;
-			default:
-				state = 3;
-				start = p;
-				continue;
-			}
-			break;
-		case 3:
-			if(!(c >= 97 && c <= 122 || c >= 65 && c <= 90 || c >= 48 && c <= 57 || c == 58 || c == 46 || c == 95 || c == 45)) {
-				if(p == start) {
-					throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Expected node name",str,p));
-				}
-				xml = Xml.createElement(HxOverrides.substr(str,start,p - start));
-				parent.addChild(xml);
-				++nsubs;
-				state = 0;
-				next = 4;
-				continue;
-			}
-			break;
-		case 4:
-			switch(c) {
-			case 47:
-				state = 11;
-				break;
-			case 62:
-				state = 9;
-				break;
-			default:
-				state = 5;
-				start = p;
-				continue;
-			}
-			break;
-		case 5:
-			if(!(c >= 97 && c <= 122 || c >= 65 && c <= 90 || c >= 48 && c <= 57 || c == 58 || c == 46 || c == 95 || c == 45)) {
-				if(start == p) {
-					throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Expected attribute name",str,p));
-				}
-				var tmp = HxOverrides.substr(str,start,p - start);
-				aname = tmp;
-				if(xml.exists(aname)) {
-					throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Duplicate attribute [" + aname + "]",str,p));
-				}
-				state = 0;
-				next = 6;
-				continue;
-			}
-			break;
-		case 6:
-			if(c == 61) {
-				state = 0;
-				next = 7;
-			} else {
-				throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Expected =",str,p));
-			}
-			break;
-		case 7:
-			switch(c) {
-			case 34:case 39:
-				buf = new StringBuf();
-				state = 8;
-				start = p + 1;
-				attrValQuote = c;
-				break;
-			default:
-				throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Expected \"",str,p));
-			}
-			break;
-		case 8:
-			switch(c) {
-			case 38:
-				var len = p - start;
-				buf.b += len == null ? HxOverrides.substr(str,start,null) : HxOverrides.substr(str,start,len);
-				state = 18;
-				escapeNext = 8;
-				start = p + 1;
-				break;
-			case 60:case 62:
-				if(strict) {
-					throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Invalid unescaped " + String.fromCodePoint(c) + " in attribute value",str,p));
-				} else if(c == attrValQuote) {
-					var len1 = p - start;
-					buf.b += len1 == null ? HxOverrides.substr(str,start,null) : HxOverrides.substr(str,start,len1);
-					var val = buf.b;
-					buf = new StringBuf();
-					xml.set(aname,val);
-					state = 0;
-					next = 4;
-				}
-				break;
-			default:
-				if(c == attrValQuote) {
-					var len2 = p - start;
-					buf.b += len2 == null ? HxOverrides.substr(str,start,null) : HxOverrides.substr(str,start,len2);
-					var val1 = buf.b;
-					buf = new StringBuf();
-					xml.set(aname,val1);
-					state = 0;
-					next = 4;
-				}
-			}
-			break;
-		case 9:
-			p = haxe_xml_Parser.doParse(str,strict,p,xml);
-			start = p;
-			state = 1;
-			break;
-		case 10:
-			if(!(c >= 97 && c <= 122 || c >= 65 && c <= 90 || c >= 48 && c <= 57 || c == 58 || c == 46 || c == 95 || c == 45)) {
-				if(start == p) {
-					throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Expected node name",str,p));
-				}
-				var v = HxOverrides.substr(str,start,p - start);
-				if(parent == null || parent.nodeType != 0) {
-					throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Unexpected </" + v + ">, tag is not open",str,p));
-				}
-				if(parent.nodeType != Xml.Element) {
-					throw haxe_Exception.thrown("Bad node type, expected Element but found " + (parent.nodeType == null ? "null" : XmlType.toString(parent.nodeType)));
-				}
-				if(v != parent.nodeName) {
-					if(parent.nodeType != Xml.Element) {
-						throw haxe_Exception.thrown("Bad node type, expected Element but found " + (parent.nodeType == null ? "null" : XmlType.toString(parent.nodeType)));
-					}
-					throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Expected </" + parent.nodeName + ">",str,p));
-				}
-				state = 0;
-				next = 12;
-				continue;
-			}
-			break;
-		case 11:
-			if(c == 62) {
-				state = 1;
-			} else {
-				throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Expected >",str,p));
-			}
-			break;
-		case 12:
-			if(c == 62) {
-				if(nsubs == 0) {
-					parent.addChild(Xml.createPCData(""));
-				}
-				return p;
-			} else {
-				throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Expected >",str,p));
-			}
-			break;
-		case 13:
-			if(c == 60) {
-				var len3 = p - start;
-				buf.b += len3 == null ? HxOverrides.substr(str,start,null) : HxOverrides.substr(str,start,len3);
-				var child = Xml.createPCData(buf.b);
-				buf = new StringBuf();
-				parent.addChild(child);
-				++nsubs;
-				state = 0;
-				next = 2;
-			} else if(c == 38) {
-				var len4 = p - start;
-				buf.b += len4 == null ? HxOverrides.substr(str,start,null) : HxOverrides.substr(str,start,len4);
-				state = 18;
-				escapeNext = 13;
-				start = p + 1;
-			}
-			break;
-		case 14:
-			if(c == 63 && str.charCodeAt(p + 1) == 62) {
-				++p;
-				var str1 = HxOverrides.substr(str,start + 1,p - start - 2);
-				parent.addChild(Xml.createProcessingInstruction(str1));
-				++nsubs;
-				state = 1;
-			}
-			break;
-		case 15:
-			if(c == 45 && str.charCodeAt(p + 1) == 45 && str.charCodeAt(p + 2) == 62) {
-				parent.addChild(Xml.createComment(HxOverrides.substr(str,start,p - start)));
-				++nsubs;
-				p += 2;
-				state = 1;
-			}
-			break;
-		case 16:
-			if(c == 91) {
-				++nbrackets;
-			} else if(c == 93) {
-				--nbrackets;
-			} else if(c == 62 && nbrackets == 0) {
-				parent.addChild(Xml.createDocType(HxOverrides.substr(str,start,p - start)));
-				++nsubs;
-				state = 1;
-			}
-			break;
-		case 17:
-			if(c == 93 && str.charCodeAt(p + 1) == 93 && str.charCodeAt(p + 2) == 62) {
-				var child1 = Xml.createCData(HxOverrides.substr(str,start,p - start));
-				parent.addChild(child1);
-				++nsubs;
-				p += 2;
-				state = 1;
-			}
-			break;
-		case 18:
-			if(c == 59) {
-				var s = HxOverrides.substr(str,start,p - start);
-				if(s.charCodeAt(0) == 35) {
-					var c1 = s.charCodeAt(1) == 120 ? Std.parseInt("0" + HxOverrides.substr(s,1,s.length - 1)) : Std.parseInt(HxOverrides.substr(s,1,s.length - 1));
-					buf.b += String.fromCodePoint(c1);
-				} else if(!Object.prototype.hasOwnProperty.call(haxe_xml_Parser.escapes.h,s)) {
-					if(strict) {
-						throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Undefined entity: " + s,str,p));
-					}
-					buf.b += Std.string("&" + s + ";");
-				} else {
-					buf.b += Std.string(haxe_xml_Parser.escapes.h[s]);
-				}
-				start = p + 1;
-				state = escapeNext;
-			} else if(!(c >= 97 && c <= 122 || c >= 65 && c <= 90 || c >= 48 && c <= 57 || c == 58 || c == 46 || c == 95 || c == 45) && c != 35) {
-				if(strict) {
-					throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Invalid character in entity: " + String.fromCodePoint(c),str,p));
-				}
-				buf.b += String.fromCodePoint(38);
-				var len5 = p - start;
-				buf.b += len5 == null ? HxOverrides.substr(str,start,null) : HxOverrides.substr(str,start,len5);
-				--p;
-				start = p + 1;
-				state = escapeNext;
-			}
-			break;
-		}
-		c = str.charCodeAt(++p);
-	}
-	if(state == 1) {
-		start = p;
-		state = 13;
-	}
-	if(state == 13) {
-		if(parent.nodeType == 0) {
-			if(parent.nodeType != Xml.Element) {
-				throw haxe_Exception.thrown("Bad node type, expected Element but found " + (parent.nodeType == null ? "null" : XmlType.toString(parent.nodeType)));
-			}
-			throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Unclosed node <" + parent.nodeName + ">",str,p));
-		}
-		if(p != start || nsubs == 0) {
-			var len = p - start;
-			buf.b += len == null ? HxOverrides.substr(str,start,null) : HxOverrides.substr(str,start,len);
-			parent.addChild(Xml.createPCData(buf.b));
-			++nsubs;
-		}
-		return p;
-	}
-	if(!strict && state == 18 && escapeNext == 13) {
-		buf.b += String.fromCodePoint(38);
-		var len = p - start;
-		buf.b += len == null ? HxOverrides.substr(str,start,null) : HxOverrides.substr(str,start,len);
-		parent.addChild(Xml.createPCData(buf.b));
-		++nsubs;
-		return p;
-	}
-	throw haxe_Exception.thrown(new haxe_xml_XmlParserException("Unexpected end",str,p));
 };
 var haxe_xml_Printer = function(pretty) {
 	this.output = new StringBuf();
@@ -2008,6 +1260,8 @@ haxe_xml_Printer.prototype = {
 	}
 	,__class__: haxe_xml_Printer
 };
+var interactive_App = function() { };
+interactive_App.__name__ = "interactive.App";
 var interactive_Squares = function() {
 	this.isRecording = false;
 	this.shapeCounter = 0;
@@ -2018,7 +1272,7 @@ var interactive_Squares = function() {
 	};
 	this.randomizeColor = function() {
 	};
-	this.buildversion = "2020-09-22 22:44:23";
+	this.buildversion = "2020-09-27 10:23:55";
 	this.feedback = "";
 	this.message = "dat.gui";
 	this._colorArray = [];
@@ -2098,7 +1352,11 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 	}
 	,drawShape: function() {
 		this.sketch.clear();
-		this.sketch.makeBackground(sketcher_util_ColorUtil.getColourObj(this._color0));
+		var _color0 = { r : 254, g : 206, b : 168};
+		var _color1 = { r : 153, g : 184, b : 152};
+		this.sketch.makeBackground(sketcher_util_ColorUtil.getColourObj(_color0));
+		var gradient = this.sketch.makeGradient(sketcher_util_ColorUtil.getColourObj(_color0),sketcher_util_ColorUtil.getColourObj(_color1));
+		gradient.setGradientDirection(sketcher_draw_GradientDir.LeftRight);
 		var offsetX = (this.startW - this.endW) / this.totalShapes;
 		var offsetY = (this.startH - this.endH) / this.totalShapes;
 		var centerOffsetX = (this.get_w2() - this.mouseX) / this.totalShapes;
@@ -2113,51 +1371,51 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 			switch(this.selectedShape) {
 			case "circle":
 				var shape = this.sketch.makeCircle(centerX,centerY,(this.startW - offsetX * i) * .5);
-				shape.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				shape.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
 				shape.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				shape.setRotate(i * this.rotationSpeed);
 				break;
 			case "ellipse":
 				var shape1 = this.sketch.makeEllipse(centerX,centerY,(this.startW - offsetX * i) * .5,(this.startH - offsetY * i) * .25);
-				shape1.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				shape1.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
 				shape1.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				shape1.setRotate(i * this.rotationSpeed);
 				break;
 			case "hexagon":
 				var _polygon = this.sketch.makePolygon([]);
 				_polygon.sides(centerX,centerY,6,(this.startW - offsetX * i) * .5);
-				_polygon.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				_polygon.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
 				_polygon.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				_polygon.setRotate(i * this.rotationSpeed,centerX,centerY);
 				break;
 			case "pentagon":
 				var _polygon1 = this.sketch.makePolygon([]);
 				_polygon1.sides(centerX,centerY,5,(this.startW - offsetX * i) * .5);
-				_polygon1.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				_polygon1.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
 				_polygon1.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				_polygon1.setRotate(i * this.rotationSpeed,centerX,centerY);
 				break;
 			case "rectangle":
 				var shape2 = this.sketch.makeRectangle(centerX,centerY,this.startW - offsetX * i,this.startH - offsetY * i * .5);
-				shape2.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				shape2.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
 				shape2.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				shape2.setRotate(i * this.rotationSpeed);
 				break;
 			case "square":
 				var shape3 = this.sketch.makeRectangle(centerX,centerY,this.startW - offsetX * i,this.startH - offsetY * i);
-				shape3.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				shape3.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
 				shape3.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				shape3.setRotate(i * this.rotationSpeed);
 				break;
 			case "triangle":
 				var _polygon2 = this.sketch.makePolygon([]);
 				_polygon2.sides(centerX,centerY,3,(this.startW - offsetX * i) * .5);
-				_polygon2.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
+				_polygon2.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
 				_polygon2.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				_polygon2.setRotate(i * this.rotationSpeed,centerX,centerY);
 				break;
 			default:
-				haxe_Log.trace("case '" + this.selectedShape + "': trace ('" + this.selectedShape + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 196, className : "interactive.Squares", methodName : "drawShape"});
+				haxe_Log.trace("case '" + this.selectedShape + "': trace ('" + this.selectedShape + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 218, className : "interactive.Squares", methodName : "drawShape"});
 			}
 		}
 		this.sketch.update();
@@ -2181,7 +1439,7 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 	}
 	,initGamepad: function() {
 		var gamePad = new SNES();
-		gamePad.setup();
+		gamePad.setup(false,false);
 		gamePad.onSelectOnce($bind(this,this.onSelectHandler));
 		gamePad.onStartOnce($bind(this,this.onStartHandler));
 		gamePad.onLeftBottomOnce($bind(this,this.onLeftBottomHandler));
@@ -2207,9 +1465,6 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 	}
 	,onStartHandler: function(e) {
 		$global.console.log(" onStartHandler:",e);
-	}
-	,onButtonOnce: function(e) {
-		$global.console.log(" >> onButtonOnce:",e);
 	}
 	,onLeftBottomHandler: function(e) {
 		this.currentSpeed--;
@@ -2264,7 +1519,7 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 			}
 			break;
 		default:
-			haxe_Log.trace("case '" + e.get_id() + "': trace ('" + e.get_id() + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 323, className : "interactive.Squares", methodName : "onButton"});
+			haxe_Log.trace("case '" + e.get_id() + "': trace ('" + e.get_id() + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 345, className : "interactive.Squares", methodName : "onButton"});
 		}
 	}
 	,__class__: interactive_Squares
@@ -2380,99 +1635,12 @@ js_Boot.__string_rec = function(o,s) {
 		return String(o);
 	}
 };
-js_Boot.__interfLoop = function(cc,cl) {
-	if(cc == null) {
-		return false;
-	}
-	if(cc == cl) {
-		return true;
-	}
-	var intf = cc.__interfaces__;
-	if(intf != null) {
-		var _g = 0;
-		var _g1 = intf.length;
-		while(_g < _g1) {
-			var i = _g++;
-			var i1 = intf[i];
-			if(i1 == cl || js_Boot.__interfLoop(i1,cl)) {
-				return true;
-			}
-		}
-	}
-	return js_Boot.__interfLoop(cc.__super__,cl);
-};
-js_Boot.__instanceof = function(o,cl) {
-	if(cl == null) {
-		return false;
-	}
-	switch(cl) {
-	case Array:
-		return ((o) instanceof Array);
-	case Bool:
-		return typeof(o) == "boolean";
-	case Dynamic:
-		return o != null;
-	case Float:
-		return typeof(o) == "number";
-	case Int:
-		if(typeof(o) == "number") {
-			return ((o | 0) === o);
-		} else {
-			return false;
-		}
-		break;
-	case String:
-		return typeof(o) == "string";
-	default:
-		if(o != null) {
-			if(typeof(cl) == "function") {
-				if(js_Boot.__downcastCheck(o,cl)) {
-					return true;
-				}
-			} else if(typeof(cl) == "object" && js_Boot.__isNativeObj(cl)) {
-				if(((o) instanceof cl)) {
-					return true;
-				}
-			}
-		} else {
-			return false;
-		}
-		if(cl == Class ? o.__name__ != null : false) {
-			return true;
-		}
-		if(cl == Enum ? o.__ename__ != null : false) {
-			return true;
-		}
-		return o.__enum__ != null ? $hxEnums[o.__enum__] == cl : false;
-	}
-};
-js_Boot.__downcastCheck = function(o,cl) {
-	if(!((o) instanceof cl)) {
-		if(cl.__isInterface__) {
-			return js_Boot.__interfLoop(js_Boot.getClass(o),cl);
-		} else {
-			return false;
-		}
-	} else {
-		return true;
-	}
-};
-js_Boot.__cast = function(o,t) {
-	if(o == null || js_Boot.__instanceof(o,t)) {
-		return o;
-	} else {
-		throw haxe_Exception.thrown("Cannot cast " + Std.string(o) + " to " + Std.string(t));
-	}
-};
 js_Boot.__nativeClassName = function(o) {
 	var name = js_Boot.__toStr.call(o).slice(8,-1);
 	if(name == "Object" || name == "Function" || name == "Math" || name == "JSON") {
 		return null;
 	}
 	return name;
-};
-js_Boot.__isNativeObj = function(o) {
-	return js_Boot.__nativeClassName(o) != null;
 };
 js_Boot.__resolveNativeClass = function(name) {
 	return $global[name];
@@ -2492,12 +1660,6 @@ js_html__$CanvasElement_CanvasUtil.getContextWebGL = function(canvas,attribs) {
 	}
 	return null;
 };
-var sketcher_AST = function() { };
-sketcher_AST.__name__ = "sketcher.AST";
-var sketcher_App = function() { };
-sketcher_App.__name__ = "sketcher.App";
-var sketcher_draw_AST = function() { };
-sketcher_draw_AST.__name__ = "sketcher.draw.AST";
 var sketcher_draw_Base = function(name) {
 	this.transArr = [];
 	this.dash = [];
@@ -2507,32 +1669,7 @@ var sketcher_draw_Base = function(name) {
 };
 sketcher_draw_Base.__name__ = "sketcher.draw.Base";
 sketcher_draw_Base.prototype = {
-	setID: function(id) {
-		this.set_id(id);
-	}
-	,setMask: function(id) {
-		this.xml.set("mask","url(#" + id + ")");
-		this.set_maskID(id);
-	}
-	,setPosition: function(x,y) {
-		this.set_move({ x : x, y : y});
-		if(y == null) {
-			this.set_move({ x : x, y : 0});
-		}
-		var str = "translate(" + x;
-		if(y != null) {
-			str += "," + y;
-		}
-		str += ")";
-		this.transArr.push(str);
-	}
-	,setMove: function(x,y) {
-		this.setPosition(x,y);
-	}
-	,setPlusPosition: function(x,y) {
-		this.setPosition(x,y);
-	}
-	,setRotate: function(degree,rx,ry) {
+	setRotate: function(degree,rx,ry) {
 		if(ry == null) {
 			ry = 0;
 		}
@@ -2548,14 +1685,6 @@ sketcher_draw_Base.prototype = {
 		}
 		if(ry != 0) {
 			str += "," + ry;
-		}
-		str += ")";
-		this.transArr.push(str);
-	}
-	,setScale: function(x,y) {
-		var str = "scale(" + x;
-		if(y != null) {
-			str += "," + y;
 		}
 		str += ")";
 		this.transArr.push(str);
@@ -2582,12 +1711,6 @@ sketcher_draw_Base.prototype = {
 		this.set_strokeOpacity(opacity);
 		return this;
 	}
-	,noStroke: function() {
-		this.set_lineWeight(0);
-		this.set_strokeColor("transparant");
-		this.set_strokeOpacity(0);
-		return this;
-	}
 	,setFill: function(color,opacity) {
 		if(opacity == null) {
 			opacity = 1;
@@ -2595,45 +1718,6 @@ sketcher_draw_Base.prototype = {
 		this.set_fillColor(color);
 		this.set_fillOpacity(opacity);
 		return this;
-	}
-	,noFill: function() {
-		this.set_fillOpacity(0);
-		this.set_fillColor("transparant");
-		return this;
-	}
-	,setShadow: function(color,blur,offsetx,offsety) {
-		if(offsety == null) {
-			offsety = 0;
-		}
-		if(offsetx == null) {
-			offsetx = 0;
-		}
-		if(blur == null) {
-			blur = 0;
-		}
-		this.set_shadowColor(color);
-		this.set_shadowBlur(blur);
-		this.set_shadowOffsetX(offsetx);
-		this.set_shadowOffsetY(offsety);
-	}
-	,setLineEnds: function(linecap,linejoin) {
-		if(linejoin == null) {
-			linejoin = "round";
-		}
-		if(linecap == null) {
-			linecap = "round";
-		}
-		this.set_lineCap(linecap);
-		this.set_lineJoin(linejoin);
-		return this;
-	}
-	,setClass: function(className) {
-		this.set_className(className);
-		return this;
-	}
-	,clone: function() {
-		haxe_Log.trace("WIP",{ fileName : "sketcher/draw/Base.hx", lineNumber : 262, className : "sketcher.draw.Base", methodName : "clone"});
-		return js_Boot.__cast(JSON.parse(JSON.stringify(this)) , sketcher_draw_Base);
 	}
 	,convertID: function(id) {
 		return StringTools.replace(id.toLowerCase()," ","_");
@@ -2661,12 +1745,6 @@ sketcher_draw_Base.prototype = {
 		if(this.get_lineJoin() == null) {
 			this.set_lineJoin("miter");
 		}
-	}
-	,get_maskID: function() {
-		return this.maskID;
-	}
-	,set_maskID: function(value) {
-		return this.maskID = value;
 	}
 	,get_id: function() {
 		if(this.id == null) {
@@ -2696,13 +1774,6 @@ sketcher_draw_Base.prototype = {
 	,set_fillColor: function(value) {
 		return this.set_fill(value);
 	}
-	,get_fillGradientColor: function() {
-		return this.get_fill();
-	}
-	,set_fillGradientColor: function(value) {
-		value = this.convertID(value);
-		return this.set_fill("url(#" + value + ")");
-	}
 	,get_stroke: function() {
 		return this.stroke;
 	}
@@ -2723,20 +1794,8 @@ sketcher_draw_Base.prototype = {
 		this.xml.set("stroke-width",value == null ? "null" : "" + value);
 		return this.lineWeight = value;
 	}
-	,get_strokeWeight: function() {
-		return this.get_lineWeight();
-	}
 	,set_strokeWeight: function(value) {
 		return this.set_lineWeight(value);
-	}
-	,get_opacity: function() {
-		return this.opacity;
-	}
-	,set_opacity: function(value) {
-		var v = sketcher_util_MathUtil.clamp(value,0,1);
-		this.set_fillOpacity(v);
-		this.set_strokeOpacity(v);
-		return this.opacity = v;
 	}
 	,get_strokeOpacity: function() {
 		return this.strokeOpacity;
@@ -2769,9 +1828,6 @@ sketcher_draw_Base.prototype = {
 	,get_rotate: function() {
 		return this.rotate;
 	}
-	,set_rotate: function(value) {
-		return this.rotate = value;
-	}
 	,get_rx: function() {
 		return this.rx;
 	}
@@ -2787,34 +1843,8 @@ sketcher_draw_Base.prototype = {
 	,get_move: function() {
 		return this.move;
 	}
-	,set_move: function(value) {
-		return this.move = value;
-	}
-	,get_transform: function() {
-		return this.transform;
-	}
-	,set_transform: function(value) {
-		return this.transform = value;
-	}
 	,get_dash: function() {
 		return this.dash;
-	}
-	,set_dash: function(value) {
-		var str = "";
-		var _g = 0;
-		var _g1 = value.length;
-		while(_g < _g1) {
-			var i = _g++;
-			str += value[i] + " ";
-		}
-		this.xml.set("stroke-dasharray",str);
-		return this.dash = value;
-	}
-	,get_desc: function() {
-		return this.desc;
-	}
-	,set_desc: function(value) {
-		return this.desc = value;
 	}
 	,get_lineCap: function() {
 		return this.lineCap;
@@ -2830,79 +1860,12 @@ sketcher_draw_Base.prototype = {
 		this.xml.set("stroke-linejoin",Std.string(value));
 		return this.lineJoin = value;
 	}
-	,get_shadowColor: function() {
-		return this.shadowColor;
-	}
-	,set_shadowColor: function(value) {
-		return this.shadowColor = value;
-	}
-	,get_shadowBlur: function() {
-		return this.shadowBlur;
-	}
-	,set_shadowBlur: function(value) {
-		return this.shadowBlur = value;
-	}
-	,get_shadowOffsetX: function() {
-		return this.shadowOffsetX;
-	}
-	,set_shadowOffsetX: function(value) {
-		return this.shadowOffsetX = value;
-	}
-	,get_shadowOffsetY: function() {
-		return this.shadowOffsetY;
-	}
-	,set_shadowOffsetY: function(value) {
-		return this.shadowOffsetY = value;
-	}
-	,get_isVisible: function() {
-		return this.isVisible;
-	}
-	,set_isVisible: function(value) {
-		var _opacity = 0;
-		if(value) {
-			_opacity = 1;
-		}
-		this.set_fillOpacity(_opacity);
-		this.set_strokeOpacity(_opacity);
-		return this.isVisible = value;
-	}
-	,get_count: function() {
-		return sketcher_draw_Base.COUNT;
-	}
-	,get_className: function() {
-		return this.className;
-	}
-	,set_className: function(value) {
-		this.xml.set("class",value == null ? "null" : "" + value);
-		return this.className = value;
-	}
 	,getName: function() {
 		var c = js_Boot.getClass(this);
 		var name = c.__name__;
 		return "" + name;
 	}
-	,toObject: function() {
-		var c = js_Boot.getClass(this);
-		var name = c.__name__;
-		return JSON.parse(JSON.stringify(this));
-	}
-	,toString: function() {
-		var c = js_Boot.getClass(this);
-		var name = c.__name__;
-		return "" + name + ": " + Std.string(JSON.parse(JSON.stringify(this)));
-	}
-	,toSvg: function() {
-		throw haxe_Exception.thrown("Not implemented yet");
-	}
 	,__class__: sketcher_draw_Base
-	,__properties__: {set_shadowOffsetY:"set_shadowOffsetY",get_shadowOffsetY:"get_shadowOffsetY",set_shadowOffsetX:"set_shadowOffsetX",get_shadowOffsetX:"get_shadowOffsetX",set_shadowBlur:"set_shadowBlur",get_shadowBlur:"get_shadowBlur",set_shadowColor:"set_shadowColor",get_shadowColor:"get_shadowColor",set_lineJoin:"set_lineJoin",get_lineJoin:"get_lineJoin",set_lineCap:"set_lineCap",get_lineCap:"get_lineCap",set_className:"set_className",get_className:"get_className",set_desc:"set_desc",get_desc:"get_desc",set_dash:"set_dash",get_dash:"get_dash",set_transform:"set_transform",get_transform:"get_transform",set_move:"set_move",get_move:"get_move",get_rotate:"get_rotate",set_isVisible:"set_isVisible",get_isVisible:"get_isVisible",set_fillOpacity:"set_fillOpacity",get_fillOpacity:"get_fillOpacity",set_strokeOpacity:"set_strokeOpacity",get_strokeOpacity:"get_strokeOpacity",set_opacity:"set_opacity",get_opacity:"get_opacity",set_strokeWeight:"set_strokeWeight",get_strokeWeight:"get_strokeWeight",set_lineWeight:"set_lineWeight",get_lineWeight:"get_lineWeight",set_strokeColor:"set_strokeColor",get_strokeColor:"get_strokeColor",set_stroke:"set_stroke",get_stroke:"get_stroke",set_fillGradientColor:"set_fillGradientColor",get_fillGradientColor:"get_fillGradientColor",set_fillColor:"set_fillColor",get_fillColor:"get_fillColor",set_fill:"set_fill",get_fill:"get_fill",set_maskID:"set_maskID",get_maskID:"get_maskID",set_ry:"set_ry",get_ry:"get_ry",set_rx:"set_rx",get_rx:"get_rx",set_y:"set_y",get_y:"get_y",set_x:"set_x",get_x:"get_x",set_id:"set_id",get_id:"get_id",get_count:"get_count"}
-};
-var sketcher_draw_IBase = function() { };
-sketcher_draw_IBase.__name__ = "sketcher.draw.IBase";
-sketcher_draw_IBase.__isInterface__ = true;
-sketcher_draw_IBase.prototype = {
-	__class__: sketcher_draw_IBase
-	,__properties__: {set_id:"set_id",get_id:"get_id"}
 };
 var sketcher_draw_Background = function(color) {
 	this.type = "background";
@@ -2911,7 +1874,6 @@ var sketcher_draw_Background = function(color) {
 	this.set_id("background-layer");
 };
 sketcher_draw_Background.__name__ = "sketcher.draw.Background";
-sketcher_draw_Background.__interfaces__ = [sketcher_draw_IBase];
 sketcher_draw_Background.__super__ = sketcher_draw_Base;
 sketcher_draw_Background.prototype = $extend(sketcher_draw_Base.prototype,{
 	svg: function(settings) {
@@ -3002,224 +1964,6 @@ sketcher_draw_Background.prototype = $extend(sketcher_draw_Base.prototype,{
 	}
 	,__class__: sketcher_draw_Background
 });
-var sketcher_draw_Button = function(x,y,width,height,isCenter) {
-	if(isCenter == null) {
-		isCenter = true;
-	}
-	this.type = "rectangle";
-	this.set_x(x);
-	this.set_y(y);
-	this.set_width(width);
-	this.set_height(height);
-	this.cx = this.get_x() - this.get_width() / 2;
-	this.cy = this.get_y() - this.get_height() / 2;
-	this.isCenter = isCenter;
-	if(!isCenter) {
-		this.cx = this.get_x();
-		this.cy = this.get_y();
-	}
-	this.point_top_left = { x : this.cx, y : this.cy};
-	this.point_top_right = { x : this.cx + this.get_width(), y : this.cy};
-	this.point_bottom_left = { x : this.cx, y : this.cy + this.get_height()};
-	this.point_bottom_right = { x : this.cx + this.get_width(), y : this.cy + this.get_height()};
-	sketcher_draw_Base.call(this,"rect");
-};
-sketcher_draw_Button.__name__ = "sketcher.draw.Button";
-sketcher_draw_Button.__interfaces__ = [sketcher_draw_IBase];
-sketcher_draw_Button.__super__ = sketcher_draw_Base;
-sketcher_draw_Button.prototype = $extend(sketcher_draw_Base.prototype,{
-	svg: function(settings) {
-		this.xml.set("x",Std.string(this.cx));
-		this.xml.set("y",Std.string(this.cy));
-		this.xml.set("width",Std.string(this.get_width()));
-		this.xml.set("height",Std.string(this.get_height()));
-		if(this.get_radius() != null) {
-			this.xml.set("rx",Std.string(this.get_radius()));
-			this.xml.set("ry",Std.string(this.get_radius()));
-		}
-		if(this.getTransform() != "") {
-			this.xml.set("transform",this.getTransform());
-		}
-		return haxe_xml_Printer.print(this.xml);
-	}
-	,useCanvasShadow: function(ctx) {
-		if(this.get_shadowColor() != null) {
-			ctx.shadowColor = this.get_shadowColor();
-			ctx.shadowBlur = this.get_shadowBlur();
-			ctx.shadowOffsetX = this.get_shadowOffsetX();
-			ctx.shadowOffsetY = this.get_shadowOffsetY();
-		}
-	}
-	,ctx: function(ctx) {
-		var _gthis = this;
-		this.rect = Sketcher.ctx.canvas.getBoundingClientRect();
-		this.scale = this.rect.width / Globals.w;
-		this.useDefaultsCanvas();
-		if(this.get_lineCap() != null) {
-			ctx.lineCap = this.get_lineCap();
-		}
-		ctx.lineWidth = this.get_lineWeight();
-		var value = this.get_fillColor();
-		var _r = 0;
-		var _g = 0;
-		var _b = 0;
-		var _a = 1;
-		value = StringTools.replace(value," ","");
-		if(value.indexOf("rgba") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgba(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-			_a = arr[3];
-		} else if(value.indexOf("rgb") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgb(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-		} else if(value.indexOf("#") != -1) {
-			var int = Std.parseInt(StringTools.replace(value,"#","0x"));
-			var rgb_r = int >> 16 & 255;
-			var rgb_g = int >> 8 & 255;
-			var rgb_b = int & 255;
-			_r = rgb_r;
-			_g = rgb_g;
-			_b = rgb_b;
-		}
-		var _fillColor = { r : _r, g : _g, b : _b, a : _a};
-		ctx.fillStyle = sketcher_util_ColorUtil.getColourObj(_fillColor,this.get_fillOpacity());
-		var value = this.get_strokeColor();
-		var _r = 0;
-		var _g = 0;
-		var _b = 0;
-		var _a = 1;
-		value = StringTools.replace(value," ","");
-		if(value.indexOf("rgba") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgba(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-			_a = arr[3];
-		} else if(value.indexOf("rgb") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgb(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-		} else if(value.indexOf("#") != -1) {
-			var int = Std.parseInt(StringTools.replace(value,"#","0x"));
-			var rgb_r = int >> 16 & 255;
-			var rgb_g = int >> 8 & 255;
-			var rgb_b = int & 255;
-			_r = rgb_r;
-			_g = rgb_g;
-			_b = rgb_b;
-		}
-		var _strokeColor = { r : _r, g : _g, b : _b, a : _a};
-		ctx.strokeStyle = sketcher_util_ColorUtil.getColourObj(_strokeColor,this.get_strokeOpacity());
-		if(this.get_dash() != null) {
-			ctx.setLineDash(this.get_dash());
-		}
-		ctx.beginPath();
-		if(this.get_rotate() != null && this.get_move() == null) {
-			ctx.save();
-			ctx.translate(this.get_x(),this.get_y());
-			ctx.rotate(sketcher_util_MathUtil.radians(this.get_rotate()));
-			ctx.arc(0,0,10,0,2 * Math.PI);
-			ctx.rect(-(this.get_width() / 2),-(this.get_height() / 2),this.get_width(),this.get_height());
-			ctx.restore();
-		}
-		if(this.get_move() != null && this.get_rotate() == null) {
-			ctx.save();
-			ctx.translate(this.cx,this.cy);
-			ctx.translate(this.get_move().x,this.get_move().y);
-			ctx.rect(0,0,this.get_width(),this.get_height());
-			ctx.restore();
-		}
-		if(this.get_rotate() == null && this.get_move() == null) {
-			this.buildCanvasShape(ctx);
-		}
-		if(this.get_fill() != null) {
-			ctx.fill();
-		}
-		if(this.get_stroke() != null && this.get_lineWeight() != 0) {
-			ctx.stroke();
-		}
-		Sketcher.ctx.canvas.addEventListener("mousedown",function(e) {
-			Globals.mouseX = e.clientX - _gthis.rect.left;
-			Globals.mouseY = e.clientY - _gthis.rect.top;
-			if(_gthis.isMouseOver()) {
-				haxe_Log.trace("click",{ fileName : "sketcher/draw/Button.hx", lineNumber : 208, className : "sketcher.draw.Button", methodName : "ctx"});
-			}
-			return Globals.isMouseDown = true;
-		});
-		Sketcher.ctx.canvas.addEventListener("mousemove",function(e) {
-			Globals.mouseX = e.clientX - _gthis.rect.left;
-			Globals.mouseY = e.clientY - _gthis.rect.top;
-			if(_gthis.isMouseOver()) {
-				return Sketcher.ctx.canvas.style.cursor = "pointer";
-			} else {
-				return Sketcher.ctx.canvas.style.cursor = "default";
-			}
-		});
-		window.addEventListener("mouseup",function(e) {
-			if(Globals.isMouseDown == true) {
-				Globals.isMouseDown = false;
-			}
-		});
-	}
-	,isMouseOver: function() {
-		if(Globals.mouseX >= this.point_top_left.x * this.scale && Globals.mouseX <= this.point_bottom_right.x * this.scale && Globals.mouseY >= this.point_top_left.y * this.scale && Globals.mouseY <= this.point_bottom_right.y * this.scale) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	,buildCanvasShape: function(ctx) {
-		if(this.get_radius() == null) {
-			ctx.rect(this.cx,this.cy,this.get_width(),this.get_height());
-		} else {
-			var radius_tl = this.get_radius();
-			var radius_tr = this.get_radius();
-			var radius_br = this.get_radius();
-			var radius_bl = this.get_radius();
-			ctx.moveTo(this.cx + radius_tl,this.cy);
-			ctx.lineTo(this.cx + this.get_width() - radius_tr,this.cy);
-			ctx.quadraticCurveTo(this.cx + this.get_width(),this.cy,this.cx + this.get_width(),this.cy + radius_tr);
-			ctx.lineTo(this.cx + this.get_width(),this.cy + this.get_height() - radius_br);
-			ctx.quadraticCurveTo(this.cx + this.get_width(),this.cy + this.get_height(),this.cx + this.get_width() - radius_br,this.cy + this.get_height());
-			ctx.lineTo(this.cx + radius_bl,this.cy + this.get_height());
-			ctx.quadraticCurveTo(this.cx,this.cy + this.get_height(),this.cx,this.cy + this.get_height() - radius_bl);
-			ctx.lineTo(this.cx,this.cy + radius_tl);
-			ctx.quadraticCurveTo(this.cx,this.cy,this.cx + radius_tl,this.cy);
-			ctx.closePath();
-		}
-	}
-	,gl: function(gl) {
-	}
-	,get_radius: function() {
-		return this.radius;
-	}
-	,set_radius: function(value) {
-		return this.radius = value;
-	}
-	,get_width: function() {
-		return this.width;
-	}
-	,set_width: function(value) {
-		return this.width = value;
-	}
-	,get_height: function() {
-		return this.height;
-	}
-	,set_height: function(value) {
-		return this.height = value;
-	}
-	,__class__: sketcher_draw_Button
-	,__properties__: $extend(sketcher_draw_Base.prototype.__properties__,{set_radius:"set_radius",get_radius:"get_radius",set_height:"set_height",get_height:"get_height",set_width:"set_width",get_width:"get_width"})
-});
 var sketcher_draw_Circle = function(x,y,radius) {
 	this.type = "circle";
 	this.set_x(x);
@@ -3228,7 +1972,6 @@ var sketcher_draw_Circle = function(x,y,radius) {
 	sketcher_draw_Base.call(this,"circle");
 };
 sketcher_draw_Circle.__name__ = "sketcher.draw.Circle";
-sketcher_draw_Circle.__interfaces__ = [sketcher_draw_IBase];
 sketcher_draw_Circle.__super__ = sketcher_draw_Base;
 sketcher_draw_Circle.prototype = $extend(sketcher_draw_Base.prototype,{
 	svg: function(settings) {
@@ -3336,9 +2079,6 @@ sketcher_draw_Circle.prototype = $extend(sketcher_draw_Base.prototype,{
 	}
 	,gl: function(gl) {
 	}
-	,debug: function() {
-		haxe_Log.trace("" + this.toString(),{ fileName : "sketcher/draw/Circle.hx", lineNumber : 96, className : "sketcher.draw.Circle", methodName : "debug"});
-	}
 	,get_radius: function() {
 		return this.radius;
 	}
@@ -3346,7 +2086,6 @@ sketcher_draw_Circle.prototype = $extend(sketcher_draw_Base.prototype,{
 		return this.radius = value;
 	}
 	,__class__: sketcher_draw_Circle
-	,__properties__: $extend(sketcher_draw_Base.prototype.__properties__,{set_radius:"set_radius",get_radius:"get_radius"})
 });
 var sketcher_draw_Ellipse = function(x,y,rx,ry) {
 	this.type = "Ellipse";
@@ -3357,7 +2096,6 @@ var sketcher_draw_Ellipse = function(x,y,rx,ry) {
 	sketcher_draw_Base.call(this,"ellipse");
 };
 sketcher_draw_Ellipse.__name__ = "sketcher.draw.Ellipse";
-sketcher_draw_Ellipse.__interfaces__ = [sketcher_draw_IBase];
 sketcher_draw_Ellipse.__super__ = sketcher_draw_Base;
 sketcher_draw_Ellipse.prototype = $extend(sketcher_draw_Base.prototype,{
 	svg: function(settings) {
@@ -3372,6 +2110,10 @@ sketcher_draw_Ellipse.prototype = $extend(sketcher_draw_Base.prototype,{
 	}
 	,ctx: function(ctx) {
 		this.useDefaultsCanvas();
+		if(this.get_lineCap() != null) {
+			ctx.lineCap = this.get_lineCap();
+		}
+		ctx.lineWidth = this.get_lineWeight();
 		var value = this.get_fillColor();
 		var _r = 0;
 		var _g = 0;
@@ -3459,19 +2201,18 @@ sketcher_draw_Ellipse.prototype = $extend(sketcher_draw_Base.prototype,{
 		return this.rrx = value;
 	}
 	,__class__: sketcher_draw_Ellipse
-	,__properties__: $extend(sketcher_draw_Base.prototype.__properties__,{set_rrx:"set_rrx",get_rrx:"get_rrx",set_rry:"set_rry",get_rry:"get_rry"})
 });
 var sketcher_draw_Gradient = function(color0,color1,isLinear) {
 	if(isLinear == null) {
 		isLinear = true;
 	}
+	this.dir = sketcher_draw_GradientDir.LeftRight;
 	this.type = "gradient";
 	this.color0 = color0;
 	this.color1 = color1;
 	sketcher_draw_Base.call(this,"linearGradient");
 };
 sketcher_draw_Gradient.__name__ = "sketcher.draw.Gradient";
-sketcher_draw_Gradient.__interfaces__ = [sketcher_draw_IBase];
 sketcher_draw_Gradient.__super__ = sketcher_draw_Base;
 sketcher_draw_Gradient.prototype = $extend(sketcher_draw_Base.prototype,{
 	svg: function(settings) {
@@ -3492,7 +2233,21 @@ sketcher_draw_Gradient.prototype = $extend(sketcher_draw_Base.prototype,{
 		}
 		var w = ctx.canvas.width;
 		var h = ctx.canvas.height;
-		var grd = ctx.createLinearGradient(0,0,w,0);
+		var grd;
+		switch(this.dir._hx_index) {
+		case 0:
+			grd = ctx.createLinearGradient(0,0,w,0);
+			break;
+		case 1:
+			grd = ctx.createLinearGradient(0,w,0,0);
+			break;
+		case 2:
+			grd = ctx.createLinearGradient(0,0,0,h);
+			break;
+		case 3:
+			grd = ctx.createLinearGradient(h,0,0,0);
+			break;
+		}
 		grd.addColorStop(0,"" + this.color0);
 		grd.addColorStop(1,"" + this.color1);
 		this.canvasGradient = grd;
@@ -3502,660 +2257,23 @@ sketcher_draw_Gradient.prototype = $extend(sketcher_draw_Base.prototype,{
 	}
 	,gl: function(gl) {
 	}
+	,setGradientDirection: function(dir) {
+		this.dir = dir;
+	}
 	,__class__: sketcher_draw_Gradient
 });
-var sketcher_draw_Group = function(arr) {
-	this.isOpacityOverride = false;
-	this.type = "group";
-	this.set_arr(arr);
-	sketcher_draw_Base.call(this,"g");
+var sketcher_draw_GradientDir = $hxEnums["sketcher.draw.GradientDir"] = { __ename__ : true, __constructs__ : ["LeftRight","RighLeft","TopBottom","BottomTop"]
+	,LeftRight: {_hx_index:0,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,RighLeft: {_hx_index:1,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,TopBottom: {_hx_index:2,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,BottomTop: {_hx_index:3,__enum__:"sketcher.draw.GradientDir",toString:$estr}
 };
-sketcher_draw_Group.__name__ = "sketcher.draw.Group";
-sketcher_draw_Group.__interfaces__ = [sketcher_draw_IBase];
-sketcher_draw_Group.__super__ = sketcher_draw_Base;
-sketcher_draw_Group.prototype = $extend(sketcher_draw_Base.prototype,{
-	svg: function(settings) {
-		if(this.get_x() > 0 && this.get_y() > 0) {
-			this.transArr.push("translate(" + this.get_x() + ", " + this.get_y() + ")");
-		}
-		if(this.getTransform() != "") {
-			this.xml.set("transform",this.getTransform());
-		}
-		if(this.isOpacityOverride) {
-			this.xml.set("opacity-override","true");
-		}
-		var comment = Xml.createComment("Group: " + this.get_id());
-		this.xml.addChild(comment);
-		this.xml.addChild(Xml.parse("<desc>" + this.get_id() + "</desc>"));
-		var _g = 0;
-		var _g1 = this.get_arr().length;
-		while(_g < _g1) {
-			var i = _g++;
-			var base = this.get_arr()[i];
-			this.xml.addChild(Xml.parse(base.svg(null)));
-		}
-		return haxe_xml_Printer.print(this.xml);
-	}
-	,ctx: function(ctx) {
-		if(!sketcher_draw_Group.ISWARN) {
-			$global.console.groupCollapsed("Group (" + this.get_id() + ") info canvas");
-			$global.console.info("the following work\n- strokeOpacity\n- fillOpacity\n- fillColor\n- strokeColor\n- strokeWeight\n- rotate");
-			$global.console.warn("doesn't work\n- move");
-			$global.console.groupEnd();
-			sketcher_draw_Group.ISWARN = true;
-		}
-		var _g = 0;
-		var _g1 = this.get_arr().length;
-		while(_g < _g1) {
-			var i = _g++;
-			var base = this.get_arr()[i];
-			if(base == null) {
-				continue;
-			}
-			if(this.get_fillOpacity() != null && (js_Boot.__cast(base , sketcher_draw_Base)).get_fillOpacity() == null) {
-				(js_Boot.__cast(base , sketcher_draw_Base)).set_fillOpacity(this.get_fillOpacity());
-			}
-			if(this.get_strokeOpacity() != null && (js_Boot.__cast(base , sketcher_draw_Base)).get_strokeOpacity() == null) {
-				(js_Boot.__cast(base , sketcher_draw_Base)).set_strokeOpacity(this.get_strokeOpacity());
-			}
-			if(this.get_fillColor() != null && (js_Boot.__cast(base , sketcher_draw_Base)).get_fillColor() == null) {
-				(js_Boot.__cast(base , sketcher_draw_Base)).set_fillColor(this.get_fillColor());
-			}
-			if(this.get_strokeColor() != null && (js_Boot.__cast(base , sketcher_draw_Base)).get_strokeColor() == null) {
-				(js_Boot.__cast(base , sketcher_draw_Base)).set_strokeColor(this.get_strokeColor());
-			}
-			if(this.get_strokeWeight() != null) {
-				(js_Boot.__cast(base , sketcher_draw_Base)).set_strokeWeight(this.get_strokeWeight());
-			}
-			if(this.isOpacityOverride) {
-				(js_Boot.__cast(base , sketcher_draw_Base)).set_strokeOpacity(this.get_strokeOpacity());
-				(js_Boot.__cast(base , sketcher_draw_Base)).set_fillOpacity(this.get_fillOpacity());
-			}
-		}
-		var newCanvas = window.document.createElement("canvas");
-		newCanvas.width = ctx.canvas.width;
-		newCanvas.height = ctx.canvas.height;
-		var newCtx = newCanvas.getContext("2d",null);
-		var _g = 0;
-		var _g1 = this.get_arr().length;
-		while(_g < _g1) {
-			var i = _g++;
-			var base = this.get_arr()[i];
-			if(base == null) {
-				continue;
-			}
-			base.ctx(newCtx);
-		}
-		if(this.get_rotate() != null) {
-			ctx.save();
-			ctx.translate(this.get_rx(),this.get_ry());
-			ctx.rotate(sketcher_util_MathUtil.radians(this.get_rotate()));
-			ctx.drawImage(newCanvas,-this.get_rx(),-this.get_ry());
-			ctx.restore();
-		} else {
-			ctx.drawImage(newCanvas,0,0);
-		}
-	}
-	,gl: function(gl) {
-	}
-	,hide: function() {
-		this.set_fillOpacity(0);
-		this.set_strokeOpacity(0);
-		this.isOpacityOverride = true;
-	}
-	,test: function() {
-		haxe_Log.trace("test if casting works",{ fileName : "sketcher/draw/Group.hx", lineNumber : 142, className : "sketcher.draw.Group", methodName : "test"});
-	}
-	,get_arr: function() {
-		return this.arr;
-	}
-	,set_arr: function(value) {
-		return this.arr = value;
-	}
-	,__class__: sketcher_draw_Group
-	,__properties__: $extend(sketcher_draw_Base.prototype.__properties__,{set_arr:"set_arr",get_arr:"get_arr"})
-});
-var sketcher_draw_Image = function(x,y,href,width,height,isCenter) {
-	if(isCenter == null) {
-		isCenter = false;
-	}
-	this.type = "image";
-	this.set_x(x);
-	this.set_y(y);
-	this.set_href(href);
-	this.set_width(width);
-	this.set_height(height);
-	this.set_isCenter(isCenter);
-	if(isCenter) {
-		this.set_x(this.get_x() - this.get_width() / 2);
-		this.set_y(this.get_y() - this.get_height() / 2);
-	}
-	sketcher_draw_Base.call(this,"image");
-};
-sketcher_draw_Image.__name__ = "sketcher.draw.Image";
-sketcher_draw_Image.__interfaces__ = [sketcher_draw_IBase];
-sketcher_draw_Image.__super__ = sketcher_draw_Base;
-sketcher_draw_Image.prototype = $extend(sketcher_draw_Base.prototype,{
-	svg: function(settings) {
-		this.xml.set("x",Std.string(this.get_x()));
-		this.xml.set("y",Std.string(this.get_y()));
-		this.xml.set("href",Std.string(this.get_href()));
-		this.xml.set("width",Std.string(this.get_width()));
-		this.xml.set("height",Std.string(this.get_height()));
-		if(this.getTransform() != "") {
-			this.xml.set("transform",this.getTransform());
-		}
-		return haxe_xml_Printer.print(this.xml);
-	}
-	,ctx: function(ctx) {
-		var _gthis = this;
-		this.useDefaultsCanvas();
-		ctx.imageSmoothingEnabled = true;
-		ctx.imageSmoothingQuality = "high";
-		var img = new Image();
-		img.onload = function() {
-			var prop = img.height / img.width;
-			if(img.width < img.height) {
-				prop = img.width / img.height;
-			}
-			if(_gthis.get_rotate() != null) {
-				ctx.save();
-				ctx.translate(_gthis.get_x(),_gthis.get_y());
-				ctx.rotate(sketcher_util_MathUtil.radians(_gthis.get_rotate()));
-				if(_gthis.get_move() != null) {
-					ctx.translate(_gthis.get_move().x,_gthis.get_move().y);
-				}
-				if(_gthis.get_isCenter()) {
-					ctx.drawImage(img,-(_gthis.get_width() * 0),-(_gthis.get_height() * prop),_gthis.get_width(),_gthis.get_height() * prop);
-				} else {
-					ctx.drawImage(img,0,0,_gthis.get_width(),_gthis.get_height() * prop);
-				}
-				ctx.restore();
-			}
-			if(_gthis.get_rotate() == null) {
-				ctx.drawImage(img,_gthis.get_x(),_gthis.get_y(),_gthis.get_width(),_gthis.get_height() * prop);
-			}
-		};
-		img.onerror = function(e) {
-			$global.console.warn(e);
-		};
-		img.src = this.get_href();
-	}
-	,gl: function(gl) {
-	}
-	,get_href: function() {
-		return this.href;
-	}
-	,set_href: function(value) {
-		return this.href = value;
-	}
-	,get_width: function() {
-		return this.width;
-	}
-	,set_width: function(value) {
-		return this.width = value;
-	}
-	,get_height: function() {
-		return this.height;
-	}
-	,set_height: function(value) {
-		return this.height = value;
-	}
-	,get_isCenter: function() {
-		return this.isCenter;
-	}
-	,set_isCenter: function(value) {
-		return this.isCenter = value;
-	}
-	,get_preserveAspectRatio: function() {
-		return this.preserveAspectRatio;
-	}
-	,set_preserveAspectRatio: function(value) {
-		return this.preserveAspectRatio = value;
-	}
-	,__class__: sketcher_draw_Image
-	,__properties__: $extend(sketcher_draw_Base.prototype.__properties__,{set_isCenter:"set_isCenter",get_isCenter:"get_isCenter",set_preserveAspectRatio:"set_preserveAspectRatio",get_preserveAspectRatio:"get_preserveAspectRatio",set_height:"set_height",get_height:"get_height",set_width:"set_width",get_width:"get_width",set_href:"set_href",get_href:"get_href"})
-});
-var sketcher_draw_Line = function(x,y,x2,y2) {
-	this.type = "Line";
-	this.set_x(x);
-	this.set_y(y);
-	this.set_x2(x2);
-	this.set_y2(y2);
-	sketcher_draw_Base.call(this,"line");
-};
-sketcher_draw_Line.__name__ = "sketcher.draw.Line";
-sketcher_draw_Line.__interfaces__ = [sketcher_draw_IBase];
-sketcher_draw_Line.__super__ = sketcher_draw_Base;
-sketcher_draw_Line.prototype = $extend(sketcher_draw_Base.prototype,{
-	svg: function(settings) {
-		this.xml.set("x1",Std.string(this.get_x()));
-		this.xml.set("y1",Std.string(this.get_y()));
-		this.xml.set("x2",Std.string(this.get_x2()));
-		this.xml.set("y2",Std.string(this.get_y2()));
-		if(this.get_stroke() != null) {
-			this.xml.set("stroke",this.get_stroke());
-		}
-		if(this.get_lineWeight() != null) {
-			this.xml.set("stroke-width",Std.string(this.get_lineWeight()));
-		}
-		return haxe_xml_Printer.print(this.xml);
-	}
-	,ctx: function(ctx) {
-		this.useDefaultsCanvas();
-		if(this.get_lineCap() != null) {
-			ctx.lineCap = this.get_lineCap();
-		}
-		ctx.lineWidth = this.get_lineWeight();
-		var value = this.get_fillColor();
-		var _r = 0;
-		var _g = 0;
-		var _b = 0;
-		var _a = 1;
-		value = StringTools.replace(value," ","");
-		if(value.indexOf("rgba") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgba(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-			_a = arr[3];
-		} else if(value.indexOf("rgb") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgb(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-		} else if(value.indexOf("#") != -1) {
-			var int = Std.parseInt(StringTools.replace(value,"#","0x"));
-			var rgb_r = int >> 16 & 255;
-			var rgb_g = int >> 8 & 255;
-			var rgb_b = int & 255;
-			_r = rgb_r;
-			_g = rgb_g;
-			_b = rgb_b;
-		}
-		var _fillColor = { r : _r, g : _g, b : _b, a : _a};
-		ctx.fillStyle = sketcher_util_ColorUtil.getColourObj(_fillColor,this.get_fillOpacity());
-		var value = this.get_strokeColor();
-		var _r = 0;
-		var _g = 0;
-		var _b = 0;
-		var _a = 1;
-		value = StringTools.replace(value," ","");
-		if(value.indexOf("rgba") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgba(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-			_a = arr[3];
-		} else if(value.indexOf("rgb") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgb(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-		} else if(value.indexOf("#") != -1) {
-			var int = Std.parseInt(StringTools.replace(value,"#","0x"));
-			var rgb_r = int >> 16 & 255;
-			var rgb_g = int >> 8 & 255;
-			var rgb_b = int & 255;
-			_r = rgb_r;
-			_g = rgb_g;
-			_b = rgb_b;
-		}
-		var _strokeColor = { r : _r, g : _g, b : _b, a : _a};
-		ctx.strokeStyle = sketcher_util_ColorUtil.getColourObj(_strokeColor,this.get_strokeOpacity());
-		if(this.get_dash() != null) {
-			ctx.setLineDash(this.get_dash());
-		}
-		ctx.beginPath();
-		ctx.moveTo(this.get_x(),this.get_y());
-		ctx.lineTo(this.get_x2(),this.get_y2());
-		if(this.get_fill() != null) {
-			ctx.fill();
-		}
-		if(this.get_stroke() != null && this.get_lineWeight() != 0) {
-			ctx.stroke();
-		}
-	}
-	,gl: function(gl) {
-	}
-	,get_x2: function() {
-		return this.x2;
-	}
-	,set_x2: function(value) {
-		return this.x2 = value;
-	}
-	,get_y2: function() {
-		return this.y2;
-	}
-	,set_y2: function(value) {
-		return this.y2 = value;
-	}
-	,__class__: sketcher_draw_Line
-	,__properties__: $extend(sketcher_draw_Base.prototype.__properties__,{set_y2:"set_y2",get_y2:"get_y2",set_x2:"set_x2",get_x2:"get_x2"})
-});
-var sketcher_draw_Mask = function(arr) {
-	this.type = "mask";
-	this.set_arr(arr);
-	sketcher_draw_Base.call(this,"mask");
-};
-sketcher_draw_Mask.__name__ = "sketcher.draw.Mask";
-sketcher_draw_Mask.__interfaces__ = [sketcher_draw_IBase];
-sketcher_draw_Mask.__super__ = sketcher_draw_Base;
-sketcher_draw_Mask.prototype = $extend(sketcher_draw_Base.prototype,{
-	svg: function(settings) {
-		this.xml.set("x","0");
-		this.xml.set("y","0");
-		this.xml.set("width",Std.string(Globals.w));
-		this.xml.set("height",Std.string(Globals.h));
-		var comment = Xml.createComment("Mask: " + this.get_id());
-		this.xml.addChild(comment);
-		var _g = 0;
-		var _g1 = this.get_arr().length;
-		while(_g < _g1) {
-			var i = _g++;
-			var base = this.get_arr()[i];
-			(js_Boot.__cast(base , sketcher_draw_Base)).noStroke().setFill("#FFFFFF");
-			this.xml.addChild(Xml.parse(base.svg(null)));
-		}
-		return haxe_xml_Printer.print(this.xml);
-	}
-	,ctx: function(ctx) {
-		if(!sketcher_draw_Mask.ISWARN) {
-			$global.console.warn("Mask doens't work the same as svg, use with care");
-			sketcher_draw_Mask.ISWARN = true;
-		}
-		ctx.save();
-		var _g = 0;
-		var _g1 = this.get_arr().length;
-		while(_g < _g1) {
-			var i = _g++;
-			var base = this.get_arr()[i];
-			if(base == null) {
-				continue;
-			}
-			$global.console.info(this.get_id() + " --> " + base.type);
-			base.ctx(ctx);
-		}
-		ctx.clip();
-		ctx.restore();
-	}
-	,gl: function(gl) {
-	}
-	,get_arr: function() {
-		return this.arr;
-	}
-	,set_arr: function(value) {
-		return this.arr = value;
-	}
-	,__class__: sketcher_draw_Mask
-	,__properties__: $extend(sketcher_draw_Base.prototype.__properties__,{set_arr:"set_arr",get_arr:"get_arr"})
-});
-var sketcher_draw_Mirror = function(dir) {
-	this.baseArray = [];
-	this.type = "mirror";
-	if(dir == null) {
-		dir = "right";
-	}
-	this.dir = dir;
-	sketcher_draw_Base.call(this,"mirror");
-};
-sketcher_draw_Mirror.__name__ = "sketcher.draw.Mirror";
-sketcher_draw_Mirror.__interfaces__ = [sketcher_draw_IBase];
-sketcher_draw_Mirror.__super__ = sketcher_draw_Base;
-sketcher_draw_Mirror.prototype = $extend(sketcher_draw_Base.prototype,{
-	svg: function(settings) {
-		if(!sketcher_draw_Mirror.ISWARN) {
-			$global.console.warn("Mirror doens't work the same as canvas, use with care");
-			sketcher_draw_Mirror.ISWARN = true;
-		}
-		var _g = 0;
-		var _g1 = this.baseArray.length;
-		while(_g < _g1) {
-			var i = _g++;
-			var _baseArray = this.baseArray[i];
-		}
-		return haxe_xml_Printer.print(this.xml);
-	}
-	,ctx: function(ctx) {
-		if(!sketcher_draw_Mirror.ISWARN) {
-			$global.console.warn("Mirror works only for the right part of the sketch");
-			sketcher_draw_Mirror.ISWARN = true;
-		}
-		var _y = 0;
-		var _y2 = Globals.h / 2;
-		var _x = 0;
-		var _x2 = Globals.w / 2;
-		var _w = Globals.w / 2;
-		var _h = Globals.h / 2;
-		ctx.save();
-		ctx.translate(_x2,_y);
-		ctx.scale(-1,1);
-		ctx.clearRect(0,0,Globals.w,Globals.h);
-		ctx.drawImage(ctx.canvas,_x2,_y,Globals.w,Globals.h,0,0,Globals.w,Globals.h);
-		ctx.restore();
-	}
-	,gl: function(gl) {
-	}
-	,__class__: sketcher_draw_Mirror
-});
-var sketcher_draw_Path = function(x,y) {
-	this.type = "Path";
-	this.dArray = [];
-	this.moveTo(x,y);
-	sketcher_draw_Base.call(this,"path");
-};
-sketcher_draw_Path.__name__ = "sketcher.draw.Path";
-sketcher_draw_Path.__interfaces__ = [sketcher_draw_IBase];
-sketcher_draw_Path.__super__ = sketcher_draw_Base;
-sketcher_draw_Path.prototype = $extend(sketcher_draw_Base.prototype,{
-	svg: function(settings) {
-		var str = "";
-		var _g = 0;
-		var _g1 = this.dArray;
-		while(_g < _g1.length) {
-			var i = _g1[_g];
-			++_g;
-			str += i;
-		}
-		this.xml.set("d",str);
-		return haxe_xml_Printer.print(this.xml);
-	}
-	,ctx: function(ctx) {
-		ctx.beginPath();
-		ctx.fill();
-		ctx.stroke();
-	}
-	,gl: function(gl) {
-	}
-	,window: function(x,y,width,height,x2,y2,width2,height2) {
-		this.dArray = [];
-		this.set_id("passe-partout " + this.get_count());
-		this.dArray.push("M" + x + "," + y);
-		this.dArray.push("V" + (y + height));
-		this.dArray.push("H" + (x + width));
-		this.dArray.push("V" + y);
-		this.dArray.push("Z");
-		this.dArray.push("M" + (x2 + width2) + "," + (y2 + height2));
-		this.dArray.push("H" + x2);
-		this.dArray.push("V" + y2);
-		this.dArray.push("H" + (x2 + width2));
-		this.dArray.push("Z");
-	}
-	,moveTo: function(x,y) {
-		this.dArray.push("M" + x + ", " + y + " ");
-	}
-	,lineTo: function(x,y) {
-		this.dArray.push("L" + x + ", " + y + " ");
-	}
-	,horizontalLineTo: function(x) {
-		this.dArray.push("H" + x + " ");
-	}
-	,verticalLineTo: function(y) {
-		this.dArray.push("V" + y + " ");
-	}
-	,curveto: function(x1,y1,x2,y2,x,y) {
-		this.dArray.push("C" + x1 + ", " + y1 + " " + x2 + ", " + y2 + " " + x + ", " + y + " ");
-	}
-	,closepath: function() {
-		this.dArray.push("Z ");
-	}
-	,__class__: sketcher_draw_Path
-});
-var sketcher_draw_PolyLine = function(arr) {
-	this.type = "PolyLine";
-	this.set_arr(arr);
-	sketcher_draw_Base.call(this,"polyline");
-};
-sketcher_draw_PolyLine.__name__ = "sketcher.draw.PolyLine";
-sketcher_draw_PolyLine.__interfaces__ = [sketcher_draw_IBase];
-sketcher_draw_PolyLine.__super__ = sketcher_draw_Base;
-sketcher_draw_PolyLine.prototype = $extend(sketcher_draw_Base.prototype,{
-	svg: function(settings) {
-		if(this.get_desc() != "") {
-			this.xml.addChild(Xml.parse("<desc>" + this.get_desc() + "</desc>"));
-		}
-		var str = "";
-		var _g = 0;
-		var _g1 = this.get_arr().length;
-		while(_g < _g1) {
-			var i = _g++;
-			var value = this.get_arr()[i];
-			str += "" + value + " ";
-		}
-		this.xml.set("points",str);
-		if(this.getTransform() != "") {
-			this.xml.set("transform",this.getTransform());
-		}
-		return haxe_xml_Printer.print(this.xml);
-	}
-	,ctx: function(ctx) {
-		this.useDefaultsCanvas();
-		if(this.get_lineCap() != null) {
-			ctx.lineCap = this.get_lineCap();
-		}
-		if(this.get_lineJoin() != null) {
-			ctx.lineJoin = this.get_lineJoin();
-		}
-		ctx.lineWidth = this.get_lineWeight();
-		var value = this.get_fillColor();
-		var _r = 0;
-		var _g = 0;
-		var _b = 0;
-		var _a = 1;
-		value = StringTools.replace(value," ","");
-		if(value.indexOf("rgba") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgba(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-			_a = arr[3];
-		} else if(value.indexOf("rgb") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgb(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-		} else if(value.indexOf("#") != -1) {
-			var int = Std.parseInt(StringTools.replace(value,"#","0x"));
-			var rgb_r = int >> 16 & 255;
-			var rgb_g = int >> 8 & 255;
-			var rgb_b = int & 255;
-			_r = rgb_r;
-			_g = rgb_g;
-			_b = rgb_b;
-		}
-		var _fillColor = { r : _r, g : _g, b : _b, a : _a};
-		ctx.fillStyle = sketcher_util_ColorUtil.getColourObj(_fillColor,this.get_fillOpacity());
-		var value = this.get_strokeColor();
-		var _r = 0;
-		var _g = 0;
-		var _b = 0;
-		var _a = 1;
-		value = StringTools.replace(value," ","");
-		if(value.indexOf("rgba") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgba(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-			_a = arr[3];
-		} else if(value.indexOf("rgb") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgb(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-		} else if(value.indexOf("#") != -1) {
-			var int = Std.parseInt(StringTools.replace(value,"#","0x"));
-			var rgb_r = int >> 16 & 255;
-			var rgb_g = int >> 8 & 255;
-			var rgb_b = int & 255;
-			_r = rgb_r;
-			_g = rgb_g;
-			_b = rgb_b;
-		}
-		var _strokeColor = { r : _r, g : _g, b : _b, a : _a};
-		ctx.strokeStyle = sketcher_util_ColorUtil.getColourObj(_strokeColor,this.get_strokeOpacity());
-		if(this.get_dash() != null) {
-			ctx.setLineDash(this.get_dash());
-		}
-		ctx.beginPath();
-		var _pointArray = this.convertArr();
-		var _g = 0;
-		var _g1 = _pointArray.length;
-		while(_g < _g1) {
-			var i = _g++;
-			var p = _pointArray[i];
-			if(i == 0) {
-				ctx.moveTo(p.x,p.y);
-			} else {
-				ctx.lineTo(p.x,p.y);
-			}
-		}
-		if(this.get_fill() != null) {
-			ctx.fill();
-		}
-		if(this.get_stroke() != null && this.get_lineWeight() != 0) {
-			ctx.stroke();
-		}
-	}
-	,gl: function(gl) {
-	}
-	,convertArr: function() {
-		var _pointArray = [];
-		var _g = 0;
-		var _g1 = this.get_arr().length;
-		while(_g < _g1) {
-			var i = _g++;
-			if(i % 2 == 0) {
-				var x = this.get_arr()[i];
-				var y = this.get_arr()[i + 1];
-				_pointArray.push({ x : x, y : y});
-			}
-		}
-		return _pointArray;
-	}
-	,get_arr: function() {
-		return this.arr;
-	}
-	,set_arr: function(value) {
-		return this.arr = value;
-	}
-	,__class__: sketcher_draw_PolyLine
-	,__properties__: $extend(sketcher_draw_Base.prototype.__properties__,{set_arr:"set_arr",get_arr:"get_arr"})
-});
 var sketcher_draw_Polygon = function(arr) {
 	this.type = "Polygon";
 	this.set_arr(arr);
 	sketcher_draw_Base.call(this,"polygon");
 };
 sketcher_draw_Polygon.__name__ = "sketcher.draw.Polygon";
-sketcher_draw_Polygon.__interfaces__ = [sketcher_draw_IBase];
 sketcher_draw_Polygon.__super__ = sketcher_draw_Base;
 sketcher_draw_Polygon.prototype = $extend(sketcher_draw_Base.prototype,{
 	svg: function(settings) {
@@ -4303,13 +2421,6 @@ sketcher_draw_Polygon.prototype = $extend(sketcher_draw_Base.prototype,{
 		}
 		return _pointArray;
 	}
-	,getPoint: function(id) {
-		if(id * 2 > this.get_arr().length) {
-			haxe_Log.trace("not in this length",{ fileName : "sketcher/draw/Polygon.hx", lineNumber : 139, className : "sketcher.draw.Polygon", methodName : "getPoint"});
-		}
-		var p = { x : this.get_arr()[id * 2], y : this.get_arr()[id * 2 + 1]};
-		return p;
-	}
 	,sides: function(x,y,sides,size,rotateDegree) {
 		this.set_arr([]);
 		this.set_rx(x);
@@ -4336,7 +2447,6 @@ sketcher_draw_Polygon.prototype = $extend(sketcher_draw_Base.prototype,{
 		return this.arr = value;
 	}
 	,__class__: sketcher_draw_Polygon
-	,__properties__: $extend(sketcher_draw_Base.prototype.__properties__,{set_arr:"set_arr",get_arr:"get_arr"})
 });
 var sketcher_draw_Rectangle = function(x,y,width,height,isCenter) {
 	if(isCenter == null) {
@@ -4361,7 +2471,6 @@ var sketcher_draw_Rectangle = function(x,y,width,height,isCenter) {
 	sketcher_draw_Base.call(this,"rect");
 };
 sketcher_draw_Rectangle.__name__ = "sketcher.draw.Rectangle";
-sketcher_draw_Rectangle.__interfaces__ = [sketcher_draw_IBase];
 sketcher_draw_Rectangle.__super__ = sketcher_draw_Base;
 sketcher_draw_Rectangle.prototype = $extend(sketcher_draw_Base.prototype,{
 	svg: function(settings) {
@@ -4377,14 +2486,6 @@ sketcher_draw_Rectangle.prototype = $extend(sketcher_draw_Base.prototype,{
 			this.xml.set("transform",this.getTransform());
 		}
 		return haxe_xml_Printer.print(this.xml);
-	}
-	,useCanvasShadow: function(ctx) {
-		if(this.get_shadowColor() != null) {
-			ctx.shadowColor = this.get_shadowColor();
-			ctx.shadowBlur = this.get_shadowBlur();
-			ctx.shadowOffsetX = this.get_shadowOffsetX();
-			ctx.shadowOffsetY = this.get_shadowOffsetY();
-		}
 	}
 	,ctx: function(ctx) {
 		this.useDefaultsCanvas();
@@ -4545,9 +2646,6 @@ sketcher_draw_Rectangle.prototype = $extend(sketcher_draw_Base.prototype,{
 	,get_radius: function() {
 		return this.radius;
 	}
-	,set_radius: function(value) {
-		return this.radius = value;
-	}
 	,get_width: function() {
 		return this.width;
 	}
@@ -4561,320 +2659,9 @@ sketcher_draw_Rectangle.prototype = $extend(sketcher_draw_Base.prototype,{
 		return this.height = value;
 	}
 	,__class__: sketcher_draw_Rectangle
-	,__properties__: $extend(sketcher_draw_Base.prototype.__properties__,{set_radius:"set_radius",get_radius:"get_radius",set_height:"set_height",get_height:"get_height",set_width:"set_width",get_width:"get_width"})
 });
-var sketcher_draw_Text = function(str,x,y) {
-	if(y == null) {
-		y = 0;
-	}
-	if(x == null) {
-		x = 0;
-	}
-	this.width = -1;
-	this.lineHeight = 0;
-	this.fitWidth = 0;
-	this.type = "Text";
-	this.set_str(str);
-	this.set_x(x);
-	this.set_y(y);
-	sketcher_draw_Base.call(this,"text");
-};
-sketcher_draw_Text.__name__ = "sketcher.draw.Text";
-sketcher_draw_Text.__interfaces__ = [sketcher_draw_IBase];
-sketcher_draw_Text.__super__ = sketcher_draw_Base;
-sketcher_draw_Text.prototype = $extend(sketcher_draw_Base.prototype,{
-	align: function(value) {
-		this.set_textAlign(value);
-	}
-	,baseline: function(value) {
-		this.set_textBaseline(value);
-	}
-	,getWidth: function() {
-		if(!sketcher_draw_Text.ISWARN) {
-			$global.console.warn("Get Width of text doens't work for svg currenlty");
-			sketcher_draw_Text.ISWARN = true;
-		}
-		var ctx = Sketcher.ctx;
-		var _css = "";
-		var _font = StringTools.ltrim("" + _css + " " + this.get_fontSizePx() + "px " + this.get_fontFamily());
-		ctx.font = _font;
-		return ctx.measureText(this.get_str()).width;
-	}
-	,svg: function(settings) {
-		var comment = Xml.createComment("" + this.get_str());
-		var content = Xml.parse(this.get_str());
-		this.xml.addChild(comment);
-		this.xml.addChild(content);
-		this.xml.set("x",Std.string(this.get_x()));
-		this.xml.set("y",Std.string(this.get_y()));
-		if(this.get_textAlign() != null) {
-			this.xml.set("text-anchor",this.convertTextAlign("svg"));
-		}
-		if(this.get_textBaseline() != null) {
-			this.xml.set("dominant-baseline",this.convertTextBaseline("svg"));
-		}
-		if(this.get_style() != null) {
-			var className = StringTools.replace(StringTools.replace(this.get_str()," ",""),"\n","").toLowerCase();
-			this.xml.set("class","fontstyle_" + className);
-			var style = window.document.createElement("style");
-			style.innerHTML = ".fontstyle_" + className + " {" + this.get_style() + "}";
-			window.document.body.appendChild(style);
-		}
-		if(this.getTransform() != "") {
-			this.xml.set("transform",this.getTransform());
-		}
-		return haxe_xml_Printer.print(this.xml);
-	}
-	,ctx: function(ctx) {
-		this.useDefaultsCanvas();
-		ctx.save();
-		var value = this.get_fillColor();
-		var _r = 0;
-		var _g = 0;
-		var _b = 0;
-		var _a = 1;
-		value = StringTools.replace(value," ","");
-		if(value.indexOf("rgba") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgba(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-			_a = arr[3];
-		} else if(value.indexOf("rgb") != -1) {
-			value = StringTools.replace(StringTools.replace(value,"rgb(",""),")","");
-			var arr = value.split(",");
-			_r = arr[0];
-			_g = arr[1];
-			_b = arr[2];
-		} else if(value.indexOf("#") != -1) {
-			var int = Std.parseInt(StringTools.replace(value,"#","0x"));
-			var rgb_r = int >> 16 & 255;
-			var rgb_g = int >> 8 & 255;
-			var rgb_b = int & 255;
-			_r = rgb_r;
-			_g = rgb_g;
-			_b = rgb_b;
-		}
-		var _fillColor = { r : _r, g : _g, b : _b, a : _a};
-		ctx.fillStyle = sketcher_util_ColorUtil.getColourObj(_fillColor,this.get_fillOpacity());
-		if(this.get_fontFamily() == null) {
-			this.set_fontFamily("Arial");
-		}
-		if(this.get_fontSize() == null) {
-			this.set_fontSize("16px");
-		}
-		if(this.get_fontSizePx() != null) {
-			this.set_fontSize("" + this.get_fontSizePx());
-		}
-		var _css = "";
-		var _font = StringTools.ltrim("" + _css + " " + Std.parseInt(this.get_fontSize()) + "px " + this.get_fontFamily());
-		ctx.font = _font;
-		if(this.get_textAlign() != null) {
-			ctx.textAlign = this.convertTextAlign("canvas");
-		}
-		if(this.get_textBaseline() != null) {
-			ctx.textBaseline = this.convertTextBaseline("canvas");
-		}
-		var lines = [];
-		var lineheight = this.get_lineHeight() != 0 ? this.get_lineHeight() : ctx.measureText("M").width * 1.7;
-		if(this.get_fitWidth() != 0) {
-			var words = this.get_str().split(" ");
-			$global.console.log("doesnt work yet");
-			var count = 0;
-			var sentance = "";
-			while(ctx.measureText(sentance).width <= this.get_fitWidth()) {
-				sentance += words[count] + " ";
-				++count;
-			}
-			lines.push(sentance);
-			haxe_Log.trace(sentance,{ fileName : "sketcher/draw/Text.hx", lineNumber : 228, className : "sketcher.draw.Text", methodName : "ctx"});
-		} else {
-			lines = this.get_str().split("\n");
-		}
-		var _g = 0;
-		var _g1 = lines.length;
-		while(_g < _g1) {
-			var i = _g++;
-			var line = lines[i];
-			ctx.fillText(line,this.get_x(),this.get_y() + i * lineheight);
-		}
-		ctx.restore();
-	}
-	,gl: function(gl) {
-	}
-	,convertTextAlign: function(type) {
-		var svg = "";
-		var canvas = "";
-		if(this.get_textAlign() == null) {
-			this.set_textAlign(sketcher_draw_TextAlignType.Default);
-		}
-		switch(this.get_textAlign()._hx_index) {
-		case 0:
-			canvas = "center";
-			svg = "middle";
-			break;
-		case 1:
-			canvas = "left";
-			svg = "start";
-			break;
-		case 2:
-			canvas = "right";
-			svg = "end";
-			break;
-		case 3:
-			canvas = "start";
-			svg = "start";
-			break;
-		}
-		if(type == "svg") {
-			return svg;
-		} else {
-			return canvas;
-		}
-	}
-	,convertTextBaseline: function(type) {
-		var str = "";
-		var svg = "";
-		var canvas = "";
-		if(this.get_textBaseline() == null) {
-			this.set_textBaseline(sketcher_draw_TextBaselineType.Default);
-		}
-		switch(this.get_textBaseline()._hx_index) {
-		case 0:
-			canvas = "hanging";
-			svg = "hanging";
-			break;
-		case 1:
-			canvas = "bottom";
-			svg = "ideographic";
-			break;
-		case 2:
-			canvas = "middle";
-			svg = "middle";
-			break;
-		case 3:
-			canvas = "alphabetic";
-			svg = "auto";
-			break;
-		}
-		if(type == "svg") {
-			return svg;
-		} else {
-			return canvas;
-		}
-	}
-	,get_fontSize: function() {
-		return this.fontSize;
-	}
-	,set_fontSize: function(value) {
-		this.xml.set("font-size",value);
-		return this.fontSize = value;
-	}
-	,get_fontSizePx: function() {
-		return this.fontSizePx;
-	}
-	,set_fontSizePx: function(value) {
-		this.xml.set("font-size","" + value + "px");
-		return this.fontSizePx = value;
-	}
-	,get_fontFamily: function() {
-		return this.fontFamily;
-	}
-	,set_fontFamily: function(value) {
-		if(value.indexOf("+") != -1) {
-			value = StringTools.replace(value,"+"," ");
-		}
-		if(value.indexOf(":") != -1) {
-			value = value.split(":")[0];
-		}
-		this.xml.set("font-family",value);
-		return this.fontFamily = value;
-	}
-	,get_fontWeight: function() {
-		return this.fontWeight;
-	}
-	,set_fontWeight: function(value) {
-		this.xml.set("font-weight",value);
-		return this.fontWeight = value;
-	}
-	,get_textAlign: function() {
-		return this.textAlign;
-	}
-	,set_textAlign: function(value) {
-		return this.textAlign = value;
-	}
-	,get_textBaseline: function() {
-		return this.textBaseline;
-	}
-	,set_textBaseline: function(value) {
-		return this.textBaseline = value;
-	}
-	,get_str: function() {
-		return this.str;
-	}
-	,set_str: function(value) {
-		return this.str = value;
-	}
-	,get_fitWidth: function() {
-		return this.fitWidth;
-	}
-	,set_fitWidth: function(value) {
-		return this.fitWidth = value;
-	}
-	,get_lineHeight: function() {
-		return this.lineHeight;
-	}
-	,set_lineHeight: function(value) {
-		return this.lineHeight = value;
-	}
-	,get_style: function() {
-		return this.style;
-	}
-	,set_style: function(value) {
-		return this.style = value;
-	}
-	,get_width: function() {
-		this.getWidth();
-		return this.width;
-	}
-	,__class__: sketcher_draw_Text
-	,__properties__: $extend(sketcher_draw_Base.prototype.__properties__,{get_width:"get_width",set_style:"set_style",get_style:"get_style",set_textAlign:"set_textAlign",get_textAlign:"get_textAlign",set_textBaseline:"set_textBaseline",get_textBaseline:"get_textBaseline",set_fontWeight:"set_fontWeight",get_fontWeight:"get_fontWeight",set_fontFamily:"set_fontFamily",get_fontFamily:"get_fontFamily",set_lineHeight:"set_lineHeight",get_lineHeight:"get_lineHeight",set_fitWidth:"set_fitWidth",get_fitWidth:"get_fitWidth",set_fontSizePx:"set_fontSizePx",get_fontSizePx:"get_fontSizePx",set_fontSize:"set_fontSize",get_fontSize:"get_fontSize",set_str:"set_str",get_str:"get_str"})
-});
-var sketcher_draw_TextAlignType = $hxEnums["sketcher.draw.TextAlignType"] = { __ename__ : true, __constructs__ : ["Center","Left","Right","Default"]
-	,Center: {_hx_index:0,__enum__:"sketcher.draw.TextAlignType",toString:$estr}
-	,Left: {_hx_index:1,__enum__:"sketcher.draw.TextAlignType",toString:$estr}
-	,Right: {_hx_index:2,__enum__:"sketcher.draw.TextAlignType",toString:$estr}
-	,Default: {_hx_index:3,__enum__:"sketcher.draw.TextAlignType",toString:$estr}
-};
-var sketcher_draw_TextBaselineType = $hxEnums["sketcher.draw.TextBaselineType"] = { __ename__ : true, __constructs__ : ["Top","Bottom","Middle","Default"]
-	,Top: {_hx_index:0,__enum__:"sketcher.draw.TextBaselineType",toString:$estr}
-	,Bottom: {_hx_index:1,__enum__:"sketcher.draw.TextBaselineType",toString:$estr}
-	,Middle: {_hx_index:2,__enum__:"sketcher.draw.TextBaselineType",toString:$estr}
-	,Default: {_hx_index:3,__enum__:"sketcher.draw.TextBaselineType",toString:$estr}
-};
 var sketcher_export_FileExport = function() { };
 sketcher_export_FileExport.__name__ = "sketcher.export.FileExport";
-sketcher_export_FileExport.downloadWebGLImage = function(domElement,isJpg,fileName) {
-	if(fileName == null) {
-		fileName = "test";
-	}
-	if(isJpg == null) {
-		isJpg = false;
-	}
-	var imgData;
-	var ext = isJpg ? "jpg" : "png";
-	try {
-		var strDownloadMime = "image/octet-stream";
-		var strMime = "image/jpeg";
-		imgData = domElement.toDataURL(strMime);
-		$global.console.log(imgData);
-		sketcher_export_FileExport.saveFile(StringTools.replace(imgData,strMime,strDownloadMime),fileName + ("." + ext));
-	} catch( _g ) {
-		$global.console.log("Browser does not support taking screenshot of 3d context");
-		return;
-	}
-};
 sketcher_export_FileExport.svg2Canvas = function(svg,isJpg,filename,isTransparant) {
 	if(isTransparant == null) {
 		isTransparant = false;
@@ -4903,38 +2690,6 @@ sketcher_export_FileExport.svg2Canvas = function(svg,isJpg,filename,isTransparan
 	var tmp = window.btoa(svg.outerHTML);
 	image.src = "data:image/svg+xml;base64," + tmp;
 };
-sketcher_export_FileExport.saveFile = function(strData,fileName) {
-	var link = window.document.createElement("a");
-	window.document.body.appendChild(link);
-	link.href = strData;
-	link.download = fileName;
-	link.click();
-	window.document.body.removeChild(link);
-};
-sketcher_export_FileExport.downloadImage = function(ctx,isJpg,fileName) {
-	if(isJpg == null) {
-		isJpg = false;
-	}
-	if(fileName == null) {
-		var hash = $global.location.hash;
-		hash = StringTools.replace(hash,"#","").toLowerCase();
-		if(hash == "") {
-			hash = "image";
-		}
-		fileName = "" + hash + "-" + new Date().getTime();
-	}
-	var link = window.document.createElement("a");
-	link.href = ctx.canvas.toDataURL(isJpg ? "image/jpeg" : "",1);
-	link.download = fileName;
-	link.click();
-};
-sketcher_export_FileExport.onBase64Handler = function(ctx,isJpg) {
-	if(isJpg == null) {
-		isJpg = false;
-	}
-	var base64 = ctx.canvas.toDataURL(isJpg ? "image/jpeg" : "",1);
-	sketcher_export_FileExport.clipboard(base64);
-};
 sketcher_export_FileExport.downloadTextFile = function(text,fileName) {
 	if(fileName == null) {
 		fileName = "CC-txt-" + new Date().getTime() + ".txt";
@@ -4949,18 +2704,6 @@ sketcher_export_FileExport.downloadTextFile = function(text,fileName) {
 };
 sketcher_export_FileExport.convertStr2Href = function(str) {
 	return "data:text/plain;charset=utf-8," + encodeURIComponent(str);
-};
-sketcher_export_FileExport.clipboard = function(text) {
-	var win = "Ctrl+C";
-	var mac = "Cmd+C";
-	var copyCombo = win;
-	var userAgent = $global.navigator.userAgent;
-	var ereg = new EReg("iPhone|iPod|iPad|Android|BlackBerry","i");
-	var ismac = ereg.match(userAgent);
-	if(ismac) {
-		copyCombo = mac;
-	}
-	window.prompt("Copy to clipboard: " + copyCombo + ", Enter",text);
 };
 sketcher_export_FileExport.downloadImageBg = function(ctx,isJpg,fileName,isTransparant) {
 	if(isTransparant == null) {
@@ -5009,12 +2752,6 @@ sketcher_export_FileExport.downloadImageBg = function(ctx,isJpg,fileName,isTrans
 	}
 	window.document.body.appendChild(link);
 };
-sketcher_export_FileExport.prototype = {
-	toString: function() {
-		return "[FileExport]";
-	}
-	,__class__: sketcher_export_FileExport
-};
 var sketcher_export_TypeSupported = function() { };
 sketcher_export_TypeSupported.__name__ = "sketcher.export.TypeSupported";
 sketcher_export_TypeSupported.checkTypes = function() {
@@ -5043,37 +2780,6 @@ sketcher_export_VideoExport.__name__ = "sketcher.export.VideoExport";
 sketcher_export_VideoExport.prototype = {
 	setCanvas: function(canvas) {
 		this.canvas = canvas;
-	}
-	,setAudio: function(audio,isActive) {
-		if(isActive == null) {
-			isActive = true;
-		}
-		var _gthis = this;
-		this.audioEl = audio;
-		if(isActive) {
-			this.audioEl.onplay = function() {
-				$global.console.info("Play audio");
-				_gthis.startRecording();
-			};
-			this.audioEl.onpause = function() {
-				$global.console.info("Stop audio");
-				_gthis.stopRecording();
-			};
-		}
-	}
-	,setDownload: function(downloadButton) {
-		this.downloadButtonEl = downloadButton;
-		this.downloadButtonEl.classList.add("disabled");
-	}
-	,setBash: function(bashloadButton) {
-		this.bashButtonEl = bashloadButton;
-		this.bashButtonEl.classList.add("disabled");
-	}
-	,setOptions: function(options) {
-		this.options = options;
-	}
-	,setVideo: function(video) {
-		this.videoEl = video;
 	}
 	,setup: function() {
 		if(this.options == null) {
@@ -5188,722 +2894,7 @@ sketcher_export_VideoExport.prototype = {
 	}
 	,__class__: sketcher_export_VideoExport
 };
-var sketcher_lets_Easing = function() { };
-sketcher_lets_Easing.__name__ = "sketcher.lets.Easing";
-sketcher_lets_Easing.linear = function(v) {
-	return v;
-};
-sketcher_lets_Easing.quad = function(v) {
-	return v * v;
-};
-sketcher_lets_Easing.cubic = function(v) {
-	return v * v * v;
-};
-sketcher_lets_Easing.quart = function(v) {
-	return v * v * v;
-};
-sketcher_lets_Easing.quint = function(v) {
-	return v * v * v;
-};
-sketcher_lets_Easing.sine = function(v) {
-	return 1 - Math.cos(v * Math.PI / 2);
-};
-sketcher_lets_Easing.circ = function(v) {
-	return 1 - Math.sqrt(1 - v * v);
-};
-sketcher_lets_Easing.expo = function(v) {
-	if(v == 0) {
-		return 0;
-	} else {
-		return Math.pow(2,10 * (v - 1));
-	}
-};
-sketcher_lets_Easing.back = function(v) {
-	var s = 1.70158;
-	return v * v * ((s + 1) * v - s);
-};
-sketcher_lets_Easing.bounce = function(v) {
-	v = 1 - v;
-	return 1 - (v < 0.363636363636363646 ? 7.5625 * v * v : v < 0.727272727272727293 ? 7.5625 * (v -= 0.545454545454545414) * v + .75 : v < 0.909090909090909061 ? 7.5625 * (v -= 0.818181818181818232) * v + .9375 : 7.5625 * (v -= 0.954545454545454586) * v + .984375);
-};
-sketcher_lets_Easing.elastic = function(v) {
-	if(v == 0) {
-		return 0;
-	}
-	if(v == 1) {
-		return 1;
-	}
-	var p = .3;
-	var s = p / 4;
-	return -(Math.pow(2,10 * --v) * Math.sin((v - 0.075) * (2 * Math.PI) / 0.3));
-};
-sketcher_lets_Easing.reverse = function(f) {
-	return function(v) {
-		return 1 - f(1 - v);
-	};
-};
-sketcher_lets_Easing.reflect = function(f) {
-	return function(v) {
-		if(v < 0.5) {
-			return f(v * 2) / 2;
-		} else {
-			return 1 - f(2 - v * 2) / 2;
-		}
-	};
-};
-var sketcher_lets_Go = function(target,duration) {
-	this.VERSION = "1.2.0";
-	this.DEBUG = false;
-	this.FRAME_RATE = 60;
-	this._arc = 0;
-	this._seconds = 0;
-	this._delay = 0;
-	this._initTime = 0;
-	this._isDelayDone = false;
-	this._isOrbit = false;
-	this._isWiggle = false;
-	this._isYoyo = false;
-	this._isFrom = false;
-	this._props = new haxe_ds_StringMap();
-	this._options = { };
-	this._easing = sketcher_lets_easing_Quad.get_easeOut();
-	this._id = "[lets.Go]" + this.VERSION + "." + new Date().getTime();
-	this._seconds = duration;
-	this._target = target;
-	this._duration = this.getDuration(duration);
-	this._initTime = this._duration;
-	sketcher_lets_Go._tweens.push(this);
-	if(this.DEBUG) {
-		$global.console.log("New Go - _id: \"" + this._id + "\" / _duration: " + this._duration + " / _initTime: " + this._initTime + " / _tweens.length: " + sketcher_lets_Go._tweens.length);
-	}
-	haxe_Timer.delay($bind(this,this.init),1);
-};
-sketcher_lets_Go.__name__ = "sketcher.lets.Go";
-sketcher_lets_Go.to = function(target,duration) {
-	var Go = new sketcher_lets_Go(target,duration);
-	Go._isFrom = false;
-	return Go;
-};
-sketcher_lets_Go.from = function(target,duration) {
-	var Go = new sketcher_lets_Go(target,duration);
-	Go._isFrom = true;
-	Go.updateProperties(0);
-	return Go;
-};
-sketcher_lets_Go.timer = function(duration) {
-	var Go = new sketcher_lets_Go({ },duration);
-	return Go;
-};
-sketcher_lets_Go.frames = function(frames) {
-	var Go = new sketcher_lets_Go({ },frames * 60);
-	return Go;
-};
-sketcher_lets_Go.wiggle = function(target,x,y,wiggleRoom) {
-	if(wiggleRoom == null) {
-		wiggleRoom = 10;
-	}
-	var _go = new sketcher_lets_Go(target,1 + Math.random());
-	_go._isWiggle = true;
-	var max = wiggleRoom;
-	var min = -wiggleRoom;
-	var value = x + Math.random() * (max - min) + min;
-	var objValue = 0;
-	if(Object.prototype.hasOwnProperty.call(_go._target,"x")) {
-		objValue = Reflect.getProperty(_go._target,"x");
-	}
-	var _range = { key : "x", from : _go._isFrom ? value : objValue, to : !_go._isFrom ? value : objValue};
-	_go._props.h["x"] = _range;
-	if(_go._isFrom) {
-		_go.updateProperties(0);
-	}
-	var value = y + Math.random() * (max - min) + min;
-	var objValue = 0;
-	if(Object.prototype.hasOwnProperty.call(_go._target,"y")) {
-		objValue = Reflect.getProperty(_go._target,"y");
-	}
-	var _range = { key : "y", from : _go._isFrom ? value : objValue, to : !_go._isFrom ? value : objValue};
-	_go._props.h["y"] = _range;
-	if(_go._isFrom) {
-		_go.updateProperties(0);
-	}
-	_go._easing = sketcher_lets_easing_Sine.get_easeInOut();
-	_go._options.onComplete = function() {
-		sketcher_lets_Go.wiggle(target,x,y,wiggleRoom);
-	};
-	_go._options.onCompleteParams = null;
-	return _go;
-};
-sketcher_lets_Go.wiggleProp = function(target,prop,value,wiggleRoom) {
-	if(wiggleRoom == null) {
-		wiggleRoom = 10;
-	}
-	var _go = new sketcher_lets_Go(target,1 + Math.random());
-	_go._isWiggle = true;
-	var max = wiggleRoom;
-	var min = -wiggleRoom;
-	var value1 = value + Math.random() * (max - min) + min;
-	var objValue = 0;
-	if(Object.prototype.hasOwnProperty.call(_go._target,prop)) {
-		objValue = Reflect.getProperty(_go._target,prop);
-	}
-	var _range = { key : prop, from : _go._isFrom ? value1 : objValue, to : !_go._isFrom ? value1 : objValue};
-	_go._props.h[prop] = _range;
-	if(_go._isFrom) {
-		_go.updateProperties(0);
-	}
-	_go._easing = sketcher_lets_easing_Sine.get_easeInOut();
-	_go._options.onComplete = function() {
-		sketcher_lets_Go.wiggleProp(target,prop,value,wiggleRoom);
-	};
-	_go._options.onCompleteParams = null;
-	return _go;
-};
-sketcher_lets_Go.orbit = function(target,x,y,radius,speed) {
-	var _go = new sketcher_lets_Go(target,1 + Math.random());
-	_go._isOrbit = true;
-	var objValue = 0;
-	if(Object.prototype.hasOwnProperty.call(_go._target,"x")) {
-		objValue = Reflect.getProperty(_go._target,"x");
-	}
-	var _range = { key : "x", from : _go._isFrom ? x : objValue, to : !_go._isFrom ? x : objValue};
-	_go._props.h["x"] = _range;
-	if(_go._isFrom) {
-		_go.updateProperties(0);
-	}
-	var objValue = 0;
-	if(Object.prototype.hasOwnProperty.call(_go._target,"y")) {
-		objValue = Reflect.getProperty(_go._target,"y");
-	}
-	var _range = { key : "y", from : _go._isFrom ? y : objValue, to : !_go._isFrom ? y : objValue};
-	_go._props.h["y"] = _range;
-	if(_go._isFrom) {
-		_go.updateProperties(0);
-	}
-	var objValue = 0;
-	if(Object.prototype.hasOwnProperty.call(_go._target,"cx")) {
-		objValue = Reflect.getProperty(_go._target,"cx");
-	}
-	var _range = { key : "cx", from : _go._isFrom ? x : objValue, to : !_go._isFrom ? x : objValue};
-	_go._props.h["cx"] = _range;
-	if(_go._isFrom) {
-		_go.updateProperties(0);
-	}
-	var objValue = 0;
-	if(Object.prototype.hasOwnProperty.call(_go._target,"cy")) {
-		objValue = Reflect.getProperty(_go._target,"cy");
-	}
-	var _range = { key : "cy", from : _go._isFrom ? y : objValue, to : !_go._isFrom ? y : objValue};
-	_go._props.h["cy"] = _range;
-	if(_go._isFrom) {
-		_go.updateProperties(0);
-	}
-	var objValue = 0;
-	if(Object.prototype.hasOwnProperty.call(_go._target,"radius")) {
-		objValue = Reflect.getProperty(_go._target,"radius");
-	}
-	var _range = { key : "radius", from : _go._isFrom ? radius : objValue, to : !_go._isFrom ? radius : objValue};
-	_go._props.h["radius"] = _range;
-	if(_go._isFrom) {
-		_go.updateProperties(0);
-	}
-	var objValue = 0;
-	if(Object.prototype.hasOwnProperty.call(_go._target,"speed")) {
-		objValue = Reflect.getProperty(_go._target,"speed");
-	}
-	var _range = { key : "speed", from : _go._isFrom ? speed : objValue, to : !_go._isFrom ? speed : objValue};
-	_go._props.h["speed"] = _range;
-	if(_go._isFrom) {
-		_go.updateProperties(0);
-	}
-	var objValue = 0;
-	if(Object.prototype.hasOwnProperty.call(_go._target,"angle")) {
-		objValue = Reflect.getProperty(_go._target,"angle");
-	}
-	var _range = { key : "angle", from : _go._isFrom ? speed : objValue, to : !_go._isFrom ? speed : objValue};
-	_go._props.h["angle"] = _range;
-	if(_go._isFrom) {
-		_go.updateProperties(0);
-	}
-	target["cx"] = x;
-	target["cy"] = y;
-	target["angle"] = 0;
-	target["speed"] = speed;
-	target["radius"] = radius;
-	return _go;
-};
-sketcher_lets_Go.prototype = {
-	width: function(value) {
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"width")) {
-			objValue = Reflect.getProperty(this._target,"width");
-		}
-		var _range = { key : "width", from : this._isFrom ? value : objValue, to : !this._isFrom ? value : objValue};
-		this._props.h["width"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		return this;
-	}
-	,height: function(value) {
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"height")) {
-			objValue = Reflect.getProperty(this._target,"height");
-		}
-		var _range = { key : "height", from : this._isFrom ? value : objValue, to : !this._isFrom ? value : objValue};
-		this._props.h["height"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		return this;
-	}
-	,x: function(value) {
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"x")) {
-			objValue = Reflect.getProperty(this._target,"x");
-		}
-		var _range = { key : "x", from : this._isFrom ? value : objValue, to : !this._isFrom ? value : objValue};
-		this._props.h["x"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		return this;
-	}
-	,y: function(value) {
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"y")) {
-			objValue = Reflect.getProperty(this._target,"y");
-		}
-		var _range = { key : "y", from : this._isFrom ? value : objValue, to : !this._isFrom ? value : objValue};
-		this._props.h["y"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		return this;
-	}
-	,z: function(value) {
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"z")) {
-			objValue = Reflect.getProperty(this._target,"z");
-		}
-		var _range = { key : "z", from : this._isFrom ? value : objValue, to : !this._isFrom ? value : objValue};
-		this._props.h["z"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		return this;
-	}
-	,pos: function(x,y,z) {
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"x")) {
-			objValue = Reflect.getProperty(this._target,"x");
-		}
-		var _range = { key : "x", from : this._isFrom ? x : objValue, to : !this._isFrom ? x : objValue};
-		this._props.h["x"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"y")) {
-			objValue = Reflect.getProperty(this._target,"y");
-		}
-		var _range = { key : "y", from : this._isFrom ? y : objValue, to : !this._isFrom ? y : objValue};
-		this._props.h["y"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		if(z != null) {
-			var objValue = 0;
-			if(Object.prototype.hasOwnProperty.call(this._target,"z")) {
-				objValue = Reflect.getProperty(this._target,"z");
-			}
-			var _range = { key : "z", from : this._isFrom ? z : objValue, to : !this._isFrom ? z : objValue};
-			this._props.h["z"] = _range;
-			if(this._isFrom) {
-				this.updateProperties(0);
-			}
-		}
-		return this;
-	}
-	,rotation: function(degree) {
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"rotation")) {
-			objValue = Reflect.getProperty(this._target,"rotation");
-		}
-		var _range = { key : "rotation", from : this._isFrom ? degree : objValue, to : !this._isFrom ? degree : objValue};
-		this._props.h["rotation"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		return this;
-	}
-	,degree: function(degree) {
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"rotation")) {
-			objValue = Reflect.getProperty(this._target,"rotation");
-		}
-		var _range = { key : "rotation", from : this._isFrom ? degree : objValue, to : !this._isFrom ? degree : objValue};
-		this._props.h["rotation"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		return this;
-	}
-	,radians: function(degree) {
-		var value = degree * Math.PI / 180;
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"rotation")) {
-			objValue = Reflect.getProperty(this._target,"rotation");
-		}
-		var _range = { key : "rotation", from : this._isFrom ? value : objValue, to : !this._isFrom ? value : objValue};
-		this._props.h["rotation"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		return this;
-	}
-	,alpha: function(value) {
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"alpha")) {
-			objValue = Reflect.getProperty(this._target,"alpha");
-		}
-		var _range = { key : "alpha", from : this._isFrom ? value : objValue, to : !this._isFrom ? value : objValue};
-		this._props.h["alpha"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		return this;
-	}
-	,scale: function(value) {
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"scaleX")) {
-			objValue = Reflect.getProperty(this._target,"scaleX");
-		}
-		var _range = { key : "scaleX", from : this._isFrom ? value : objValue, to : !this._isFrom ? value : objValue};
-		this._props.h["scaleX"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"scaleY")) {
-			objValue = Reflect.getProperty(this._target,"scaleY");
-		}
-		var _range = { key : "scaleY", from : this._isFrom ? value : objValue, to : !this._isFrom ? value : objValue};
-		this._props.h["scaleY"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,"scale")) {
-			objValue = Reflect.getProperty(this._target,"scale");
-		}
-		var _range = { key : "scale", from : this._isFrom ? value : objValue, to : !this._isFrom ? value : objValue};
-		this._props.h["scale"] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		return this;
-	}
-	,yoyo: function() {
-		this._isYoyo = true;
-		return this;
-	}
-	,arc: function(dir) {
-		this._arc = 0;
-		return this;
-	}
-	,delay: function(duration) {
-		this._delay = this.getDuration(duration);
-		return this;
-	}
-	,prop: function(key,value) {
-		var objValue = 0;
-		if(Object.prototype.hasOwnProperty.call(this._target,key)) {
-			objValue = Reflect.getProperty(this._target,key);
-		}
-		var _range = { key : key, from : this._isFrom ? value : objValue, to : !this._isFrom ? value : objValue};
-		this._props.h[key] = _range;
-		if(this._isFrom) {
-			this.updateProperties(0);
-		}
-		return this;
-	}
-	,onComplete: function(func,arr) {
-		this._options.onComplete = func;
-		this._options.onCompleteParams = arr;
-		return this;
-	}
-	,onAnimationStart: function(func,arr) {
-		this._options.onAnimationStart = func;
-		this._options.onAnimationStartParams = arr;
-		return this;
-	}
-	,onUpdate: function(func,arr) {
-		this._options.onUpdate = func;
-		this._options.onUpdateParams = arr;
-		return this;
-	}
-	,ease: function(easing) {
-		this._easing = easing;
-		return this;
-	}
-	,stop: function() {
-		this.destroy();
-	}
-	,init: function() {
-		if(sketcher_lets_Go._requestId == null) {
-			$global.console.info("start frame animation");
-			sketcher_lets_Go._requestId = window.requestAnimationFrame($bind(this,this.onEnterFrameHandler));
-		} else {
-			this.onEnterFrameHandler();
-		}
-	}
-	,onEnterFrameHandler: function(time) {
-		if(sketcher_lets_Go._tweens.length <= 0) {
-			haxe_Log.trace("kill " + sketcher_lets_Go._requestId,{ fileName : "sketcher/lets/Go.hx", lineNumber : 531, className : "sketcher.lets.Go", methodName : "onEnterFrameHandler"});
-			window.cancelAnimationFrame(sketcher_lets_Go._requestId);
-			return;
-		} else {
-			var _g = 0;
-			var _g1 = sketcher_lets_Go._tweens.length;
-			while(_g < _g1) {
-				var i = _g++;
-				if(sketcher_lets_Go._tweens[i] != null) {
-					sketcher_lets_Go._tweens[i].update();
-				}
-			}
-		}
-		sketcher_lets_Go._requestId = window.requestAnimationFrame($bind(this,this.onEnterFrameHandler));
-	}
-	,update: function() {
-		if(this._delay > 0) {
-			this._delay--;
-			return;
-		}
-		if(!this._isDelayDone) {
-			if(this.DEBUG) {
-				haxe_Log.trace("should trigger only once: " + this._id,{ fileName : "sketcher/lets/Go.hx", lineNumber : 556, className : "sketcher.lets.Go", methodName : "update"});
-			}
-			if(Reflect.isFunction(this._options.onAnimationStart)) {
-				var func = this._options.onAnimationStart;
-				var arr = this._options.onAnimationStartParams != null ? this._options.onAnimationStartParams : [];
-				func.apply(func,[arr]);
-			}
-		}
-		this._isDelayDone = true;
-		this._initTime--;
-		var progressed = this._duration - this._initTime;
-		if(progressed >= this._duration) {
-			this.updateProperties(this._duration);
-			this.complete();
-		} else {
-			this.updateProperties(progressed);
-		}
-	}
-	,updateProperties: function(time) {
-		if(Reflect.isFunction(this._options.onUpdate)) {
-			var func = this._options.onUpdate;
-			var arr = this._options.onUpdateParams != null ? this._options.onUpdateParams : [];
-			func.apply(func,arr);
-		}
-		if(this._props == null) {
-			return;
-		}
-		var n = haxe_ds_StringMap.keysIterator(this._props.h);
-		while(n.hasNext()) {
-			var n1 = n.next();
-			var range = this._props.h[n1];
-			if(this._isOrbit) {
-				var __cx = this._props.h["cx"];
-				var __cy = this._props.h["cy"];
-				var __angle = this._props.h["angle"];
-				var __speed = this._props.h["speed"];
-				var __rad = this._props.h["radius"];
-				haxe_Log.trace("cx: " + __cx.to + ",  cy: " + __cy.to + " , " + __angle.to + ", " + __speed.to + ", " + __rad.to,{ fileName : "sketcher/lets/Go.hx", lineNumber : 614, className : "sketcher.lets.Go", methodName : "updateProperties"});
-				haxe_Log.trace("" + n1 + " == \"angle\" : " + Std.string(n1 == "angle"),{ fileName : "sketcher/lets/Go.hx", lineNumber : 625, className : "sketcher.lets.Go", methodName : "updateProperties"});
-				haxe_Log.trace(this._target,{ fileName : "sketcher/lets/Go.hx", lineNumber : 627, className : "sketcher.lets.Go", methodName : "updateProperties"});
-				if(n1 == "angle") {
-					var aa = __angle.to + __speed.to;
-					Reflect.setProperty(this._target,n1,aa);
-				}
-			} else {
-				Reflect.setProperty(this._target,n1,this._easing.ease(time,range.from,range.to - range.from,this._duration));
-			}
-		}
-	}
-	,complete: function() {
-		if(this.DEBUG) {
-			haxe_Log.trace("complete :: \"" + this._id + "\", _duration: " + this._duration + ", _seconds: " + this._seconds + ", _initTime: " + this._initTime + " / _tweens.length: " + sketcher_lets_Go._tweens.length,{ fileName : "sketcher/lets/Go.hx", lineNumber : 650, className : "sketcher.lets.Go", methodName : "complete"});
-		}
-		if(this._isYoyo) {
-			var n = haxe_ds_StringMap.keysIterator(this._props.h);
-			while(n.hasNext()) {
-				var n1 = n.next();
-				var range = this._props.h[n1];
-				var _rangeReverse = { key : n1, from : range.to, to : range.from};
-				this._props.h[n1] = _rangeReverse;
-			}
-			this._initTime = this._duration;
-			this._isYoyo = false;
-			return;
-		}
-		var func = this._options.onComplete;
-		var arr = this._options.onCompleteParams != null ? this._options.onCompleteParams : [];
-		this.destroy();
-		if(Reflect.isFunction(func)) {
-			haxe_Log.trace(sketcher_lets_Go._tweens.length,{ fileName : "sketcher/lets/Go.hx", lineNumber : 681, className : "sketcher.lets.Go", methodName : "complete"});
-			func.apply(func,arr);
-		}
-	}
-	,getDuration: function(duration) {
-		var d = 0;
-		if(duration <= 0) {
-			duration = 0.1;
-		}
-		d = duration * this.FRAME_RATE | 0;
-		return d;
-	}
-	,getTimer: function() {
-		return new Date().getTime() | 0;
-	}
-	,destroy: function() {
-		if(Lambda.has(sketcher_lets_Go._tweens,this)) {
-			HxOverrides.remove(sketcher_lets_Go._tweens,this);
-		}
-		if(this._options) {
-			this._easing = sketcher_lets_easing_Quad.get_easeOut();
-			this._options = { };
-			this._target = null;
-			this._props = null;
-			this._duration = 0;
-			this._initTime = 0;
-			this._delay = 0;
-		}
-	}
-	,get_id: function() {
-		return this._id;
-	}
-	,set_id: function(value) {
-		return this._id = value;
-	}
-	,__class__: sketcher_lets_Go
-	,__properties__: {set_id:"set_id",get_id:"get_id"}
-};
-var sketcher_lets_easing_IEasing = function() { };
-sketcher_lets_easing_IEasing.__name__ = "sketcher.lets.easing.IEasing";
-sketcher_lets_easing_IEasing.__isInterface__ = true;
-sketcher_lets_easing_IEasing.prototype = {
-	__class__: sketcher_lets_easing_IEasing
-};
-var sketcher_lets_easing_Quad = function() { };
-sketcher_lets_easing_Quad.__name__ = "sketcher.lets.easing.Quad";
-sketcher_lets_easing_Quad.__properties__ = {get_easeOut:"get_easeOut",get_easeInOut:"get_easeInOut",get_easeIn:"get_easeIn"};
-sketcher_lets_easing_Quad.get_easeIn = function() {
-	return new sketcher_lets_easing_QuadEaseIn();
-};
-sketcher_lets_easing_Quad.get_easeInOut = function() {
-	return new sketcher_lets_easing_QuadEaseInOut();
-};
-sketcher_lets_easing_Quad.get_easeOut = function() {
-	return new sketcher_lets_easing_QuadEaseOut();
-};
-var sketcher_lets_easing_QuadEaseIn = function() {
-};
-sketcher_lets_easing_QuadEaseIn.__name__ = "sketcher.lets.easing.QuadEaseIn";
-sketcher_lets_easing_QuadEaseIn.__interfaces__ = [sketcher_lets_easing_IEasing];
-sketcher_lets_easing_QuadEaseIn.prototype = {
-	calculate: function(k) {
-		return k * k;
-	}
-	,ease: function(t,b,c,d) {
-		return c * (t /= d) * t + b;
-	}
-	,__class__: sketcher_lets_easing_QuadEaseIn
-};
-var sketcher_lets_easing_QuadEaseInOut = function() {
-};
-sketcher_lets_easing_QuadEaseInOut.__name__ = "sketcher.lets.easing.QuadEaseInOut";
-sketcher_lets_easing_QuadEaseInOut.__interfaces__ = [sketcher_lets_easing_IEasing];
-sketcher_lets_easing_QuadEaseInOut.prototype = {
-	calculate: function(k) {
-		if((k *= 2) < 1) {
-			return 0.5 * k * k;
-		}
-		return -0.5 * ((k - 1) * (k - 3) - 1);
-	}
-	,ease: function(t,b,c,d) {
-		if((t /= d / 2) < 1) {
-			return c / 2 * t * t + b;
-		}
-		return -c / 2 * ((t - 1) * (t - 3) - 1) + b;
-	}
-	,__class__: sketcher_lets_easing_QuadEaseInOut
-};
-var sketcher_lets_easing_QuadEaseOut = function() {
-};
-sketcher_lets_easing_QuadEaseOut.__name__ = "sketcher.lets.easing.QuadEaseOut";
-sketcher_lets_easing_QuadEaseOut.__interfaces__ = [sketcher_lets_easing_IEasing];
-sketcher_lets_easing_QuadEaseOut.prototype = {
-	calculate: function(k) {
-		return -k * (k - 2);
-	}
-	,ease: function(t,b,c,d) {
-		return -c * (t /= d) * (t - 2) + b;
-	}
-	,__class__: sketcher_lets_easing_QuadEaseOut
-};
-var sketcher_lets_easing_Sine = function() { };
-sketcher_lets_easing_Sine.__name__ = "sketcher.lets.easing.Sine";
-sketcher_lets_easing_Sine.__properties__ = {get_easeOut:"get_easeOut",get_easeInOut:"get_easeInOut",get_easeIn:"get_easeIn"};
-sketcher_lets_easing_Sine.get_easeIn = function() {
-	return new sketcher_lets_easing_SineEaseIn();
-};
-sketcher_lets_easing_Sine.get_easeInOut = function() {
-	return new sketcher_lets_easing_SineEaseInOut();
-};
-sketcher_lets_easing_Sine.get_easeOut = function() {
-	return new sketcher_lets_easing_SineEaseOut();
-};
-var sketcher_lets_easing_SineEaseIn = function() {
-};
-sketcher_lets_easing_SineEaseIn.__name__ = "sketcher.lets.easing.SineEaseIn";
-sketcher_lets_easing_SineEaseIn.__interfaces__ = [sketcher_lets_easing_IEasing];
-sketcher_lets_easing_SineEaseIn.prototype = {
-	calculate: function(k) {
-		return 1 - Math.cos(k * (Math.PI / 2));
-	}
-	,ease: function(t,b,c,d) {
-		return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
-	}
-	,__class__: sketcher_lets_easing_SineEaseIn
-};
-var sketcher_lets_easing_SineEaseInOut = function() {
-};
-sketcher_lets_easing_SineEaseInOut.__name__ = "sketcher.lets.easing.SineEaseInOut";
-sketcher_lets_easing_SineEaseInOut.__interfaces__ = [sketcher_lets_easing_IEasing];
-sketcher_lets_easing_SineEaseInOut.prototype = {
-	calculate: function(k) {
-		return -(Math.cos(Math.PI * k) - 1) / 2;
-	}
-	,ease: function(t,b,c,d) {
-		return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
-	}
-	,__class__: sketcher_lets_easing_SineEaseInOut
-};
-var sketcher_lets_easing_SineEaseOut = function() {
-};
-sketcher_lets_easing_SineEaseOut.__name__ = "sketcher.lets.easing.SineEaseOut";
-sketcher_lets_easing_SineEaseOut.__interfaces__ = [sketcher_lets_easing_IEasing];
-sketcher_lets_easing_SineEaseOut.prototype = {
-	calculate: function(k) {
-		return Math.sin(k * (Math.PI / 2));
-	}
-	,ease: function(t,b,c,d) {
-		return c * Math.sin(t / d * (Math.PI / 2)) + b;
-	}
-	,__class__: sketcher_lets_easing_SineEaseOut
-};
-var sketcher_util_ColorUtil = function() {
-};
+var sketcher_util_ColorUtil = function() { };
 sketcher_util_ColorUtil.__name__ = "sketcher.util.ColorUtil";
 sketcher_util_ColorUtil.getColour = function(r,g,b,a) {
 	var c;
@@ -5941,98 +2932,8 @@ sketcher_util_ColorUtil.rgba = function(r,g,b,a) {
 		return "rgba(" + sketcher_util_MathUtil.clamp(Math.round(r),0,255) + ", " + sketcher_util_MathUtil.clamp(Math.round(g),0,255) + ", " + sketcher_util_MathUtil.clamp(Math.round(b),0,255) + ", " + sketcher_util_MathUtil.clamp(a,0,1) + ")";
 	}
 };
-sketcher_util_ColorUtil.rgbToHex = function(r,g,b) {
-	return StringTools.hex(r,2) + StringTools.hex(g,2) + StringTools.hex(b,2);
-};
-sketcher_util_ColorUtil.rgb2hex = function(r,g,b,a) {
-	if(a == null) {
-		a = 255;
-	}
-	return a << 24 | r << 16 | g << 8 | b;
-};
-sketcher_util_ColorUtil.randomColour = function() {
-	var r = sketcher_util_MathUtil.randomInt(255);
-	var g = sketcher_util_MathUtil.randomInt(255);
-	var b = sketcher_util_MathUtil.randomInt(255);
-	return sketcher_util_ColorUtil.rgb(r,g,b);
-};
-sketcher_util_ColorUtil.randomColourObject = function() {
-	var r = sketcher_util_MathUtil.randomInt(255);
-	var g = sketcher_util_MathUtil.randomInt(255);
-	var b = sketcher_util_MathUtil.randomInt(255);
-	return { r : r, g : g, b : b};
-};
-sketcher_util_ColorUtil.toRGB = function(int) {
-	return { r : Math.round(int >> 16 & 255), g : Math.round(int >> 8 & 255), b : Math.round(int & 255)};
-};
-sketcher_util_ColorUtil.ttoRGB = function(int) {
-	return { r : int >> 16 & 255, g : int >> 8 & 255, b : int & 255};
-};
-sketcher_util_ColorUtil.assumption = function(value) {
-	var _r = 0;
-	var _g = 0;
-	var _b = 0;
-	var _a = 1;
-	value = StringTools.replace(value," ","");
-	if(value.indexOf("rgba") != -1) {
-		value = StringTools.replace(StringTools.replace(value,"rgba(",""),")","");
-		var arr = value.split(",");
-		_r = arr[0];
-		_g = arr[1];
-		_b = arr[2];
-		_a = arr[3];
-	} else if(value.indexOf("rgb") != -1) {
-		value = StringTools.replace(StringTools.replace(value,"rgb(",""),")","");
-		var arr = value.split(",");
-		_r = arr[0];
-		_g = arr[1];
-		_b = arr[2];
-	} else if(value.indexOf("#") != -1) {
-		var int = Std.parseInt(StringTools.replace(value,"#","0x"));
-		var rgb_r = int >> 16 & 255;
-		var rgb_g = int >> 8 & 255;
-		var rgb_b = int & 255;
-		_r = rgb_r;
-		_g = rgb_g;
-		_b = rgb_b;
-	}
-	return { r : _r, g : _g, b : _b, a : _a};
-};
-sketcher_util_ColorUtil.hex2RGB = function(hex) {
-	var int = Std.parseInt(StringTools.replace(hex,"#","0x"));
-	return { r : int >> 16 & 255, g : int >> 8 & 255, b : int & 255};
-};
-sketcher_util_ColorUtil.prototype = {
-	__class__: sketcher_util_ColorUtil
-};
-var sketcher_util_EmbedUtil = function() {
-};
+var sketcher_util_EmbedUtil = function() { };
 sketcher_util_EmbedUtil.__name__ = "sketcher.util.EmbedUtil";
-sketcher_util_EmbedUtil.check = function(id) {
-	if(window.document.getElementById(id) != null) {
-		return true;
-	} else {
-		return false;
-	}
-};
-sketcher_util_EmbedUtil.stats = function() {
-	var script = document.createElement('script');script.id='mrdoob-stats';script.onload = function() {var stats = new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop() {stats.update();requestAnimationFrame(loop)});};script.src = '//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);
-};
-sketcher_util_EmbedUtil.removeStats = function() {
-	var scriptEl = window.document.getElementById("mrdoob-stats");
-	scriptEl.parentElement.removeChild(scriptEl);
-	var divArr = window.document.getElementsByTagName("div");
-	var _g = 0;
-	var _g1 = divArr.length;
-	while(_g < _g1) {
-		var i = _g++;
-		var div = divArr[i];
-		var style = div.getAttribute("style");
-		if(style == "position: fixed; top: 0px; left: 0px; cursor: pointer; opacity: 0.9; z-index: 10000;") {
-			div.parentElement.removeChild(div);
-		}
-	}
-};
 sketcher_util_EmbedUtil.script = function(id,src,callback,callbackArray) {
 	if(window.document.getElementById(id) != null) {
 		return;
@@ -6052,556 +2953,16 @@ sketcher_util_EmbedUtil.script = function(id,src,callback,callbackArray) {
 	};
 	window.document.body.appendChild(el);
 };
-sketcher_util_EmbedUtil.stylesheet = function(id,src,callback,callbackArray) {
-	if(window.document.getElementById(id) != null) {
-		return;
-	}
-	var el = window.document.createElement("link");
-	el.id = id;
-	el.rel = "stylesheet";
-	el.href = src;
-	el.onload = function() {
-		if(callback != null) {
-			if(callbackArray == null) {
-				callback.apply(callback,["id"]);
-			} else {
-				callback.apply(callback,callbackArray);
-			}
-		}
-	};
-	window.document.head.appendChild(el);
-};
-sketcher_util_EmbedUtil.bootstrapStylesheet = function(id,src,integrity,callback,callbackArray) {
-	if(window.document.getElementById(id) != null) {
-		return;
-	}
-	var el = window.document.createElement("link");
-	el.id = id;
-	el.rel = "stylesheet";
-	el.href = src;
-	el.integrity = integrity;
-	el.crossOrigin = "anonymous";
-	el.onload = function() {
-		if(callback != null) {
-			if(callbackArray == null) {
-				callback.apply(callback,[id]);
-			} else {
-				callback.apply(callback,callbackArray);
-			}
-		}
-	};
-	window.document.head.appendChild(el);
-};
-sketcher_util_EmbedUtil.bootstrapScript = function(id,src,integrity,callback,callbackArray) {
-	if(window.document.getElementById(id) != null) {
-		return;
-	}
-	var el = window.document.createElement("script");
-	el.id = id;
-	el.src = src;
-	el.integrity = integrity;
-	el.crossOrigin = "anonymous";
-	el.onload = function() {
-		if(callback != null) {
-			if(callbackArray == null) {
-				callback.apply(callback,[id]);
-			} else {
-				callback.apply(callback,callbackArray);
-			}
-		}
-	};
-	window.document.body.appendChild(el);
-};
-sketcher_util_EmbedUtil.quicksettings = function(callback,callbackArray) {
-	sketcher_util_EmbedUtil.script("quicksettings","https://cdn.jsdelivr.net/quicksettings/3.0.2/quicksettings.min.js",callback,callbackArray);
-};
-sketcher_util_EmbedUtil.gsap = function(callback,callbackArray) {
-	sketcher_util_EmbedUtil.script("gsap","https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.0/gsap.min.js",callback,callbackArray);
-};
-sketcher_util_EmbedUtil.ccnav = function(callback,callbackArray) {
-	sketcher_util_EmbedUtil.script("ccnav","https://matthijskamstra.github.io/drop-in-off-canvas-menu/cc_nav.min.js",callback,callbackArray);
-};
 sketcher_util_EmbedUtil.datgui = function(callback,callbackArray) {
 	sketcher_util_EmbedUtil.script("datgui","https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js",callback,callbackArray);
 	var style = window.document.createElement("style");
 	style.innerHTML = ".dg .c input[type=\"text\"]{\n\t\t\tline-height : normal;\n\t\t}";
 	window.document.head.appendChild(style);
 };
-sketcher_util_EmbedUtil.sanitize = function(callback,callbackArray) {
-	sketcher_util_EmbedUtil.stylesheet("sanitize","https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.css",callback,callbackArray);
-};
-sketcher_util_EmbedUtil.ficons = function(callback,callbackArray) {
-	sketcher_util_EmbedUtil.stylesheet("ficons","https://cdn.jsdelivr.net/npm/ficons@1.1.52/dist/ficons/font.css",callback,callbackArray);
-};
-sketcher_util_EmbedUtil.bootstrap = function(callback,callbackArray) {
-	sketcher_util_EmbedUtil.bootstrapStylesheet("bootstrap-stylesheet","https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css","sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh");
-	sketcher_util_EmbedUtil.bootstrapScript("bootstrap-jquery","https://code.jquery.com/jquery-3.4.1.slim.min.js","sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n");
-	sketcher_util_EmbedUtil.bootstrapScript("bootstrap-popper","https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js","sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo");
-	sketcher_util_EmbedUtil.bootstrapScript("bootstrap-bootstrap","https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js","sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6");
-};
-sketcher_util_EmbedUtil.bootstrapStyle = function(callback,callbackArray) {
-	sketcher_util_EmbedUtil.bootstrapStylesheet("bootstrap-stylesheet","https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css","sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh",callback,callbackArray);
-};
-sketcher_util_EmbedUtil.zip = function(callback,callbackArray) {
-	if(!sketcher_util_EmbedUtil.check("jszip")) {
-		sketcher_util_EmbedUtil.script("jszip","https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.min.js",callback,["jszip"]);
-	}
-	if(!sketcher_util_EmbedUtil.check("jsfilesaver")) {
-		sketcher_util_EmbedUtil.script("jsfilesaver","https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js",callback,["jsfilesaver"]);
-	}
-};
-sketcher_util_EmbedUtil.embedGoogleFont = function(family,callback,callbackArray) {
-	var _family = sketcher_util_EmbedUtil.cleanFontFamily(family);
-	var _id = "embededGoogleFonts";
-	var _url = "https://fonts.googleapis.com/css?family=";
-	var _display = "&display=swap";
-	var link = window.document.getElementById(_id);
-	if(link != null) {
-		var temp = StringTools.replace(StringTools.replace(link.href,_url,""),_display,"");
-		family = temp + "|" + family;
-	} else {
-		link = window.document.createElement("link");
-	}
-	if(callbackArray == null) {
-		callbackArray = [family];
-	}
-	link.href = "" + _url + family + _display;
-	link.rel = "stylesheet";
-	link.id = _id;
-	link.onload = function() {
-		if(callback != null) {
-			haxe_Timer.delay(function() {
-				callback.apply(callback,callbackArray);
-			},1);
-		}
-	};
-	window.document.head.appendChild(link);
-	return _family;
-};
-sketcher_util_EmbedUtil.cleanFontFamily = function(family) {
-	if(family.indexOf(":") != -1) {
-		family = family.split(":")[0];
-	}
-	return StringTools.replace(family,"+"," ");
-};
-sketcher_util_EmbedUtil.fontSansSerif = function(callback,callbackArray) {
-	var fontFamily = "Roboto";
-	return sketcher_util_EmbedUtil.embedGoogleFont(fontFamily,callback,callbackArray);
-};
-sketcher_util_EmbedUtil.fontMono = function(callback,callbackArray) {
-	var fontFamily = "Source+Code+Pro";
-	return sketcher_util_EmbedUtil.embedGoogleFont(fontFamily,callback,callbackArray);
-};
-sketcher_util_EmbedUtil.fontHandwritten = function(callback,callbackArray) {
-	var fontFamily = "Pacifico";
-	return sketcher_util_EmbedUtil.embedGoogleFont(fontFamily,callback,callbackArray);
-};
-sketcher_util_EmbedUtil.fontDisplay = function(callback,callbackArray) {
-	var fontFamily = "Bebas+Neue";
-	return sketcher_util_EmbedUtil.embedGoogleFont(fontFamily,callback,callbackArray);
-};
-sketcher_util_EmbedUtil.prototype = {
-	__class__: sketcher_util_EmbedUtil
-};
-var sketcher_util_GridUtil = function(w,h) {
-	this._isDebug = false;
-	this._isPosition = false;
-	this._isDimension = false;
-	this._isNumbered = false;
-	this._isCellSize = false;
-	this.totalColumn = null;
-	this.numVer = null;
-	this.totalRow = null;
-	this.numHor = null;
-	this.cellHeight = null;
-	this.cellWidth = null;
-	this.isFullscreen = false;
-	this.isCentered = false;
-	this.gridY = 0;
-	this.gridX = 0;
-	this.height = null;
-	this.width = null;
-	this.y = null;
-	this.x = null;
-	this.total = null;
-	this.array = [];
-	this._w = w;
-	this._h = h;
-};
-sketcher_util_GridUtil.__name__ = "sketcher.util.GridUtil";
-sketcher_util_GridUtil.create = function(w,h) {
-	var GridUtil = new sketcher_util_GridUtil(w,h);
-	return GridUtil;
-};
-sketcher_util_GridUtil.createGrid = function(x,y,width,height,numHor,numVer) {
-	if(numVer == null) {
-		numVer = 1;
-	}
-	if(numHor == null) {
-		numHor = 1;
-	}
-	var gridW = width / (numHor - 1);
-	var gridH = height / (numVer - 1);
-	var total = numHor * numVer;
-	var xpos = 0;
-	var ypos = 0;
-	var arr = [];
-	var _g = 0;
-	var _g1 = total;
-	while(_g < _g1) {
-		var i = _g++;
-		var point = { x : x + xpos * gridW, y : y + ypos * gridH};
-		arr.push(point);
-		++xpos;
-		if(xpos >= numHor) {
-			xpos = 0;
-			++ypos;
-		}
-	}
-	return arr;
-};
-sketcher_util_GridUtil.prototype = {
-	xpos: function(x) {
-		this._x = x;
-		return this;
-	}
-	,ypos: function(y) {
-		this._y = y;
-		return this;
-	}
-	,pos: function(x,y) {
-		this._x = x;
-		this._y = y;
-		return this;
-	}
-	,dimension: function(w,h) {
-		this._w = w;
-		this._h = h;
-		return this;
-	}
-	,grid: function(hor,ver) {
-		this._hor = hor;
-		this._ver = ver;
-		return this;
-	}
-	,size: function(w,h) {
-		this._cellw = w;
-		this._cellh = h;
-		return this;
-	}
-	,centered: function() {
-		this._center = true;
-		return this;
-	}
-	,debug: function() {
-		this._debug = true;
-		return this;
-	}
-	,fullscreen: function() {
-		this._fullscreen = true;
-		return this;
-	}
-	,color: function(value) {
-		this._color = value;
-		return this;
-	}
-	,calc: function() {
-		haxe_Log.trace("WIP",{ fileName : "sketcher/util/GridUtil.hx", lineNumber : 262, className : "sketcher.util.GridUtil", methodName : "calc"});
-		return this;
-	}
-	,setPosition: function(x,y) {
-		if(this._isDebug) {
-			$global.console.log("" + this.toString() + " setPostion");
-		}
-		this.x = x;
-		this.y = y;
-		this._isPosition = true;
-		this.calculate();
-	}
-	,setIsCenterPoint: function(isCentered) {
-		if(isCentered == null) {
-			isCentered = true;
-		}
-		if(this._isDebug) {
-			$global.console.log("" + this.toString() + " setCenterPoint");
-		}
-		this.isCentered = isCentered;
-		this.calculate();
-	}
-	,setDebug: function(isDebug) {
-		if(isDebug == null) {
-			isDebug = true;
-		}
-		this._isDebug = isDebug;
-		if(this._isDebug) {
-			$global.console.log("" + this.toString() + " setDebug");
-		}
-	}
-	,setIsFullscreen: function(isFullscreen) {
-		if(isFullscreen == null) {
-			isFullscreen = true;
-		}
-		if(this._isDebug) {
-			$global.console.log("" + this.toString() + " setIsFullscreen");
-		}
-		this.isFullscreen = isFullscreen;
-		this.calculate();
-	}
-	,setDimension: function(width,height) {
-		if(this._isDebug) {
-			$global.console.log("" + this.toString() + " setDimension (width: " + width + ", height: " + height + ")");
-		}
-		this.width = width;
-		this.height = height;
-		this._isDimension = true;
-		this.calculate();
-	}
-	,setNumbered: function(numHor,numVer) {
-		if(this._isDebug) {
-			$global.console.log("" + this.toString() + " setNumbers (numHor: " + numHor + ", numVer: " + numVer + ")");
-		}
-		this.numHor = numHor;
-		this.numVer = numVer;
-		this._isNumbered = true;
-		this.calculate();
-	}
-	,setCellSize: function(cellWidth,cellHeight) {
-		if(cellHeight == null) {
-			cellHeight = cellWidth;
-		}
-		if(this._isDebug) {
-			$global.console.log("" + this.toString() + " setCellSize (cellWidth: " + cellWidth + ", cellHeight: " + cellHeight + ")");
-		}
-		this.cellWidth = cellWidth;
-		this.cellHeight = cellHeight;
-		this._isCellSize = true;
-		this.calculate();
-	}
-	,row: function(sh) {
-		return this.getTablePosition(sh).row;
-	}
-	,column: function(sh) {
-		return this.getTablePosition(sh).column;
-	}
-	,getTablePosition: function(sh) {
-		var index = this.array.indexOf(sh);
-		var _row = Math.floor(index / this.numHor);
-		var _column = index - _row * this.numHor;
-		return { "row" : _row, "column" : _column};
-	}
-	,getIndex: function(point) {
-		var index = this.array.indexOf(point);
-		if(index == -1) {
-			$global.console.warn("Looks like this point (" + point.x + ", " + point.y + ") is not in array");
-		}
-		return index;
-	}
-	,getTablePoint: function(row,column) {
-		if(row >= this.totalRow) {
-			$global.console.warn("looks like the row is outside the grid (" + row + " >= " + this.totalRow + ")");
-			return null;
-		}
-		if(column >= this.totalColumn) {
-			$global.console.warn("looks like the column is outside the grid (" + column + " >= " + this.totalColumn + ")");
-			return null;
-		}
-		if(row < 0) {
-			$global.console.warn("looks like the row is outside the grid (" + row + " < 0)");
-			return null;
-		}
-		if(column < 0) {
-			$global.console.warn("looks like the column is outside the grid (" + column + " < 0)");
-			return null;
-		}
-		return this.array[Math.round(row * this.numHor + column)];
-	}
-	,reset: function() {
-		this.array = [];
-	}
-	,calculate: function() {
-		if(this._isDebug) {
-			$global.console.log("" + this.toString() + " calculate()");
-		}
-		if(this._isCellSize && !this._isDimension) {
-			if(this._isDebug) {
-				$global.console.info("" + this.toString() + " solution #1: cellSize is set");
-			}
-			this.numHor = Math.floor(this._w / this.cellWidth);
-			this.numVer = Math.floor(this._h / this.cellHeight);
-			this.width = this.numHor * this.cellWidth;
-			this.height = this.numVer * this.cellHeight;
-			this.x = (this._w - this.width) / 2;
-			this.y = (this._h - this.height) / 2;
-		}
-		if(this._isNumbered && !this._isDimension) {
-			if(this._isDebug) {
-				$global.console.info("" + this.toString() + " solution #2: numbered cells set");
-			}
-			var __w = this.width != null ? this.width : this._w;
-			var __h = this.height != null ? this.height : this._h;
-			this.cellWidth = __w / this.numHor;
-			this.cellHeight = __h / this.numVer;
-			this.width = this.numHor * this.cellWidth;
-			this.height = this.numVer * this.cellHeight;
-			this.x = (this._w - this.width) / 2;
-			this.y = (this._h - this.height) / 2;
-			$global.console.groupCollapsed("GridUtil values (#2):");
-			$global.console.info("cellWidth: " + this.cellWidth + ", \ncellHeight: " + this.cellHeight + ", \nwidth: " + this.width + ", \nheight: " + this.height + ", \nx: " + this.x + ", \ny: " + this.y);
-			$global.console.groupEnd();
-		}
-		if(this._isDimension && !this._isNumbered && !this._isCellSize) {
-			if(this._isDebug) {
-				$global.console.info("" + this.toString() + " solution #3: width/height set (" + this.width + ", " + this.height + ")");
-			}
-			var _cellWidth = this.cellWidth != null ? this.cellWidth : 50;
-			var _cellHeight = this.cellHeight != null ? this.cellHeight : 50;
-			this.numHor = Math.floor(this.width / _cellWidth);
-			this.numVer = Math.floor(this.height / _cellHeight);
-			this.width = this.numHor * _cellWidth;
-			this.height = this.numVer * _cellHeight;
-			this.cellWidth = this.width / this.numHor;
-			this.cellHeight = this.height / this.numVer;
-			this.x = (this._w - this.width) / 2;
-			this.y = (this._h - this.height) / 2;
-		}
-		if(this._isDimension && !this._isCellSize) {
-			if(this._isDebug) {
-				$global.console.info("" + this.toString() + " solution #3a: width/height set (" + this.width + ", " + this.height + ") AND number row/cols (" + this.numHor + ", " + this.numVer + ")");
-			}
-			this.cellWidth = Math.floor(this.width / this.numHor);
-			this.cellHeight = Math.floor(this.height / this.numVer);
-			this.width = this.numHor * this.cellWidth;
-			this.height = this.numVer * this.cellHeight;
-			if(!this._isPosition) {
-				this.x = (this._w - this.width) / 2;
-				this.y = (this._h - this.height) / 2;
-			}
-		}
-		if(this._isDimension && this._isNumbered && !this._isCellSize) {
-			if(this._isDebug) {
-				$global.console.info("" + this.toString() + " solution #3b: w/h set (" + this.width + ", " + this.height + ") AND number row/cols (" + this.numHor + ", " + this.numVer + ")");
-				$global.console.info("" + this.toString() + "  (" + this._w + ", " + this._h + ")");
-			}
-			this.cellWidth = Math.floor(this.width / this.numHor);
-			this.cellHeight = Math.floor(this.height / this.numVer);
-			this.width = this.numHor * this.cellWidth;
-			this.height = this.numVer * this.cellHeight;
-		}
-		if(this._isCellSize && this._isDimension) {
-			if(this._isDebug) {
-				$global.console.info("" + this.toString() + " solution #4: cellSize is set and width/height");
-			}
-			this.numHor = Math.floor(this.width / this.cellWidth);
-			this.numVer = Math.floor(this.height / this.cellHeight);
-			this.width = this.numHor * this.cellWidth;
-			this.height = this.numVer * this.cellHeight;
-			if(!this._isPosition) {
-				this.x = (this._w - this.width) / 2;
-				this.y = (this._h - this.height) / 2;
-			}
-		}
-		if(this.isFullscreen && this._isCellSize) {
-			if(this._isDebug) {
-				$global.console.info("" + this.toString() + " solution #5: fullscreen and cellSize is set");
-			}
-			this.width = this._w;
-			this.height = this._h;
-			this.numHor = Math.ceil(this.width / this.cellWidth);
-			this.numVer = Math.ceil(this.height / this.cellHeight);
-			this.width = this.numHor * this.cellWidth;
-			this.height = this.numVer * this.cellHeight;
-			this.x = (this._w - this.width) / 2;
-			this.y = (this._h - this.height) / 2;
-		}
-		var cx = 0.0;
-		var cy = 0.0;
-		if(this.isCentered) {
-			cx = this.cellWidth / 2;
-			cy = this.cellHeight / 2;
-		}
-		this.array = [];
-		var total = Math.round(this.numHor * this.numVer);
-		var xpos = 0;
-		var ypos = 0;
-		var _g = 0;
-		var _g1 = total;
-		while(_g < _g1) {
-			var i = _g++;
-			var point = { x : Math.round(this.x + xpos * this.cellWidth + cx), y : Math.round(this.y + ypos * this.cellHeight + cy)};
-			this.array.push(point);
-			++xpos;
-			if(xpos >= this.numHor) {
-				xpos = 0;
-				++ypos;
-			}
-		}
-		total = this.array.length;
-		if(this._isDebug) {
-			$global.console.groupCollapsed("" + this.toString() + " Sata");
-			$global.console.log("x: " + this.x + ", y: " + this.y + ", width: " + this.width + ", height: " + this.height + ", cellWidth: " + this.cellWidth + ", cellHeight: " + this.cellHeight + ", numHor: " + this.numHor + ", numVer: " + this.numVer + ", array: " + this.array.length);
-			$global.console.table(this.array);
-			$global.console.groupEnd();
-		}
-		this.totalRow = Math.round(this.numVer);
-		this.totalColumn = Math.round(this.numHor);
-	}
-	,toString: function() {
-		return "[GridUtil]";
-	}
-	,__class__: sketcher_util_GridUtil
-};
 var sketcher_util_MathUtil = function() { };
 sketcher_util_MathUtil.__name__ = "sketcher.util.MathUtil";
 sketcher_util_MathUtil.radians = function(deg) {
 	return deg * Math.PI / 180;
-};
-sketcher_util_MathUtil.degrees = function(rad) {
-	return rad * 180 / Math.PI;
-};
-sketcher_util_MathUtil.degreesToPoint = function(deg,diameter) {
-	var rad = Math.PI * deg / 180;
-	var r = diameter / 2;
-	return { x : r * Math.cos(rad), y : r * Math.sin(rad)};
-};
-sketcher_util_MathUtil.distributeAngles = function(me,total) {
-	return me / total * 360;
-};
-sketcher_util_MathUtil.distance = function(x1,y1,x2,y2) {
-	return sketcher_util_MathUtil.dist(x1,y1,x2,y2);
-};
-sketcher_util_MathUtil.distancePoint = function(p0,p1) {
-	return sketcher_util_MathUtil.dist(p0.x,p0.y,p1.x,p1.y);
-};
-sketcher_util_MathUtil.dist = function(x1,y1,x2,y2) {
-	x2 -= x1;
-	y2 -= y1;
-	return Math.sqrt(x2 * x2 + y2 * y2);
-};
-sketcher_util_MathUtil.pythagoreanTheorem = function(a,b,c) {
-	if(a == null && b == null && c == null) {
-		haxe_Log.trace("Really? Perhaps you should use some data",{ fileName : "sketcher/util/MathUtil.hx", lineNumber : 110, className : "sketcher.util.MathUtil", methodName : "pythagoreanTheorem"});
-		return 0;
-	}
-	var value = 0.0;
-	if(c == null || c == 0) {
-		value = Math.sqrt(a * a + b * b);
-	}
-	if(a == null || a == 0) {
-		value = Math.sqrt(c * c - b * b);
-	}
-	if(b == null || b == 0) {
-		value = Math.sqrt(c * c - a * a);
-	}
-	return value;
-};
-sketcher_util_MathUtil.circumferenceCircle = function(radius) {
-	return Math.PI * radius * 2;
-};
-sketcher_util_MathUtil.circumference2RadiusCircle = function(circumference) {
-	return circumference / (Math.PI * 2);
-};
-sketcher_util_MathUtil.areaCircle = function(radius) {
-	return Math.PI * Math.sqrt(radius);
 };
 sketcher_util_MathUtil.randomInteger = function(min,max) {
 	if(max == null) {
@@ -6613,131 +2974,9 @@ sketcher_util_MathUtil.randomInteger = function(min,max) {
 sketcher_util_MathUtil.randomInt = function(min,max) {
 	return sketcher_util_MathUtil.randomInteger(min,max);
 };
-sketcher_util_MathUtil.random = function(min,max) {
-	if(min == null) {
-		min = 0;
-		max = 1;
-	} else if(max == null) {
-		max = min;
-		min = 0;
-	}
-	return Math.random() * (max - min) + min;
-};
-sketcher_util_MathUtil.randomP = function(min,max) {
-	if(min == null) {
-		min = 0.1;
-		max = 1;
-	} else if(max == null) {
-		max = min;
-		min = 0.1;
-	}
-	return Math.random() * (max - min) + min;
-};
-sketcher_util_MathUtil.chance = function(value) {
-	if(value > 1) {
-		value /= 100;
-	}
-	return Math.random() < value;
-};
-sketcher_util_MathUtil.chanceTrue = function(value) {
-	if(value > 1) {
-		value /= 100;
-	}
-	return Math.random() < value;
-};
-sketcher_util_MathUtil.chanceFalse = function(value) {
-	if(value > 1) {
-		value /= 100;
-	}
-	return Math.random() > value;
-};
-sketcher_util_MathUtil.posNeg = function() {
-	return sketcher_util_MathUtil.randomInt(0,1) * 2 - 1;
-};
-sketcher_util_MathUtil.flip = function() {
-	return Math.random() < 0.5;
-};
-sketcher_util_MathUtil.angle = function(cx,cy,ex,ey) {
-	var dy = ey - cy;
-	var dx = ex - cx;
-	var theta = Math.atan2(dy,dx);
-	theta *= 180 / Math.PI;
-	if(theta < 0) {
-		theta = 360 + theta;
-	}
-	if(theta == 360) {
-		theta = 0;
-	}
-	return theta;
-};
-sketcher_util_MathUtil.map = function(value,min1,max1,min2,max2,clampResult) {
-	var returnvalue = (value - min1) / (max1 - min1) * (max2 - min2) + min2;
-	if(clampResult) {
-		return sketcher_util_MathUtil.clamp(returnvalue,min2,max2);
-	} else {
-		return returnvalue;
-	}
-};
-sketcher_util_MathUtil.orbit = function(xpos,ypos,angle,radius) {
-	var _xpos = xpos + Math.cos(sketcher_util_MathUtil.radians(angle)) * radius;
-	var _ypos = ypos + Math.sin(sketcher_util_MathUtil.radians(angle)) * radius;
-	return { x : _xpos, y : _ypos};
-};
-sketcher_util_MathUtil.orbitX = function(origin,angle,radius) {
-	return origin + Math.cos(sketcher_util_MathUtil.radians(angle)) * radius;
-};
-sketcher_util_MathUtil.orbitY = function(origin,angle,radius) {
-	return origin + Math.sin(sketcher_util_MathUtil.radians(angle)) * radius;
-};
-sketcher_util_MathUtil.orbitZ = function(origin,angle,radius) {
-	return origin + Math.cos(sketcher_util_MathUtil.radians(angle)) * radius;
-};
-sketcher_util_MathUtil.shuffle = function(array) {
-	var currentIndex = array.length;
-	var temporaryValue;
-	var randomIndex;
-	while(0 != currentIndex) {
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		--currentIndex;
-		temporaryValue = array[currentIndex];
-		array[currentIndex] = array[randomIndex];
-		array[randomIndex] = temporaryValue;
-	}
-	return array;
-};
 sketcher_util_MathUtil.clamp = function(value,min,max) {
 	return Math.min(Math.max(value,Math.min(min,max)),Math.max(min,max));
 };
-sketcher_util_MathUtil.formatByteSizeString = function(bytes) {
-	if(bytes < 1024) {
-		return bytes + " bytes";
-	} else if(bytes < 1048576) {
-		return sketcher_util_MathUtil.toFixed(bytes / 1024,3) + " KiB";
-	} else if(bytes < 1073741824) {
-		return sketcher_util_MathUtil.toFixed(bytes / 1048576,3) + " MiB";
-	} else {
-		return sketcher_util_MathUtil.toFixed(bytes / 1073741824,3) + " GiB";
-	}
-};
-sketcher_util_MathUtil.formatByteSize = function(bytes) {
-	if(bytes < 1024) {
-		return bytes;
-	} else if(bytes < 1048576) {
-		return sketcher_util_MathUtil.toFixed(bytes / 1024,3);
-	} else if(bytes < 1073741824) {
-		return sketcher_util_MathUtil.toFixed(bytes / 1048576,3);
-	} else {
-		return sketcher_util_MathUtil.toFixed(bytes / 1073741824,3);
-	}
-};
-sketcher_util_MathUtil.toFixed = function(number,precision) {
-	if(precision == null) {
-		precision = 2;
-	}
-	number *= Math.pow(10,precision);
-	return Math.round(number) / Math.pow(10,precision);
-};
-function $getIterator(o) { if( o instanceof Array ) return new haxe_iterators_ArrayIterator(o); else return o.iterator(); }
 function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id__ = $global.$haxeUID++; var f; if( o.hx__closures__ == null ) o.hx__closures__ = {}; else f = o.hx__closures__[m.__id__]; if( f == null ) { f = m.bind(o); o.hx__closures__[m.__id__] = f; } return f; }
 $global.$haxeUID |= 0;
 if(typeof(performance) != "undefined" ? typeof(performance.now) == "function" : false) {
@@ -6749,14 +2988,8 @@ String.__name__ = "String";
 Array.__name__ = "Array";
 Date.prototype.__class__ = Date;
 Date.__name__ = "Date";
-var Int = { };
-var Dynamic = { };
-var Float = Number;
-var Bool = Boolean;
-var Class = { };
-var Enum = { };
 js_Boot.__toStr = ({ }).toString;
-App.NAME = "[cc-interactive]";
+App.NAME = "[cc-gamepad]";
 CCGamepad.AXIS_RIGHT = "{x:1,y:0}";
 CCGamepad.AXIS_LEFT = "{x:-1,y:0}";
 CCGamepad.AXIS_DOWN = "{x:0,y:1}";
@@ -6828,61 +3061,17 @@ SNES.BUTTON_LEFT_BOTTOM = 4;
 SNES.BUTTON_RIGHT_BOTTOM = 5;
 SNES.BUTTON_SELECT = 8;
 SNES.BUTTON_START = 9;
-Globals.MOUSE_DOWN = "mousedown";
 Globals.MOUSE_UP = "mouseup";
-Globals.MOUSE_MOVE = "mousemove";
 Globals.KEY_DOWN = "keydown";
 Globals.KEY_UP = "keyup";
 Globals.RESIZE = "resize";
 Globals.isMouseDown = false;
-Globals.mousePressed = 0;
-Globals.mouseReleased = 0;
 Globals.isFullscreen = false;
-Globals.TWO_PI = Math.PI * 2;
 Xml.Element = 0;
-Xml.PCData = 1;
-Xml.CData = 2;
-Xml.Comment = 3;
-Xml.DocType = 4;
-Xml.ProcessingInstruction = 5;
 Xml.Document = 6;
-haxe_xml_Parser.escapes = (function($this) {
-	var $r;
-	var h = new haxe_ds_StringMap();
-	h.h["lt"] = "<";
-	h.h["gt"] = ">";
-	h.h["amp"] = "&";
-	h.h["quot"] = "\"";
-	h.h["apos"] = "'";
-	$r = h;
-	return $r;
-}(this));
-sketcher_App.NAME = "[cc-sketcher]";
+interactive_App.NAME = "[cc-interactive]";
 sketcher_draw_Base.COUNT = 0;
-sketcher_lets_Go._tweens = [];
-sketcher_util_ColorUtil.NAVY = { r : Math.round(0), g : Math.round(31), b : Math.round(63)};
-sketcher_util_ColorUtil.BLUE = { r : Math.round(0), g : Math.round(116), b : Math.round(217)};
-sketcher_util_ColorUtil.AQUA = { r : Math.round(127), g : Math.round(219), b : Math.round(255)};
-sketcher_util_ColorUtil.TEAL = { r : Math.round(57), g : Math.round(204), b : Math.round(204)};
-sketcher_util_ColorUtil.OLIVE = { r : Math.round(61), g : Math.round(153), b : Math.round(112)};
-sketcher_util_ColorUtil.GREEN = { r : Math.round(46), g : Math.round(204), b : Math.round(64)};
-sketcher_util_ColorUtil.LIME = { r : Math.round(1), g : Math.round(255), b : Math.round(112)};
-sketcher_util_ColorUtil.YELLOW = { r : Math.round(255), g : Math.round(220), b : Math.round(0)};
-sketcher_util_ColorUtil.ORANGE = { r : Math.round(255), g : Math.round(133), b : Math.round(27)};
-sketcher_util_ColorUtil.RED = { r : Math.round(255), g : Math.round(65), b : Math.round(54)};
-sketcher_util_ColorUtil.MAROON = { r : Math.round(133), g : Math.round(20), b : Math.round(75)};
-sketcher_util_ColorUtil.FUCHSIA = { r : Math.round(240), g : Math.round(18), b : Math.round(190)};
-sketcher_util_ColorUtil.PURPLE = { r : Math.round(177), g : Math.round(13), b : Math.round(201)};
-sketcher_util_ColorUtil.BLACK = { r : Math.round(17), g : Math.round(17), b : Math.round(17)};
-sketcher_util_ColorUtil.GRAY = { r : Math.round(170), g : Math.round(170), b : Math.round(170)};
-sketcher_util_ColorUtil.SILVER = { r : Math.round(221), g : Math.round(221), b : Math.round(221)};
-sketcher_util_ColorUtil.WHITE = { r : Math.round(255), g : Math.round(255), b : Math.round(255)};
-sketcher_util_ColorUtil.PINK = { r : Math.round(255), g : Math.round(20), b : Math.round(147)};
-sketcher_util_ColorUtil.PINK_DEEP = { r : Math.round(255), g : Math.round(20), b : Math.round(147)};
-sketcher_util_ColorUtil.PINK_HOT = { r : Math.round(255), g : Math.round(105), b : Math.round(180)};
-sketcher_util_ColorUtil.niceColor100 = [["#69d2e7","#a7dbd8","#e0e4cc","#f38630","#fa6900"],["#fe4365","#fc9d9a","#f9cdad","#c8c8a9","#83af9b"],["#ecd078","#d95b43","#c02942","#542437","#53777a"],["#556270","#4ecdc4","#c7f464","#ff6b6b","#c44d58"],["#774f38","#e08e79","#f1d4af","#ece5ce","#c5e0dc"],["#e8ddcb","#cdb380","#036564","#033649","#031634"],["#490a3d","#bd1550","#e97f02","#f8ca00","#8a9b0f"],["#594f4f","#547980","#45ada8","#9de0ad","#e5fcc2"],["#00a0b0","#6a4a3c","#cc333f","#eb6841","#edc951"],["#e94e77","#d68189","#c6a49a","#c6e5d9","#f4ead5"],["#3fb8af","#7fc7af","#dad8a7","#ff9e9d","#ff3d7f"],["#d9ceb2","#948c75","#d5ded9","#7a6a53","#99b2b7"],["#ffffff","#cbe86b","#f2e9e1","#1c140d","#cbe86b"],["#efffcd","#dce9be","#555152","#2e2633","#99173c"],["#343838","#005f6b","#008c9e","#00b4cc","#00dffc"],["#413e4a","#73626e","#b38184","#f0b49e","#f7e4be"],["#ff4e50","#fc913a","#f9d423","#ede574","#e1f5c4"],["#99b898","#fecea8","#ff847c","#e84a5f","#2a363b"],["#655643","#80bca3","#f6f7bd","#e6ac27","#bf4d28"],["#00a8c6","#40c0cb","#f9f2e7","#aee239","#8fbe00"],["#351330","#424254","#64908a","#e8caa4","#cc2a41"],["#554236","#f77825","#d3ce3d","#f1efa5","#60b99a"],["#ff9900","#424242","#e9e9e9","#bcbcbc","#3299bb"],["#5d4157","#838689","#a8caba","#cad7b2","#ebe3aa"],["#8c2318","#5e8c6a","#88a65e","#bfb35a","#f2c45a"],["#fad089","#ff9c5b","#f5634a","#ed303c","#3b8183"],["#ff4242","#f4fad2","#d4ee5e","#e1edb9","#f0f2eb"],["#d1e751","#ffffff","#000000","#4dbce9","#26ade4"],["#f8b195","#f67280","#c06c84","#6c5b7b","#355c7d"],["#1b676b","#519548","#88c425","#bef202","#eafde6"],["#bcbdac","#cfbe27","#f27435","#f02475","#3b2d38"],["#5e412f","#fcebb6","#78c0a8","#f07818","#f0a830"],["#452632","#91204d","#e4844a","#e8bf56","#e2f7ce"],["#eee6ab","#c5bc8e","#696758","#45484b","#36393b"],["#f0d8a8","#3d1c00","#86b8b1","#f2d694","#fa2a00"],["#f04155","#ff823a","#f2f26f","#fff7bd","#95cfb7"],["#2a044a","#0b2e59","#0d6759","#7ab317","#a0c55f"],["#bbbb88","#ccc68d","#eedd99","#eec290","#eeaa88"],["#b9d7d9","#668284","#2a2829","#493736","#7b3b3b"],["#b3cc57","#ecf081","#ffbe40","#ef746f","#ab3e5b"],["#a3a948","#edb92e","#f85931","#ce1836","#009989"],["#67917a","#170409","#b8af03","#ccbf82","#e33258"],["#e8d5b7","#0e2430","#fc3a51","#f5b349","#e8d5b9"],["#aab3ab","#c4cbb7","#ebefc9","#eee0b7","#e8caaf"],["#300030","#480048","#601848","#c04848","#f07241"],["#ab526b","#bca297","#c5ceae","#f0e2a4","#f4ebc3"],["#607848","#789048","#c0d860","#f0f0d8","#604848"],["#a8e6ce","#dcedc2","#ffd3b5","#ffaaa6","#ff8c94"],["#3e4147","#fffedf","#dfba69","#5a2e2e","#2a2c31"],["#b6d8c0","#c8d9bf","#dadabd","#ecdbbc","#fedcba"],["#fc354c","#29221f","#13747d","#0abfbc","#fcf7c5"],["#1c2130","#028f76","#b3e099","#ffeaad","#d14334"],["#edebe6","#d6e1c7","#94c7b6","#403b33","#d3643b"],["#cc0c39","#e6781e","#c8cf02","#f8fcc1","#1693a7"],["#dad6ca","#1bb0ce","#4f8699","#6a5e72","#563444"],["#a7c5bd","#e5ddcb","#eb7b59","#cf4647","#524656"],["#fdf1cc","#c6d6b8","#987f69","#e3ad40","#fcd036"],["#5c323e","#a82743","#e15e32","#c0d23e","#e5f04c"],["#230f2b","#f21d41","#ebebbc","#bce3c5","#82b3ae"],["#b9d3b0","#81bda4","#b28774","#f88f79","#f6aa93"],["#3a111c","#574951","#83988e","#bcdea5","#e6f9bc"],["#5e3929","#cd8c52","#b7d1a3","#dee8be","#fcf7d3"],["#1c0113","#6b0103","#a30006","#c21a01","#f03c02"],["#382f32","#ffeaf2","#fcd9e5","#fbc5d8","#f1396d"],["#e3dfba","#c8d6bf","#93ccc6","#6cbdb5","#1a1f1e"],["#000000","#9f111b","#b11623","#292c37","#cccccc"],["#c1b398","#605951","#fbeec2","#61a6ab","#accec0"],["#8dccad","#988864","#fea6a2","#f9d6ac","#ffe9af"],["#f6f6f6","#e8e8e8","#333333","#990100","#b90504"],["#1b325f","#9cc4e4","#e9f2f9","#3a89c9","#f26c4f"],["#5e9fa3","#dcd1b4","#fab87f","#f87e7b","#b05574"],["#951f2b","#f5f4d7","#e0dfb1","#a5a36c","#535233"],["#413d3d","#040004","#c8ff00","#fa023c","#4b000f"],["#eff3cd","#b2d5ba","#61ada0","#248f8d","#605063"],["#2d2d29","#215a6d","#3ca2a2","#92c7a3","#dfece6"],["#cfffdd","#b4dec1","#5c5863","#a85163","#ff1f4c"],["#4e395d","#827085","#8ebe94","#ccfc8e","#dc5b3e"],["#9dc9ac","#fffec7","#f56218","#ff9d2e","#919167"],["#a1dbb2","#fee5ad","#faca66","#f7a541","#f45d4c"],["#ffefd3","#fffee4","#d0ecea","#9fd6d2","#8b7a5e"],["#a8a7a7","#cc527a","#e8175d","#474747","#363636"],["#ffedbf","#f7803c","#f54828","#2e0d23","#f8e4c1"],["#f8edd1","#d88a8a","#474843","#9d9d93","#c5cfc6"],["#f38a8a","#55443d","#a0cab5","#cde9ca","#f1edd0"],["#4e4d4a","#353432","#94ba65","#2790b0","#2b4e72"],["#0ca5b0","#4e3f30","#fefeeb","#f8f4e4","#a5b3aa"],["#a70267","#f10c49","#fb6b41","#f6d86b","#339194"],["#9d7e79","#ccac95","#9a947c","#748b83","#5b756c"],["#edf6ee","#d1c089","#b3204d","#412e28","#151101"],["#046d8b","#309292","#2fb8ac","#93a42a","#ecbe13"],["#4d3b3b","#de6262","#ffb88c","#ffd0b3","#f5e0d3"],["#fffbb7","#a6f6af","#66b6ab","#5b7c8d","#4f2958"],["#ff003c","#ff8a00","#fabe28","#88c100","#00c176"],["#fcfef5","#e9ffe1","#cdcfb7","#d6e6c3","#fafbe3"],["#9cddc8","#bfd8ad","#ddd9ab","#f7af63","#633d2e"],["#30261c","#403831","#36544f","#1f5f61","#0b8185"],["#d1313d","#e5625c","#f9bf76","#8eb2c5","#615375"],["#ffe181","#eee9e5","#fad3b2","#ffba7f","#ff9c97"],["#aaff00","#ffaa00","#ff00aa","#aa00ff","#00aaff"],["#c2412d","#d1aa34","#a7a844","#a46583","#5a1e4a"]];
 sketcher_util_ColorUtil.niceColor100SortedString = [["#E0E4CC","#A7DBD8","#69D2E7","#F38630","#FA6900"],["#F9CDAD","#C8C8A9","#FC9D9A","#83AF9B","#FE4365"],["#ECD078","#D95B43","#53777A","#C02942","#542437"],["#C7F464","#4ECDC4","#FF6B6B","#C44D58","#556270"],["#ECE5CE","#F1D4AF","#C5E0DC","#E08E79","#774F38"],["#E8DDCB","#CDB380","#036564","#033649","#031634"],["#F8CA00","#E97F02","#8A9B0F","#BD1550","#490A3D"],["#E5FCC2","#9DE0AD","#45ADA8","#547980","#594F4F"],["#EDC951","#EB6841","#00A0B0","#CC333F","#6A4A3C"],["#F4EAD5","#C6E5D9","#C6A49A","#D68189","#E94E77"],["#DAD8A7","#FF9E9D","#7FC7AF","#3FB8AF","#FF3D7F"],["#D5DED9","#D9CEB2","#99B2B7","#948C75","#7A6A53"],["#FFFFFF","#F2E9E1","#CBE86B","#CBE86B","#1C140D"],["#EFFFCD","#DCE9BE","#555152","#99173C","#2E2633"],["#00DFFC","#00B4CC","#008C9E","#005F6B","#343838"],["#F7E4BE","#F0B49E","#B38184","#73626E","#413E4A"],["#E1F5C4","#EDE574","#F9D423","#FC913A","#FF4E50"],["#FECEA8","#99B898","#FF847C","#E84A5F","#2A363B"],["#F6F7BD","#E6AC27","#80BCA3","#BF4D28","#655643"],["#F9F2E7","#AEE239","#40C0CB","#8FBE00","#00A8C6"],["#E8CAA4","#64908A","#CC2A41","#424254","#351330"],["#F1EFA5","#D3CE3D","#60B99A","#F77825","#554236"],["#E9E9E9","#BCBCBC","#FF9900","#3299BB","#424242"],["#EBE3AA","#CAD7B2","#A8CABA","#838689","#5D4157"],["#F2C45A","#BFB35A","#88A65E","#5E8C6A","#8C2318"],["#FAD089","#FF9C5B","#F5634A","#3B8183","#ED303C"],["#F4FAD2","#F0F2EB","#E1EDB9","#D4EE5E","#FF4242"],["#FFFFFF","#D1E751","#4DBCE9","#26ADE4","#000000"],["#F8B195","#F67280","#C06C84","#6C5B7B","#355C7D"],["#EAFDE6","#BEF202","#88C425","#519548","#1B676B"],["#BCBDAC","#CFBE27","#F27435","#F02475","#3B2D38"],["#FCEBB6","#F0A830","#78C0A8","#F07818","#5E412F"],["#E2F7CE","#E8BF56","#E4844A","#91204D","#452632"],["#EEE6AB","#C5BC8E","#696758","#45484B","#36393B"],["#F0D8A8","#F2D694","#86B8B1","#FA2A00","#3D1C00"],["#FFF7BD","#F2F26F","#95CFB7","#FF823A","#F04155"],["#A0C55F","#7AB317","#0D6759","#0B2E59","#2A044A"],["#EEDD99","#EEC290","#CCC68D","#EEAA88","#BBBB88"],["#B9D7D9","#668284","#7B3B3B","#493736","#2A2829"],["#ECF081","#FFBE40","#B3CC57","#EF746F","#AB3E5B"],["#EDB92E","#A3A948","#F85931","#009989","#CE1836"],["#CCBF82","#B8AF03","#67917A","#E33258","#170409"],["#E8D5B9","#E8D5B7","#F5B349","#FC3A51","#0E2430"],["#EBEFC9","#EEE0B7","#E8CAAF","#C4CBB7","#AAB3AB"],["#F07241","#C04848","#601848","#480048","#300030"],["#F4EBC3","#F0E2A4","#C5CEAE","#BCA297","#AB526B"],["#F0F0D8","#C0D860","#789048","#607848","#604848"],["#DCEDC2","#FFD3B5","#A8E6CE","#FFAAA6","#FF8C94"],["#FFFEDF","#DFBA69","#3E4147","#5A2E2E","#2A2C31"],["#FEDCBA","#ECDBBC","#DADABD","#C8D9BF","#B6D8C0"],["#FCF7C5","#0ABFBC","#FC354C","#13747D","#29221F"],["#FFEAAD","#B3E099","#D14334","#028F76","#1C2130"],["#EDEBE6","#D6E1C7","#94C7B6","#D3643B","#403B33"],["#F8FCC1","#C8CF02","#E6781E","#1693A7","#CC0C39"],["#DAD6CA","#1BB0CE","#4F8699","#6A5E72","#563444"],["#E5DDCB","#A7C5BD","#EB7B59","#CF4647","#524656"],["#FDF1CC","#C6D6B8","#FCD036","#E3AD40","#987F69"],["#E5F04C","#C0D23E","#E15E32","#A82743","#5C323E"],["#EBEBBC","#BCE3C5","#82B3AE","#F21D41","#230F2B"],["#B9D3B0","#F6AA93","#F88F79","#81BDA4","#B28774"],["#E6F9BC","#BCDEA5","#83988E","#574951","#3A111C"],["#FCF7D3","#DEE8BE","#B7D1A3","#CD8C52","#5E3929"],["#F03C02","#C21A01","#A30006","#6B0103","#1C0113"],["#FFEAF2","#FCD9E5","#FBC5D8","#F1396D","#382F32"],["#E3DFBA","#C8D6BF","#93CCC6","#6CBDB5","#1A1F1E"],["#CCCCCC","#B11623","#9F111B","#292C37","#000000"],["#FBEEC2","#ACCEC0","#C1B398","#61A6AB","#605951"],["#FFE9AF","#F9D6AC","#FEA6A2","#8DCCAD","#988864"],["#F6F6F6","#E8E8E8","#B90504","#333333","#990100"],["#E9F2F9","#9CC4E4","#F26C4F","#3A89C9","#1B325F"],["#DCD1B4","#FAB87F","#F87E7B","#5E9FA3","#B05574"],["#F5F4D7","#E0DFB1","#A5A36C","#535233","#951F2B"],["#C8FF00","#FA023C","#413D3D","#4B000F","#040004"],["#EFF3CD","#B2D5BA","#61ADA0","#248F8D","#605063"],["#DFECE6","#92C7A3","#3CA2A2","#215A6D","#2D2D29"],["#CFFFDD","#B4DEC1","#A85163","#FF1F4C","#5C5863"],["#CCFC8E","#8EBE94","#DC5B3E","#827085","#4E395D"],["#FFFEC7","#9DC9AC","#FF9D2E","#919167","#F56218"],["#FEE5AD","#FACA66","#A1DBB2","#F7A541","#F45D4C"],["#FFFEE4","#FFEFD3","#D0ECEA","#9FD6D2","#8B7A5E"],["#A8A7A7","#CC527A","#E8175D","#474747","#363636"],["#FFEDBF","#F8E4C1","#F7803C","#F54828","#2E0D23"],["#F8EDD1","#C5CFC6","#D88A8A","#9D9D93","#474843"],["#F1EDD0","#CDE9CA","#A0CAB5","#F38A8A","#55443D"],["#94BA65","#2790B0","#4E4D4A","#2B4E72","#353432"],["#FEFEEB","#F8F4E4","#A5B3AA","#0CA5B0","#4E3F30"],["#F6D86B","#FB6B41","#339194","#F10C49","#A70267"],["#CCAC95","#9A947C","#9D7E79","#748B83","#5B756C"],["#EDF6EE","#D1C089","#B3204D","#412E28","#151101"],["#ECBE13","#93A42A","#2FB8AC","#309292","#046D8B"],["#F5E0D3","#FFD0B3","#FFB88C","#DE6262","#4D3B3B"],["#FFFBB7","#A6F6AF","#66B6AB","#5B7C8D","#4F2958"],["#FABE28","#FF8A00","#88C100","#00C176","#FF003C"],["#FCFEF5","#FAFBE3","#E9FFE1","#D6E6C3","#CDCFB7"],["#DDD9AB","#BFD8AD","#9CDDC8","#F7AF63","#633D2E"],["#0B8185","#1F5F61","#36544F","#403831","#30261C"],["#F9BF76","#8EB2C5","#E5625C","#D1313D","#615375"],["#EEE9E5","#FFE181","#FAD3B2","#FFBA7F","#FF9C97"],["#AAFF00","#FFAA00","#00AAFF","#FF00AA","#AA00FF"],["#D1AA34","#A7A844","#A46583","#C2412D","#5A1E4A"],["#F8F3BF","#DCE4F7","#BFCFF7","#75616B","#D34017"]];
-sketcher_util_ColorUtil.niceColor100SortedInt = [[14738636,11000792,6935271,15959600,16410880],[16371117,13158569,16555418,8630171,16663397],[15519864,14244675,5470074,12593474,5514295],[13104228,5164484,16739179,12864856,5595760],[15525326,15848623,12968156,14716537,7819064],[15261131,13480832,222564,210505,202292],[16304640,15302402,9083663,12391760,4786749],[15072450,10346669,4566440,5536128,5853007],[15583569,15427649,41136,13382463,6965820],[16050901,13034969,13018266,14057865,15289975],[14342311,16752285,8374191,4176047,16727423],[14016217,14274226,10072759,9735285,8022611],[16777215,15919585,13363307,13363307,1840141],[15728589,14477758,5591378,10032956,3024435],[57340,46284,35998,24427,3422264],[16245950,15774878,11764100,7561838,4275786],[14808516,15590772,16372771,16552250,16731728],[16699048,10074264,16745596,15223391,2766395],[16185277,15117351,8436899,12537128,6641219],[16380647,11461177,4243659,9420288,43206],[15256228,6590602,13380161,4342356,3478320],[15855525,13880893,6338970,16218149,5587510],[15329769,12369084,16750848,3316155,4342338],[15459242,13293490,11061946,8619657,6111575],[15909978,12563290,8955486,6196330,9184024],[16437385,16751707,16081738,3899779,15544380],[16054994,15790827,14806457,13954654,16728642],[16777215,13756241,5094633,2534884,0],[16298389,16151168,12610692,7101307,3497085],[15400422,12513794,8963109,5346632,1795947],[12369324,13614631,15889461,15737973,3878200],[16575414,15771696,7913640,15759384,6177071],[14874574,15253334,14976074,9510989,4531762],[15656619,12958862,6907736,4540491,3553595],[15784104,15914644,8829105,16394752,4004864],[16775101,15921775,9818039,16745018,15745365],[10536287,8041239,878425,732761,2753610],[15654297,15647376,13420173,15641224,12303240],[12179417,6718084,8076091,4798262,2762793],[15528065,16760384,11783255,15692911,11222619],[15579438,10725704,16275761,39305,13506614],[13418370,12103427,6787450,14889560,1508361],[15259065,15259063,16102217,16530001,926768],[15462345,15655095,15256239,12897207,11187115],[15757889,12601416,6297672,4718664,3145776],[16051139,15786660,12963502,12362391,11227755],[15790296,12638304,7901256,6322248,6309960],[14478786,16765877,11069134,16755366,16747668],[16776927,14662249,4079943,5910062,2763825],[16702650,15522748,14342845,13162943,11983040],[16578501,704444,16528716,1275005,2695711],[16771757,11788441,13714228,167798,1843504],[15592422,14082503,9750454,13853755,4209459],[16317633,13160194,15104030,1479591,13372473],[14341834,1814734,5211801,6970994,5649476],[15064523,10995133,15432537,13583943,5391958],[16642508,13031096,16568374,14921024,9994089],[15069260,12636734,14769714,11020099,6042174],[15461308,12379077,8565678,15867201,2297643],[12178352,16165523,16289657,8502692,11700084],[15137212,12377765,8624270,5720401,3805468],[16578515,14608574,12046755,13470802,6175017],[15744002,12720641,10682374,7012611,1835283],[16771826,16570853,16500184,15808877,3682098],[14933946,13162175,9686214,7126453,1711902],[13421772,11605539,10424603,2698295,0],[16510658,11325120,12694424,6399659,6314321],[16771503,16373420,16688802,9292973,9996388],[16185078,15263976,12125444,3355443,10027264],[15332089,10274020,15887439,3836361,1782367],[14471604,16431231,16285307,6201251,11556212],[16118999,14737329,10855276,5460531,9772843],[13172480,16384572,4275517,4915215,262148],[15725517,11720122,6401440,2396045,6312035],[14675174,9619363,3973794,2185837,2960681],[13631453,11853505,11030883,16719692,6051939],[13433998,9354900,14441278,8548485,5126493],[16776903,10340780,16751918,9539943,16081432],[16704941,16435814,10607538,16229697,16014668],[16776932,16773075,13692138,10475218,9140830],[11052967,13390458,15210333,4671303,3552822],[16772543,16311489,16220220,16074792,3018019],[16313809,12963782,14191242,10329491,4671555],[15855056,13494730,10537653,15960714,5588029],[9747045,2592944,5131594,2838130,3486770],[16711403,16315620,10859434,828848,5127984],[16177259,16476993,3379604,15797321,10945127],[13413525,10130556,10321529,7637891,5993836],[15595246,13746313,11739213,4271656,1380609],[15515155,9675818,3127468,3183250,290187],[16113875,16765107,16758924,14574178,5061435],[16776119,10942127,6731435,5995661,5187928],[16432680,16747008,8962304,49526,16711740],[16580341,16448483,15335393,14083779,13488055],[14539179,12572845,10280392,16232291,6503726],[754053,2056033,3560527,4208689,3155484],[16367478,9351877,15032924,13709629,6378357],[15657445,16769409,16438194,16759423,16751767],[11206400,16755200,43775,16711850,11141375],[13740596,10987588,10773891,12730669,5905994],[16315327,14476535,12570615,7692651,13844503]];
 Main.main();
 })(typeof window != "undefined" ? window : typeof global != "undefined" ? global : typeof self != "undefined" ? self : this);
 
