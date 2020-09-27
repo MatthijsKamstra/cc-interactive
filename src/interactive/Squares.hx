@@ -35,13 +35,13 @@ class Squares extends SketcherBase {
 	var _colorArray:Array<RGB> = [];
 
 	// dat
-	var message = 'dat.gui';
-	var feedback = '';
-	var buildversion = App.getBuildDate();
-	var randomizeColor = function() {}
-	var selectedShape:String;
-	var startRecord = function() {};
-	var stopRecord = function() {};
+	@:keep var message = 'dat.gui';
+	@:keep var feedback = '';
+	@:keep var buildversion = interactive.App.getBuildDate();
+	@:keep var randomizeColor = function() {}
+	@:keep var selectedShape:String;
+	@:keep var startRecord = function() {};
+	@:keep var stopRecord = function() {};
 
 	// shapes
 	var shapeArray = ['square', 'pentagon', 'rectangle', 'hexagon', 'circle', 'triangle', 'ellipse'];
@@ -69,6 +69,7 @@ class Squares extends SketcherBase {
 	function init() {
 		// embed dat.GUI and init
 		EmbedUtil.datgui(initDatGui2);
+
 		// video record
 		videoExport = new VideoExport();
 		videoExport.setCanvas(sketch.canvas);
@@ -107,6 +108,7 @@ class Squares extends SketcherBase {
 		gui.add(this, 'selectedShape', shapeArray).listen();
 
 		gui.add(this, 'feedback').listen();
+
 		var toggle = gui.add(this, 'startRecord');
 		toggle.onFinishChange((e) -> {
 			// setup();
@@ -114,6 +116,7 @@ class Squares extends SketcherBase {
 			startRecording();
 			feedback = 'start-recording';
 		});
+
 		var toggle = gui.add(this, 'stopRecord');
 		toggle.onFinishChange((e) -> {
 			videoExport.stop();
@@ -138,8 +141,27 @@ class Squares extends SketcherBase {
 		// reset previous sketch
 		sketch.clear();
 
+		// trace(_color0);
+		// trace(_color1);
+
+		var _color0 = {
+			r: 254,
+			g: 206,
+			b: 168
+		}
+		var _color1 = {
+			r: 153,
+			g: 184,
+			b: 152
+		}
+
 		// background color
 		sketch.makeBackground(getColourObj(_color0));
+		var gradient = sketch.makeGradient(getColourObj(_color0), getColourObj(_color1));
+		gradient.setGradientDirection(LeftRight);
+		// gradient.setGradientDirection(RightLeft);
+		// gradient.setGradientDirection(BottomTop);
+		// // gradient.setGradientDirection(TopBottom);
 
 		var offsetX = (startW - endW) / totalShapes;
 		var offsetY = (startH - endH) / totalShapes;
@@ -227,7 +249,7 @@ class Squares extends SketcherBase {
 
 	function initGamepad() {
 		var gamePad = new SNES();
-		gamePad.setup();
+		gamePad.setup(false, false);
 
 		gamePad.onSelectOnce(onSelectHandler);
 		gamePad.onStartOnce(onStartHandler);
