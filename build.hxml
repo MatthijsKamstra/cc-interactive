@@ -14,6 +14,6 @@
 # -D source-map-content
 # -D state=debug
 -debug
-# -dce full
+-dce full
 # -dce no
 
