@@ -144,24 +144,29 @@ class Squares extends SketcherBase {
 		// trace(_color0);
 		// trace(_color1);
 
-		var _color0 = {
-			r: 254,
-			g: 206,
-			b: 168
-		}
-		var _color1 = {
-			r: 153,
-			g: 184,
-			b: 152
-		}
+		// var _color0 = {
+		// 	r: 254,
+		// 	g: 206,
+		// 	b: 168
+		// }
+		// var _color1 = {
+		// 	r: 153,
+		// 	g: 184,
+		// 	b: 152
+		// }
 
 		// background color
 		sketch.makeBackground(getColourObj(_color0));
 		var gradient = sketch.makeGradient(getColourObj(_color0), getColourObj(_color1));
-		gradient.setGradientDirection(LeftRight);
-		// gradient.setGradientDirection(RightLeft);
-		// gradient.setGradientDirection(BottomTop);
-		// // gradient.setGradientDirection(TopBottom);
+		gradient.setGradientDirection(LeftTopRightBottom);
+
+		// var circ = sketch.makeCircle(0, 0, 100);
+		// circ.setFill(getColourObj(_color0));
+		// circ.setStroke('black');
+
+		// var circ = sketch.makeCircle(w, 0, 100);
+		// circ.setFill(getColourObj(_color1));
+		// circ.setStroke('black');
 
 		var offsetX = (startW - endW) / totalShapes;
 		var offsetY = (startH - endH) / totalShapes;
@@ -249,7 +254,7 @@ class Squares extends SketcherBase {
 
 	function initGamepad() {
 		var gamePad = new SNES();
-		gamePad.setup(false, false);
+		gamePad.setup(false);
 
 		gamePad.onSelectOnce(onSelectHandler);
 		gamePad.onStartOnce(onStartHandler);

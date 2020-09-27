@@ -375,7 +375,7 @@ HxOverrides.now = function() {
 var Main = function() {
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + interactive_App.NAME + " Dom ready :: build: " + "2020-09-27 10:23:55");
+		$global.console.log("" + interactive_App.NAME + " Dom ready :: build: " + "2020-09-27 11:28:02");
 		_gthis.setupCC();
 	});
 };
@@ -1272,7 +1272,7 @@ var interactive_Squares = function() {
 	};
 	this.randomizeColor = function() {
 	};
-	this.buildversion = "2020-09-27 10:23:55";
+	this.buildversion = "2020-09-27 11:28:02";
 	this.feedback = "";
 	this.message = "dat.gui";
 	this._colorArray = [];
@@ -1352,11 +1352,9 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 	}
 	,drawShape: function() {
 		this.sketch.clear();
-		var _color0 = { r : 254, g : 206, b : 168};
-		var _color1 = { r : 153, g : 184, b : 152};
-		this.sketch.makeBackground(sketcher_util_ColorUtil.getColourObj(_color0));
-		var gradient = this.sketch.makeGradient(sketcher_util_ColorUtil.getColourObj(_color0),sketcher_util_ColorUtil.getColourObj(_color1));
-		gradient.setGradientDirection(sketcher_draw_GradientDir.LeftRight);
+		this.sketch.makeBackground(sketcher_util_ColorUtil.getColourObj(this._color0));
+		var gradient = this.sketch.makeGradient(sketcher_util_ColorUtil.getColourObj(this._color0),sketcher_util_ColorUtil.getColourObj(this._color1));
+		gradient.setGradientDirection(sketcher_draw_GradientDir.LeftTopRightBottom);
 		var offsetX = (this.startW - this.endW) / this.totalShapes;
 		var offsetY = (this.startH - this.endH) / this.totalShapes;
 		var centerOffsetX = (this.get_w2() - this.mouseX) / this.totalShapes;
@@ -1371,51 +1369,51 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 			switch(this.selectedShape) {
 			case "circle":
 				var shape = this.sketch.makeCircle(centerX,centerY,(this.startW - offsetX * i) * .5);
-				shape.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
+				shape.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
 				shape.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				shape.setRotate(i * this.rotationSpeed);
 				break;
 			case "ellipse":
 				var shape1 = this.sketch.makeEllipse(centerX,centerY,(this.startW - offsetX * i) * .5,(this.startH - offsetY * i) * .25);
-				shape1.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
+				shape1.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
 				shape1.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				shape1.setRotate(i * this.rotationSpeed);
 				break;
 			case "hexagon":
 				var _polygon = this.sketch.makePolygon([]);
 				_polygon.sides(centerX,centerY,6,(this.startW - offsetX * i) * .5);
-				_polygon.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
+				_polygon.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
 				_polygon.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				_polygon.setRotate(i * this.rotationSpeed,centerX,centerY);
 				break;
 			case "pentagon":
 				var _polygon1 = this.sketch.makePolygon([]);
 				_polygon1.sides(centerX,centerY,5,(this.startW - offsetX * i) * .5);
-				_polygon1.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
+				_polygon1.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
 				_polygon1.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				_polygon1.setRotate(i * this.rotationSpeed,centerX,centerY);
 				break;
 			case "rectangle":
 				var shape2 = this.sketch.makeRectangle(centerX,centerY,this.startW - offsetX * i,this.startH - offsetY * i * .5);
-				shape2.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
+				shape2.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
 				shape2.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				shape2.setRotate(i * this.rotationSpeed);
 				break;
 			case "square":
 				var shape3 = this.sketch.makeRectangle(centerX,centerY,this.startW - offsetX * i,this.startH - offsetY * i);
-				shape3.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
+				shape3.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
 				shape3.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				shape3.setRotate(i * this.rotationSpeed);
 				break;
 			case "triangle":
 				var _polygon2 = this.sketch.makePolygon([]);
 				_polygon2.sides(centerX,centerY,3,(this.startW - offsetX * i) * .5);
-				_polygon2.setFill(sketcher_util_ColorUtil.getColourObj(_color0),1);
+				_polygon2.setFill(sketcher_util_ColorUtil.getColourObj(this._color0),1);
 				_polygon2.setStroke(sketcher_util_ColorUtil.getColourObj(this._color4));
 				_polygon2.setRotate(i * this.rotationSpeed,centerX,centerY);
 				break;
 			default:
-				haxe_Log.trace("case '" + this.selectedShape + "': trace ('" + this.selectedShape + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 218, className : "interactive.Squares", methodName : "drawShape"});
+				haxe_Log.trace("case '" + this.selectedShape + "': trace ('" + this.selectedShape + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 223, className : "interactive.Squares", methodName : "drawShape"});
 			}
 		}
 		this.sketch.update();
@@ -1439,7 +1437,7 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 	}
 	,initGamepad: function() {
 		var gamePad = new SNES();
-		gamePad.setup(false,false);
+		gamePad.setup(false);
 		gamePad.onSelectOnce($bind(this,this.onSelectHandler));
 		gamePad.onStartOnce($bind(this,this.onStartHandler));
 		gamePad.onLeftBottomOnce($bind(this,this.onLeftBottomHandler));
@@ -1519,7 +1517,7 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 			}
 			break;
 		default:
-			haxe_Log.trace("case '" + e.get_id() + "': trace ('" + e.get_id() + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 345, className : "interactive.Squares", methodName : "onButton"});
+			haxe_Log.trace("case '" + e.get_id() + "': trace ('" + e.get_id() + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 350, className : "interactive.Squares", methodName : "onButton"});
 		}
 	}
 	,__class__: interactive_Squares
@@ -2227,25 +2225,33 @@ sketcher_draw_Gradient.prototype = $extend(sketcher_draw_Base.prototype,{
 		return haxe_xml_Printer.print(this.xml);
 	}
 	,ctx: function(ctx) {
-		if(!sketcher_draw_Gradient.ISWARN) {
-			$global.console.warn("Gradient doens't work the same as svg, use with care");
-			sketcher_draw_Gradient.ISWARN = true;
-		}
 		var w = ctx.canvas.width;
 		var h = ctx.canvas.height;
 		var grd;
 		switch(this.dir._hx_index) {
-		case 0:
+		case 0:case 1:
 			grd = ctx.createLinearGradient(0,0,w,0);
 			break;
-		case 1:
-			grd = ctx.createLinearGradient(0,w,0,0);
+		case 2:case 3:
+			grd = ctx.createLinearGradient(h,0,0,0);
 			break;
-		case 2:
+		case 4:case 5:
 			grd = ctx.createLinearGradient(0,0,0,h);
 			break;
-		case 3:
-			grd = ctx.createLinearGradient(h,0,0,0);
+		case 6:case 7:
+			grd = ctx.createLinearGradient(0,w,0,0);
+			break;
+		case 8:case 9:
+			grd = ctx.createLinearGradient(0,0,w,h);
+			break;
+		case 10:case 11:
+			grd = ctx.createLinearGradient(0,h,w,0);
+			break;
+		case 12:case 13:
+			grd = ctx.createLinearGradient(h,w,0,0);
+			break;
+		case 14:case 15:
+			grd = ctx.createLinearGradient(h,0,0,h);
 			break;
 		}
 		grd.addColorStop(0,"" + this.color0);
@@ -2262,11 +2268,23 @@ sketcher_draw_Gradient.prototype = $extend(sketcher_draw_Base.prototype,{
 	}
 	,__class__: sketcher_draw_Gradient
 });
-var sketcher_draw_GradientDir = $hxEnums["sketcher.draw.GradientDir"] = { __ename__ : true, __constructs__ : ["LeftRight","RighLeft","TopBottom","BottomTop"]
+var sketcher_draw_GradientDir = $hxEnums["sketcher.draw.GradientDir"] = { __ename__ : true, __constructs__ : ["LeftRight","LR","RightLeft","RL","TopBottom","TB","BottomTop","BT","LeftTopRightBottom","TopLeftBottomRight","LeftBottomTopRight","BottomLeftRightTop","RightBottomLeftTop","BottomRightTopLeft","TopRightLeftBottom","RightTopBottomLeft"]
 	,LeftRight: {_hx_index:0,__enum__:"sketcher.draw.GradientDir",toString:$estr}
-	,RighLeft: {_hx_index:1,__enum__:"sketcher.draw.GradientDir",toString:$estr}
-	,TopBottom: {_hx_index:2,__enum__:"sketcher.draw.GradientDir",toString:$estr}
-	,BottomTop: {_hx_index:3,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,LR: {_hx_index:1,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,RightLeft: {_hx_index:2,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,RL: {_hx_index:3,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,TopBottom: {_hx_index:4,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,TB: {_hx_index:5,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,BottomTop: {_hx_index:6,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,BT: {_hx_index:7,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,LeftTopRightBottom: {_hx_index:8,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,TopLeftBottomRight: {_hx_index:9,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,LeftBottomTopRight: {_hx_index:10,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,BottomLeftRightTop: {_hx_index:11,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,RightBottomLeftTop: {_hx_index:12,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,BottomRightTopLeft: {_hx_index:13,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,TopRightLeftBottom: {_hx_index:14,__enum__:"sketcher.draw.GradientDir",toString:$estr}
+	,RightTopBottomLeft: {_hx_index:15,__enum__:"sketcher.draw.GradientDir",toString:$estr}
 };
 var sketcher_draw_Polygon = function(arr) {
 	this.type = "Polygon";
