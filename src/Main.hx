@@ -9,7 +9,7 @@ using StringTools;
 class Main {
 	public function new() {
 		document.addEventListener("DOMContentLoaded", function(event) {
-			console.log('${App.NAME} Dom ready :: build: ${App.getBuildDate()}');
+			console.log('${interactive.App.NAME} Dom ready :: build: ${interactive.App.getBuildDate()}');
 			setupCC();
 		});
 	}
