@@ -37,6 +37,7 @@ class Squares extends SketcherBase {
 	// dat
 	@:keep var message = 'dat.gui';
 	@:keep var feedback = '';
+	@:keep var explain = '';
 	@:keep var buildversion = interactive.App.getBuildDate();
 	@:keep var randomizeColor = function() {}
 	@:keep var selectedShape:String;
@@ -76,6 +77,8 @@ class Squares extends SketcherBase {
 		// videoExport.setAudio(audioEl);
 		// videoExport.setDownload(downloadButton);
 		videoExport.setup(); // activate everything
+
+		appFeedback();
 	}
 
 	// ____________________________________ setup ____________________________________
@@ -111,8 +114,6 @@ class Squares extends SketcherBase {
 
 		var toggle = gui.add(this, 'startRecord');
 		toggle.onFinishChange((e) -> {
-			// setup();
-			// play();
 			startRecording();
 			feedback = 'start-recording';
 		});
@@ -123,9 +124,8 @@ class Squares extends SketcherBase {
 			feedback = 'stop-recording';
 		});
 
-		// gui.add(this, 'speed', -5, 5);
-		// gui.add(this, 'displayOutline');
-		// gui.add(this, 'explode');
+		// explain = 'xxxxxx\nyyyyyy';
+		// gui.add(this, 'explain');
 	}
 
 	function startRecording() {
@@ -331,7 +331,6 @@ class Squares extends SketcherBase {
 		switch (e.id) {
 			case CCGamepad.BUTTON_A:
 				console.log('-- > ${e.id} // change color');
-
 				randomizeColor();
 			case CCGamepad.BUTTON_B:
 				shapeCounter++;
@@ -349,5 +348,17 @@ class Squares extends SketcherBase {
 			default:
 				trace("case '" + e.id + "': trace ('" + e.id + "');");
 		}
+	}
+
+	function appFeedback() {
+		console.groupCollapsed('shortcuts');
+		console.log('[a] : change color');
+		console.log('[b] : change shapes');
+		console.log('[x] : rotation speed +');
+		console.log('[y] : rotation speed -');
+		console.log('[right bottom] : move speed +');
+		console.log('[left bottom] : move speed -');
+		console.log('[select] : toggle record');
+		console.groupEnd();
 	}
 }

@@ -1,6 +1,6 @@
 {
 	"liveServer.settings.root": "/docs",
-	"liveServer.settings.port": 5501,
+	"liveServer.settings.port": 5502,
 	"[haxe]": {
 		"editor.formatOnSave": true
 	}

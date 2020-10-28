@@ -56,7 +56,7 @@ var CCGamepad = function() {
 	this.isWarning = true;
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + App.NAME + " Dom ready :: build: " + "2020-09-27 10:14:06");
+		$global.console.log("" + App.NAME + " Dom ready :: build: " + "2020-10-02 18:20:29");
 		_gthis.init();
 	});
 };
@@ -148,6 +148,9 @@ CCGamepad.prototype = {
 		div.innerHTML = "<i class=\"fa fa-gamepad fa-5x\"></i><h2>No gamepad detected</h2><p>If you have one, make sure it's plugged in / paired, and press buttons to wake it up.</p>";
 		containerDiv.appendChild(div);
 		window.document.body.appendChild(containerDiv);
+		containerDiv.onclick = function(e) {
+			return containerDiv.style.display = "none";
+		};
 	}
 	,setupListeners: function() {
 		window.addEventListener("gamepadconnected",$bind(this,this.onGamepadConnectedHandler));
@@ -375,7 +378,7 @@ HxOverrides.now = function() {
 var Main = function() {
 	var _gthis = this;
 	window.document.addEventListener("DOMContentLoaded",function(event) {
-		$global.console.log("" + interactive_App.NAME + " Dom ready :: build: " + "2020-09-27 11:28:02");
+		$global.console.log("" + interactive_App.NAME + " Dom ready :: build: " + "2020-10-02 22:01:38");
 		_gthis.setupCC();
 	});
 };
@@ -391,7 +394,7 @@ Main.prototype = {
 };
 Math.__name__ = "Math";
 var SNES = function() {
-	$global.console.log("" + App.NAME + " SNES :: build: " + "2020-09-27 10:14:06");
+	$global.console.log("" + App.NAME + " SNES :: build: " + "2020-10-02 18:20:29");
 	CCGamepad.call(this);
 };
 SNES.__name__ = "SNES";
@@ -731,7 +734,9 @@ SketcherBase.prototype = {
 			}
 		}
 		if(e.metaKey == true && e.key == "f") {
-			$global.console.log("[cmd + alt + s] = save svg");
+			e.preventDefault();
+			e.stopPropagation();
+			$global.console.log("[cmd + f] = toggle fullscreen");
 			if(!Globals.isFullscreen) {
 				this.openFullscreen();
 				Globals.isFullscreen = true;
@@ -760,12 +765,12 @@ SketcherBase.prototype = {
 	}
 	,setup: function() {
 		if(this.isDebug) {
-			haxe_Log.trace("SETUP :: " + this.toString() + " -> override public function draw()",{ fileName : "SketcherBase.hx", lineNumber : 204, className : "SketcherBase", methodName : "setup"});
+			haxe_Log.trace("SETUP :: " + this.toString() + " -> override public function draw()",{ fileName : "SketcherBase.hx", lineNumber : 207, className : "SketcherBase", methodName : "setup"});
 		}
 	}
 	,draw: function() {
 		if(this.isDebug) {
-			haxe_Log.trace("DRAW :: " + this.toString() + " -> override public function draw()",{ fileName : "SketcherBase.hx", lineNumber : 212, className : "SketcherBase", methodName : "draw"});
+			haxe_Log.trace("DRAW :: " + this.toString() + " -> override public function draw()",{ fileName : "SketcherBase.hx", lineNumber : 215, className : "SketcherBase", methodName : "draw"});
 		}
 	}
 	,__export: function() {
@@ -1272,7 +1277,8 @@ var interactive_Squares = function() {
 	};
 	this.randomizeColor = function() {
 	};
-	this.buildversion = "2020-09-27 11:28:02";
+	this.buildversion = "2020-10-02 22:01:38";
+	this.explain = "";
 	this.feedback = "";
 	this.message = "dat.gui";
 	this._colorArray = [];
@@ -1311,6 +1317,7 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 		this.videoExport = new sketcher_export_VideoExport();
 		this.videoExport.setCanvas(this.sketch.canvas);
 		this.videoExport.setup();
+		this.appFeedback();
 	}
 	,setup: function() {
 		this.description = "" + this.toString();
@@ -1517,8 +1524,19 @@ interactive_Squares.prototype = $extend(SketcherBase.prototype,{
 			}
 			break;
 		default:
-			haxe_Log.trace("case '" + e.get_id() + "': trace ('" + e.get_id() + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 350, className : "interactive.Squares", methodName : "onButton"});
+			haxe_Log.trace("case '" + e.get_id() + "': trace ('" + e.get_id() + "');",{ fileName : "src/interactive/Squares.hx", lineNumber : 349, className : "interactive.Squares", methodName : "onButton"});
 		}
+	}
+	,appFeedback: function() {
+		$global.console.groupCollapsed("shortcuts");
+		$global.console.log("[a] : change color");
+		$global.console.log("[b] : change shapes");
+		$global.console.log("[x] : rotation speed +");
+		$global.console.log("[y] : rotation speed -");
+		$global.console.log("[right bottom] : move speed +");
+		$global.console.log("[left bottom] : move speed -");
+		$global.console.log("[select] : toggle record");
+		$global.console.groupEnd();
 	}
 	,__class__: interactive_Squares
 });
@@ -2801,7 +2819,7 @@ sketcher_export_VideoExport.prototype = {
 	}
 	,setup: function() {
 		if(this.options == null) {
-			this.options = { bitsPerSecond : 5500000};
+			this.options = { bitsPerSecond : 51200000};
 		}
 		this.setupCombineRecordings();
 		if(this.audioEl != null) {
